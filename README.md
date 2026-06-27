@@ -6,7 +6,7 @@ Welcome to my cybersecurity portfolio. This repository serves as a centralized h
 
 ## 👤 About Me
 
-I am a frontend software developer transitioning into an entry-level Cybersecurity Analyst or SOC Analyst role. I leverage a strong foundation in application logic and technical literacy to efficiently monitor digital environments, analyze threat data, and support organizational security postures. My goal is to apply these engineering strengths to foundational defensive operations while continually building toward long-term infrastructure and cloud security architecture.
+I am a frontend software developer transitioning into an entry-level Cybersecurity Analyst/Specialist, SOC Analyst, or Information Security Analyst role. I leverage a strong foundation in application logic and technical literacy to efficiently monitor digital environments, analyze threat data, and support organizational security postures. My goal is to apply these engineering strengths to foundational defensive operations while continually building toward long-term infrastructure and cloud security architecture.
 
 ---
 
