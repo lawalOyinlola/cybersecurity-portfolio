@@ -13,26 +13,30 @@ I am a frontend software developer transitioning into an entry-level Cybersecuri
 ## 🛡️ Technical Skills & Tooling
 
 ### 🛠️ Core Security Skills (In Progress)
-*   **Security Operations:** Threat Analysis, Incident Case Studies, OSINT
-*   **Systems & Automation:** Linux Command Line Fundamentals, SQL Basics, Python Scripting
-*   **Networking:** Core Protocols (TCP/IP, DNS, HTTP/S), Network Traffic Concepts
+
+- **Security Operations:** Threat Analysis, Incident Case Studies, OSINT
+- **Systems & Automation:** Linux Command Line Fundamentals, SQL Basics, Python Scripting
+- **Networking:** Core Protocols (TCP/IP, DNS, HTTP/S), Network Traffic Concepts
 
 ### 💻 Software Engineering Foundation
-*   **Web Architecture:** Frontend System Design, Web Performance, Secure Logic Optimization
-*   **Languages:** JavaScript, TypeScript, HTML5/CSS3
+
+- **Web Architecture:** Frontend System Design, Web Performance, Secure Logic Optimization
+- **Languages:** JavaScript, TypeScript, HTML5/CSS3
 
 ---
 
 ## 📜 Certifications & Education
 
 ### 🔒 Cybersecurity & Computing
-*   **Google Cybersecurity Professional Certificate** — *In Progress (Coursera)*
-*   **Cybersecurity Certificate of Completion - TS Academy** — *May 2026 - Nov 2026*
-*   **Higher Diploma in Computing - Griffith College Dublin, Ireland** — *Graduation Candidate (Mid 2027)*
+
+- **Google Cybersecurity Professional Certificate** — _In Progress (Coursera)_
+- **Cybersecurity Certificate of Completion - TS Academy** — _May 2026 - Nov 2026_
+- **Higher Diploma in Computing - Griffith College Dublin, Ireland** — _Graduation Candidate (Mid 2027)_
 
 ### 🏗️ Technical Background
-*   **Frontend Engineering Diploma** — *AltSchool Africa*
-*   **Frontend Engineering Finalist** — *HNG Internship*
+
+- **Frontend Engineering Diploma** — _AltSchool Africa_
+- **Frontend Engineering Finalist** — _HNG Internship_
 
 ---
 
@@ -40,11 +44,13 @@ I am a frontend software developer transitioning into an entry-level Cybersecuri
 
 This section maps out active case studies and technical walkthroughs using the **CAR (Context, Action, Result)** documentation framework.
 
-*   *Currently documenting my initial network analysis and incident response labs. Walkthroughs will be published here as milestones are completed.*
+### 📁 Incident Analysis: [ADT Home Security Data Breach Analysis](./labs/incident-response-adt/analysis.md)
+
+- An architectural breakdown of the April 2026 voice phishing (vishing) intrusion, detailing the impact on corporate SSO identity controls and customer PII remediation strategies.
 
 ---
 
 ## 📬 Connect with Me
 
-*   **LinkedIn:** [lawalOyinlola](https://www.linkedin.com/in/lawaloyinlola/)
-*   **GitHub:** [lawalOyinlola](https://github.com/lawalOyinlola/)
+- **LinkedIn:** [lawalOyinlola](https://www.linkedin.com/in/lawaloyinlola/)
+- **GitHub:** [lawalOyinlola](https://github.com/lawalOyinlola/)
