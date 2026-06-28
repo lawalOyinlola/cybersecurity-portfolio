@@ -28,3 +28,13 @@ Upon detection, ADT terminated the unauthorized access, launched a third-party f
 3.  **Zero Trust Architecture:** Implement strict principle-of-least-privilege access controls so that even if a single employee's SSO is compromised, the blast radius is contained.
 
 _This incident reinforces the necessity for security teams to prioritize behavioral analytics and human-centric threat modeling alongside traditional technical monitoring._
+
+## 🔗 References & Threat Intelligence
+
+- **Official Disclosure:** [ADT Corporate News: ADT Detects Cybersecurity Incident](https://newsroom.adt.com/corporate-news/adt-detects-cybersecurity-incident)
+- **Threat Analysis:** [BankInfoSecurity: Home Security Firm ADT Breach: 5.5M Customers' Data Exposed](https://www.bankinfosecurity.com/home-security-firm-adt-breach-55m-customers-data-exposed-a-31511)
+- **Incident Report:** [BleepingComputer: ADT Confirms Data Breach After ShinyHunters Leak Threat](https://www.bleepingcomputer.com/news/security/adt-confirms-data-breach-after-shinyhunters-leak-threat/)
+
+## 💬 Public Briefing & Discussion
+
+- Join the conversation and view my breakdown of this incident on [LinkedIn](https://www.linkedin.com/posts/lawaloyinlola_30daysoftech-learningwithts-cybersecurity-share-7476715541836144641-bNDU/?utm_source=share&utm_medium=member_desktop&rcm=ACoAADH2MMUBNIyKm5rbVHUkFRBhuVU66pxvrjc).
