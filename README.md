@@ -48,6 +48,10 @@ This section maps out active case studies and technical walkthroughs using the *
 
 - A packet-level tcpdump investigation of a website outage, tracing repeated ICMP "udp port 53 unreachable" errors to a DNS service failure and documenting the finding as a structured incident report.
 
+### 📁 Network Traffic Analysis: [SYN Flood DoS Incident](./labs/syn-flood-dos-analysis/)
+
+- A packet-level Wireshark investigation of a web server outage, tracing a continuous stream of TCP SYN requests from a single source to a direct denial-of-service (SYN flood) attack and documenting the finding, containment, and its limits as a structured incident report.
+
 ### 📁 Internal Security Audit: [Botium Toys GRC Audit](./labs/internal-audit-botium-toys/)
 
 - A NIST CSF-based internal security audit of a fictional U.S. retailer expanding into the E.U., mapping a narrative risk assessment to PCI DSS, GDPR, and SOC 1/2 controls and producing a prioritised remediation roadmap.
