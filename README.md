@@ -44,17 +44,13 @@ I am a frontend software developer transitioning into an entry-level Cybersecuri
 
 This section maps out active case studies and technical walkthroughs using the **CAR (Context, Action, Result)** documentation framework.
 
-### 📁 Network Traffic Analysis: [DNS & ICMP Incident](./labs/network-traffic-analysis/)
+### 📁 Incident Report Analysis: [ICMP Flood DoS (NIST CSF)](./labs/icmp-flood-nist-csf-analysis/)
 
-- A packet-level tcpdump investigation of a website outage, tracing repeated ICMP "udp port 53 unreachable" errors to a DNS service failure and documenting the finding as a structured incident report.
+- An incident report analysis of an ICMP flood denial-of-service attack that entered through an unconfigured firewall, structured through the five NIST CSF functions (Identify, Protect, Detect, Respond, Recover) from root cause to recovery.
 
-### 📁 Network Traffic Analysis: [SYN Flood DoS Incident](./labs/syn-flood-dos-analysis/)
+### 📁 Incident Analysis: [ADT Home Security Data Breach Analysis](./labs/incident-response-adt/)
 
-- A packet-level Wireshark investigation of a web server outage, tracing a continuous stream of TCP SYN requests from a single source to a direct denial-of-service (SYN flood) attack and documenting the finding, containment, and its limits as a structured incident report.
-
-### 📁 Network Traffic Analysis: [Brute Force Attack & Malware Redirect](./labs/brute-force-malware-redirect/)
-
-- A tcpdump DNS and HTTP investigation of a compromised website, tracing a malware "browser update" and redirect to a spoofed domain back to a brute force compromise of the admin account, and recommending 2FA/MFA with supporting controls in a structured incident report.
+- An architectural breakdown of the April 2026 voice phishing (vishing) intrusion, detailing the impact on corporate SSO identity controls and customer PII remediation strategies.
 
 ### 📁 Internal Security Audit: [Botium Toys GRC Audit](./labs/internal-audit-botium-toys/)
 
@@ -64,9 +60,17 @@ This section maps out active case studies and technical walkthroughs using the *
 
 - A post-breach network hardening assessment for a social media organization, mapping four network vulnerabilities to hardening controls and recommending MFA, password policies, and port filtering, with MFA and port filtering explained in detail.
 
-### 📁 Incident Analysis: [ADT Home Security Data Breach Analysis](./labs/incident-response-adt/)
+### 📁 Network Traffic Analysis: [Brute Force Attack & Malware Redirect](./labs/brute-force-malware-redirect/)
 
-- An architectural breakdown of the April 2026 voice phishing (vishing) intrusion, detailing the impact on corporate SSO identity controls and customer PII remediation strategies.
+- A tcpdump DNS and HTTP investigation of a compromised website, tracing a malware "browser update" and redirect to a spoofed domain back to a brute force compromise of the admin account, and recommending 2FA/MFA with supporting controls in a structured incident report.
+
+### 📁 Network Traffic Analysis: [SYN Flood DoS Incident](./labs/syn-flood-dos-analysis/)
+
+- A packet-level Wireshark investigation of a web server outage, tracing a continuous stream of TCP SYN requests from a single source to a direct denial-of-service (SYN flood) attack and documenting the finding, containment, and its limits as a structured incident report.
+
+### 📁 Network Traffic Analysis: [DNS & ICMP Incident](./labs/network-traffic-analysis/)
+
+- A packet-level tcpdump investigation of a website outage, tracing repeated ICMP "udp port 53 unreachable" errors to a DNS service failure and documenting the finding as a structured incident report.
 
 ---
 
