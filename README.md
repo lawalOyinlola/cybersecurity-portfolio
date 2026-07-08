@@ -68,6 +68,10 @@ This section maps out active case studies and technical walkthroughs using the *
 
 - An architectural breakdown of the April 2026 voice phishing (vishing) intrusion, detailing the impact on corporate SSO identity controls and customer PII remediation strategies.
 
+### 📁 Linux Security: [File Permissions & Authorization Management](./labs/linux-file-permissions/)
+
+- A Linux authorization audit of a research team's project directory, reading the permission state with `ls -la` and using `chmod` to correct three least-privilege violations across a file, a hidden file, and a subdirectory.
+
 ---
 
 ## 📬 Connect with Me
