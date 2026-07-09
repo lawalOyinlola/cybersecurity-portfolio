@@ -44,10 +44,6 @@ I am a frontend software developer transitioning into an entry-level Cybersecuri
 
 This section maps out active case studies and technical walkthroughs using the **CAR (Context, Action, Result)** documentation framework.
 
-### 📁 Incident Report Analysis: [ICMP Flood DoS (NIST CSF)](./labs/icmp-flood-nist-csf-analysis/)
-
-- An incident report analysis of an ICMP flood denial-of-service attack that entered through an unconfigured firewall, structured through the five NIST CSF functions (Identify, Protect, Detect, Respond, Recover) from root cause to recovery.
-
 ### 📁 Incident Analysis: [ADT Home Security Data Breach Analysis](./labs/incident-response-adt/)
 
 - An architectural breakdown of the April 2026 voice phishing (vishing) intrusion, detailing the impact on corporate SSO identity controls and customer PII remediation strategies.
@@ -55,6 +51,10 @@ This section maps out active case studies and technical walkthroughs using the *
 ### 📁 Internal Security Audit: [Botium Toys GRC Audit](./labs/internal-audit-botium-toys/)
 
 - A NIST CSF-based internal security audit of a fictional U.S. retailer expanding into the E.U., mapping a narrative risk assessment to PCI DSS, GDPR, and SOC 1/2 controls and producing a prioritised remediation roadmap.
+
+### 📁 Incident Report Analysis: [ICMP Flood DoS (NIST CSF)](./labs/icmp-flood-nist-csf-analysis/)
+
+- An incident report analysis of an ICMP flood denial-of-service attack that entered through an unconfigured firewall, structured through the five NIST CSF functions (Identify, Protect, Detect, Respond, Recover) from root cause to recovery.
 
 ### 📁 Security Risk Assessment: [Network Hardening](./labs/network-hardening-assessment/)
 
