@@ -87,7 +87,10 @@ for auditing and correcting file system access, and the judgement to read an
 existing permission state against a policy and identify exactly what needs to
 change — including hidden files that a standard `ls` would not surface. Controlling
 file system authorization is a core part of the principle of least privilege, and
-this lab applies it at the command line in the way a security team would.
+this lab applies it at the command line in the way a security team would. It also
+builds on Linux commands I use day to day as a software developer, such as `ls`
+and `mv`, extended here from everyday navigation and file operations to auditing
+and correcting file-system permissions.
 
 ## 📂 Source materials
 
