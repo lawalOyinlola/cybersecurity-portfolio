@@ -22,6 +22,7 @@ I am a frontend software developer transitioning into an entry-level Cybersecuri
 
 - **Web Architecture:** Frontend System Design, Web Performance, Secure Logic Optimization
 - **Languages:** JavaScript, TypeScript, HTML5/CSS3
+- **Systems & Data:** Day-to-day Linux/Unix command-line use (`ls`, `mv`, and other operations) and SQL querying against PostgreSQL and MySQL, carried over from my software development work.
 
 ---
 
