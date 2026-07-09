@@ -92,7 +92,10 @@ with `LIKE` and the `%` wildcard, and filtering on dates and times with comparis
 operators. More importantly, it shows the judgement to translate an investigative
 question — who failed to log in after hours, which machines still need patching —
 into a precise query that returns just those records, which is how an analyst
-pulls evidence from log and asset tables in day-to-day operations.
+pulls evidence from log and asset tables in day-to-day operations. It also builds
+on SQL I use regularly as a software developer — querying PostgreSQL and MySQL
+databases — reapplied here to security log and asset tables rather than
+application data.
 
 ## 📂 Source materials
 
