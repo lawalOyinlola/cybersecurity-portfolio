@@ -24,7 +24,7 @@ subdirectory, including hidden files (the `-a` flag surfaces files whose names
 begin with a period, such as `.project_x.txt`, which `ls -l` alone does not show).
 The command returned the following permission state:
 
-```
+```text
 drwx--x---  drafts
 -rw--w----  .project_x.txt
 -rw-rw-rw-  project_k.txt
@@ -58,18 +58,18 @@ permissions for other (all other users). Each position holds `r` (read), `w`
   `drwx--x---`, which allowed the group to execute (enter) it. I removed that with
   `chmod g-x drafts`, giving `drwx------` so only the owner retains access.
 
-| Item | Before | Command | After |
-|---|---|---|---|
-| `project_k.txt` | `-rw-rw-rw-` | `chmod o-w project_k.txt` | `-rw-rw-r--` |
+| Item             | Before       | Command                        | After        |
+| ---------------- | ------------ | ------------------------------ | ------------ |
+| `project_k.txt`  | `-rw-rw-rw-` | `chmod o-w project_k.txt`      | `-rw-rw-r--` |
 | `.project_x.txt` | `-rw--w----` | `chmod u=r,g=r .project_x.txt` | `-r--r-----` |
-| `drafts/` | `drwx--x---` | `chmod g-x drafts` | `drwx------` |
+| `drafts/`        | `drwx--x---` | `chmod g-x drafts`             | `drwx------` |
 
 ## ✅ Result
 
 After applying the three `chmod` commands, the `/home/researcher2/projects` file
 system grants only the intended level of access to each user: no file gives write
-access to other, the archived hidden file is read-only for everyone, and the
-`drafts` subdirectory is accessible to `researcher2` alone. The corrections were
+access to other, the archived hidden file is readable only by the owner and group,
+and the `drafts` subdirectory is accessible to `researcher2` alone. The corrections were
 confirmed in each case by running `ls -la` after the change to verify the updated
 permission string.
 
