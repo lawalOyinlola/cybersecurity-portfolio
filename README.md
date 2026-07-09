@@ -72,6 +72,10 @@ This section maps out active case studies and technical walkthroughs using the *
 
 - A packet-level tcpdump investigation of a website outage, tracing repeated ICMP "udp port 53 unreachable" errors to a DNS service failure and documenting the finding as a structured incident report.
 
+### 📁 Linux Security: [File Permissions & Authorization Management](./labs/linux-file-permissions/)
+
+- A Linux authorization audit of a research team's project directory, reading the permission state with `ls -la` and using `chmod` to correct three least-privilege violations across a file, a hidden file, and a subdirectory.
+
 ---
 
 ## 📬 Connect with Me
