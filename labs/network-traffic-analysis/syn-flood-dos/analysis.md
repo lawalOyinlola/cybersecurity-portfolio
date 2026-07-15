@@ -67,8 +67,7 @@ _Full deliverable: [Cybersecurity Incident Report (PDF)](./cybersecurity-inciden
 
 ## 🧠 What this demonstrates
 
-This lab is foundational analyst work, consistent with the SOC analyst
-trajectory described in the root README rather than expert-level practice. It
+This lab is foundational security work: transferable fundamentals that support the application security and DevSecOps direction described in the root README, not expert-level practice. It
 shows the ability to read a Wireshark TCP/HTTP capture as a sequence of
 connection attempts, working knowledge of the TCP three-way handshake and how a
 SYN flood abuses it, and the judgement to tell a direct DoS from a distributed
