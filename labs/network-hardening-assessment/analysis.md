@@ -64,8 +64,7 @@ _Full deliverable: [Security Risk Assessment (PDF)](./security-risk-assessment-n
 
 ## 🧠 What this demonstrates
 
-This lab is foundational analyst work, consistent with the SOC analyst
-trajectory described in the root README rather than expert-level practice. It
+This lab is foundational security work: transferable fundamentals that support the application security and DevSecOps direction described in the root README, not expert-level practice. It
 shows the ability to translate a list of network vulnerabilities into a
 proportionate set of hardening controls, working familiarity with MFA, password
 policies, port filtering, and firewall maintenance, and the judgement to choose
