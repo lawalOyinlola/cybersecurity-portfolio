@@ -68,8 +68,7 @@ The seven recommendations, in priority order:
 
 ## 🧠 What this demonstrates
 
-This lab is foundational analyst work, consistent with the SOC analyst
-trajectory described in the root README rather than expert-level practice. It
+This lab is foundational security work: transferable fundamentals that support the application security and DevSecOps direction described in the root README, not expert-level practice. It
 shows the ability to read a narrative risk assessment and map it onto a control
 framework, working familiarity with NIST CSF, PCI DSS, GDPR, and SOC 1/2, and
 the judgement to prioritise remediation by regulatory exposure rather than by

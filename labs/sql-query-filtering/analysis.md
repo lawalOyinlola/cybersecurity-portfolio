@@ -85,8 +85,7 @@ _Full deliverable: [Apply Filters to SQL Queries (PDF)](./apply-filters-to-sql-q
 
 ## 🧠 What this demonstrates
 
-This lab is foundational analyst work, consistent with the SOC analyst trajectory
-described in the root README rather than expert-level practice. It shows practical
+This lab is foundational security work: transferable fundamentals that support the application security and DevSecOps direction described in the root README, not expert-level practice. It shows practical
 SQL for security work: filtering with `AND`, `OR`, and `NOT`, pattern matching
 with `LIKE` and the `%` wildcard, and filtering on dates and times with comparison
 operators. More importantly, it shows the judgement to translate an investigative

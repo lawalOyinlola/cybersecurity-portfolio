@@ -1,74 +1,82 @@
 # Cybersecurity Portfolio
 
-Welcome to my cybersecurity portfolio. This repository serves as a centralized hub documenting my technical transition from frontend software development into a Cybersecurity Analyst role, with a long-term trajectory toward defensive security operations and cloud security. Here, you will find hands-on laboratory exercises, incident analyses, and documentation tracking my practical skill acquisition.
+Welcome to my cybersecurity portfolio. This repository documents my transition from frontend software engineering into application and cloud security, with a focus on building secure systems rather than monitoring them. Here you will find hands-on labs, incident analyses, and engineering-security projects that trace my practical skill development.
 
 ---
 
 ## 👤 About Me
 
-I am a frontend software developer transitioning into an entry-level Cybersecurity Analyst/Specialist, SOC Analyst, or Information Security Analyst role. I leverage a strong foundation in application logic and technical literacy to efficiently monitor digital environments, analyze threat data, and support organizational security postures. My goal is to apply these engineering strengths to foundational defensive operations while continually building toward long-term infrastructure and cloud security architecture.
+I am a frontend engineer and team lead at a fintech company, moving into application security and DevSecOps. Rather than stepping away from engineering, I lean into it: my strength is understanding how software is built, which is exactly what lets me find where it breaks and fix it. I focus on proactive security, securing code, hardening CI/CD pipelines, and building strong identity and access controls, with a long-term trajectory toward cloud and AI security. My software background is not a separate past life; it is the foundation I build security on.
 
 ---
 
 ## 🛡️ Technical Skills & Tooling
 
-### 🛠️ Core Security Skills (In Progress)
+### 🔐 Application & Cloud Security (In Progress)
 
-- **Security Operations:** Threat Analysis, Incident Case Studies, OSINT
-- **Systems & Automation:** Linux Command Line Fundamentals, SQL Basics, Python Scripting
-- **Networking:** Core Protocols (TCP/IP, DNS, HTTP/S), Network Traffic Concepts
+- **Application Security:** OWASP Top 10, secure code review, dependency and vulnerability management, threat modeling
+- **DevSecOps:** CI/CD security pipelines, SAST and DAST, secrets scanning, GitHub Actions
+- **Identity & Cloud:** IAM concepts, authentication mechanics (OAuth2/OIDC, tokens, sessions), Microsoft Entra ID, Azure security fundamentals
+- **Foundations:** Threat and incident analysis, NIST CSF, risk assessment, Linux CLI, SQL, core network protocols (TCP/IP, DNS, HTTP/S)
+
+### 🧰 Security Tooling
+
+Semgrep, OWASP ZAP, Trivy, Gitleaks, Dependabot, GitHub Actions, tcpdump and Wireshark (traffic analysis)
 
 ### 💻 Software Engineering Foundation
 
-- **Web Architecture:** Frontend System Design, Web Performance, Secure Logic Optimization
-- **Languages:** JavaScript, TypeScript, HTML5/CSS3
-- **Systems & Data:** Day-to-day Linux/Unix command-line use (`ls`, `mv`, and other operations) and SQL querying against PostgreSQL and MySQL, carried over from my software development work.
+- **Web Architecture:** Frontend system design, secure application logic, web performance
+- **Languages:** JavaScript, TypeScript, HTML5/CSS3; SQL and Python for scripting
+
+---
+
+## 🧪 Projects, Labs & Case Studies
+
+Documented using the **CAR (Context, Action, Result)** framework, grouped by theme. Each lab's write-up lives in its own `analysis.md`.
+
+### 🚀 Application Security Engineering
+
+The core of my work: securing real software and its delivery pipeline.
+
+- **CI/CD Security Pipeline** _(featured, in progress)_ — Automated security scanning (SAST, dependency, and secrets scanning) added to a production web application through GitHub Actions, including triage and remediation of real dependency advisories surfaced by Dependabot.
+
+### 🔎 Incident Analysis
+
+- **[ADT Home Security Data Breach](./labs/incident-response-adt/analysis.md)** — Architectural breakdown of the April 2026 voice phishing (vishing) intrusion, its impact on SSO identity controls, and customer PII remediation.
+- **[Network Traffic & Incident Analysis](./labs/network-traffic-analysis/analysis.md)** — Four grouped investigations: packet-capture analysis of a DNS service outage, a SYN flood denial of service, and a brute-force attack with malware redirect, plus a full NIST CSF analysis of an ICMP flood, each tracing evidence to root cause and remediation.
+
+### 📋 Governance, Risk & Compliance
+
+- **[Internal Security Audit (Botium Toys)](./labs/internal-audit-botium-toys/analysis.md)** — Controls and compliance assessment of a fictional retailer against NIST CSF, PCI DSS, GDPR, and SOC, mapping a narrative risk assessment to named frameworks and producing a prioritized remediation roadmap.
+- **[Network Hardening Assessment](./labs/network-hardening-assessment/analysis.md)** — Post-breach security risk assessment mapping four network vulnerabilities to a minimal set of hardening controls (MFA, password policies, port filtering), chosen by coverage rather than one tool per finding.
+- **[Risk Register (Commercial Bank)](./labs/risk-register-bank/analysis.md)** — Likelihood, severity, and priority scoring of the key risks to a commercial bank's funds, with the reasoning behind each score and the resulting prioritization.
+- **[Data Leak & Least Privilege](./labs/data-leak-least-privilege/analysis.md)** — Analysis of a data-leak incident and the NIST SP 800-53 AC-6 control improvements (role-based access, time-bound revocation) that would enforce least privilege and prevent recurrence.
+
+### 🧪 Technical Skills Labs
+
+- **[Linux File Permissions](./labs/linux-file-permissions/analysis.md)** — Auditing and modifying file and directory authorization using `chmod` and `ls -la`, including interpretation of the permission string.
+- **[SQL Filtering for Investigations](./labs/sql-query-filtering/analysis.md)** — Using `AND`, `OR`, `NOT`, `LIKE`, and date and time filters to investigate login activity and asset data.
 
 ---
 
 ## 📜 Certifications & Education
 
-### 🔒 Cybersecurity & Computing
+### 🔒 Security Certifications
 
-- **Google Cybersecurity Professional Certificate** — _In Progress (Coursera)_
-- **Cybersecurity Certificate of Completion - TS Academy** — _May 2026 - Nov 2026_
-- **Higher Diploma in Computing - Griffith College Dublin, Ireland** — _Graduation Candidate (Mid 2027)_
+- **CompTIA Security+** — Target 2026 (foundational baseline)
+- **Microsoft SC-300, Identity & Access Administrator** — Planned
+- **Microsoft SC-500, Cloud & AI Security Engineer** — Planned (destination)
+- **Google Cybersecurity Professional Certificate** — In progress (Coursera)
 
-### 🏗️ Technical Background
+### 🎓 Education
 
-- **Frontend Engineering Diploma** — _AltSchool Africa_
-- **Frontend Engineering Finalist** — _HNG Internship_
-
----
-
-## 🧪 Hands-On Security Labs & Case Studies
-
-This section maps out hands-on case studies and technical walkthroughs, grouped by domain. Each lab is documented with the **CAR (Context, Action, Result)** framework, and ordering within each group reflects portfolio depth.
-
-### 🚨 Incident Response & Analysis
-
-- **[ADT Home Security Data Breach Analysis](./labs/incident-response-adt/)** — An architectural breakdown of the April 2026 voice phishing (vishing) intrusion, detailing the impact on corporate SSO identity controls and customer PII remediation strategies.
-- **[ICMP Flood DoS — NIST CSF Analysis](./labs/icmp-flood-nist-csf-analysis/)** — An incident report analysis of an ICMP flood denial-of-service attack that entered through an unconfigured firewall, structured through the five NIST CSF functions (Identify, Protect, Detect, Respond, Recover) from root cause to recovery.
-
-### 🌐 Network Traffic Analysis
-
-- **[Brute Force Attack & Malware Redirect](./labs/brute-force-malware-redirect/)** — A tcpdump DNS and HTTP investigation of a compromised website, tracing a malware "browser update" and redirect to a spoofed domain back to a brute force compromise of the admin account, with 2FA/MFA remediation.
-- **[SYN Flood DoS Incident](./labs/syn-flood-dos-analysis/)** — A packet-level Wireshark investigation of a web server outage, tracing a continuous stream of TCP SYN requests from a single source to a direct denial-of-service (SYN flood) attack, with containment and its limits.
-- **[DNS & ICMP Incident](./labs/network-traffic-analysis/)** — A packet-level tcpdump investigation of a website outage, tracing repeated ICMP "udp port 53 unreachable" errors to a DNS service failure.
-
-### 📋 Governance, Risk & Compliance
-
-- **[Botium Toys GRC Audit](./labs/internal-audit-botium-toys/)** — A NIST CSF-based internal security audit of a fictional U.S. retailer expanding into the E.U., mapping a narrative risk assessment to PCI DSS, GDPR, and SOC 1/2 controls and producing a prioritised remediation roadmap.
-- **[Network Hardening Assessment](./labs/network-hardening-assessment/)** — A post-breach network hardening assessment for a social media organization, mapping four network vulnerabilities to hardening controls and recommending MFA, password policies, and port filtering.
-
-### 🛠️ Core Technical Skills
-
-- **[Linux File Permissions & Authorization](./labs/linux-file-permissions/)** — A Linux authorization audit of a research team's project directory, reading the permission state with `ls -la` and using `chmod` to correct three least-privilege violations across a file, a hidden file, and a subdirectory.
-- **[SQL Query Filtering for Investigation](./labs/sql-query-filtering/)** — A SQL investigation of an organization's login and employee tables, using `AND`, `OR`, `NOT`, `LIKE`, and date/time filters to surface after-hours failed logins and target the right machines for security updates.
+- **Higher Diploma in Computing, Griffith College Dublin, Ireland** — Graduation candidate, 2027
+- **Frontend Engineering Diploma** — AltSchool Africa
+- **Frontend Engineering Finalist** — HNG Internship
 
 ---
 
-## 📬 Connect with Me
+## 📬 Connect
 
 - **LinkedIn:** [lawalOyinlola](https://www.linkedin.com/in/lawaloyinlola/)
 - **GitHub:** [lawalOyinlola](https://github.com/lawalOyinlola/)

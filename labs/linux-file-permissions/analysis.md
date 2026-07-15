@@ -79,8 +79,7 @@ _Full deliverable: [File Permissions in Linux (PDF)](./file-permissions-in-linux
 
 ## 🧠 What this demonstrates
 
-This lab is foundational analyst work, consistent with the SOC analyst trajectory
-described in the root README rather than expert-level practice. It shows working
+This lab is foundational security work: transferable fundamentals that support the application security and DevSecOps direction described in the root README, not expert-level practice. It shows working
 knowledge of the Linux permission model (user/group/other, read/write/execute, the
 10-character permission string), practical proficiency with `ls -la` and `chmod`
 for auditing and correcting file system access, and the judgement to read an

@@ -60,8 +60,7 @@ _Full deliverable: [Cybersecurity Incident Report (PDF)](./cybersecurity-inciden
 
 ## 🧠 What this demonstrates
 
-This lab is foundational analyst work, consistent with the SOC analyst
-trajectory described in the root README rather than expert-level practice. It
+This lab is foundational security work: transferable fundamentals that support the application security and DevSecOps direction described in the root README, not expert-level practice. It
 shows the ability to read a tcpdump capture as a conversation between hosts,
 working knowledge of the DNS, UDP, and ICMP protocols and the role of port 53,
 and the judgement to separate a reachable host from an unavailable service,

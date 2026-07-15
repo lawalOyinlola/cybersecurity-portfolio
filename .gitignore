@@ -4,3 +4,10 @@
 # Editor / OS cruft
 Thumbs.db
 *.swp
+
+# Planning and working materials (kept local, not published)
+CONTEXT.md
+roadmap_and_plans/
+
+# Personal credential files (kept local, not published)
+certificates/

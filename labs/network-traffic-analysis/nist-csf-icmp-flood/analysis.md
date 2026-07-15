@@ -67,8 +67,7 @@ _Full deliverable: [Incident Report Analysis (PDF)](./incident-report-analysis-n
 
 ## 🧠 What this demonstrates
 
-This lab is foundational analyst work, consistent with the SOC analyst
-trajectory described in the root README rather than expert-level practice. It
+This lab is foundational security work: transferable fundamentals that support the application security and DevSecOps direction described in the root README, not expert-level practice. It
 shows working familiarity with the NIST Cybersecurity Framework and the ability to
 apply its five functions to a concrete incident, knowledge of ICMP flood DoS
 mechanics and the firewall controls that mitigate them (rate limiting, source IP
