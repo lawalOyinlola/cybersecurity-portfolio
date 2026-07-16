@@ -81,8 +81,9 @@ leak.
 **Scenario and attribution**
 
 The data-leak scenario and the worksheet structure are adapted from the Google
-Cybersecurity Certificate (Coursera). The analysis, the AC-6 mapping, the
-recommendations, and the write-up documented in this lab are my own work.
+Cybersecurity Certificate, Module 5: Assets, Threats, and Vulnerabilities
+(Coursera). The analysis, the AC-6 mapping, the recommendations, and the
+write-up documented in this lab are my own work.
 
 The supporting document lives in [`source/`](./source/):
 
