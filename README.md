@@ -51,6 +51,7 @@ The core of my work: securing real software and its delivery pipeline.
 - **[Network Hardening Assessment](./labs/network-hardening-assessment/analysis.md)** — Post-breach security risk assessment mapping four network vulnerabilities to a minimal set of hardening controls (MFA, password policies, port filtering), chosen by coverage rather than one tool per finding.
 - **[Risk Register (Commercial Bank)](./labs/risk-register-bank/analysis.md)** — Likelihood, severity, and priority scoring of the key risks to a commercial bank's funds, with the reasoning behind each score and the resulting prioritization.
 - **[Data Leak & Least Privilege](./labs/data-leak-least-privilege/analysis.md)** — Analysis of a data-leak incident and the NIST SP 800-53 AC-6 control improvements (role-based access, time-bound revocation) that would enforce least privilege and prevent recurrence.
+- **[Orphaned Account Access Review](./labs/orphaned-account-access-review/analysis.md)** — Event-log and directory correlation tracing a fraudulent payroll entry to a contractor account left active four years after offboarding, mapped to NIST SP 800-53 AC-6, AC-2, PS-4, and PS-5.
 
 ### 🧪 Technical Skills Labs
 
