@@ -81,9 +81,9 @@ actions in the structured report format a team would actually use.
 **Scenario and attribution**
 
 The scenario, the incident report template, the NIST CSF reference, and the worked
-example are adapted from the Google Cybersecurity Certificate (Coursera). The
-incident analysis, the NIST CSF mapping, and the recommendations documented in this
-lab are my own work.
+example are adapted from the Google Cybersecurity Certificate, Module 3: Connect
+and Protect, Networks and Network Security (Coursera). The incident analysis, the
+NIST CSF mapping, and the recommendations documented in this lab are my own work.
 
 The supporting documents live in [`source/`](./source/):
 
