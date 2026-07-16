@@ -101,9 +101,9 @@ application data.
 **Scenario and attribution**
 
 The scenario and the `organization` database (the `log_in_attempts` and
-`employees` tables) are adapted from the Google Cybersecurity Certificate
-(Coursera). The queries, the filtering choices, and the write-up documented in
-this lab are my own work.
+`employees` tables) are adapted from the Google Cybersecurity Certificate,
+Module 4: Tools of the Trade, Linux and SQL (Coursera). The queries, the
+filtering choices, and the write-up documented in this lab are my own work.
 
 The supporting documents live in [`source/`](./source/):
 
