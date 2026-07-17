@@ -80,8 +80,8 @@ than stopping at the log entry itself, working familiarity with NIST SP 800-53
 (AC-6, AC-2, PS-4, PS-5), and the judgement to recommend controls across
 technical, operational, and managerial categories rather than a single fix. The
 core finding, that a governance gap (missed offboarding) left a standing
-credential exploitable, is the same control language used in the risk register
-and the internal security audit in this section, which is why this lab sits
+credential exploitable, is the same control language used in the data-leak
+least-privilege lab and the internal security audit in this section, which is why this lab sits
 within the broader governance and risk story rather than as a standalone case.
 
 ## 📂 Source materials
