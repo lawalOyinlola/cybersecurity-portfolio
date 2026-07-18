@@ -1,0 +1,49 @@
+<svg viewBox="0 0 880 440" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <rect width="880" height="440" fill="#ffffff"/>
+
+  <text x="40" y="44" font-size="22" font-weight="700" fill="#1a3c5e">Data flow diagram</text>
+  <text x="40" y="68" font-size="13.5" fill="#555555">Product search process. Sneaker marketplace app.</text>
+  <line x1="40" y1="84" x2="840" y2="84" stroke="#c99a2e" stroke-width="2"/>
+
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="7.5" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#1a3c5e"/>
+    </marker>
+  </defs>
+
+  <!-- trust boundary -->
+  <line x1="300" y1="128" x2="300" y2="352" stroke="#b23b3b" stroke-width="2" stroke-dasharray="7 5"/>
+  <text x="300" y="120" font-size="12" fill="#b23b3b" text-anchor="middle" font-style="italic">Trust boundary</text>
+  <text x="300" y="370" font-size="11" fill="#b23b3b" text-anchor="middle">untrusted input crosses here</text>
+
+  <!-- User: external entity -->
+  <rect x="70" y="205" width="130" height="72" rx="3" fill="#ffffff" stroke="#1a3c5e" stroke-width="2.5"/>
+  <text x="135" y="238" font-size="16" font-weight="700" fill="#1a3c5e" text-anchor="middle">User</text>
+  <text x="135" y="257" font-size="10.5" fill="#777777" text-anchor="middle">external entity</text>
+
+  <!-- Product search process -->
+  <circle cx="450" cy="241" r="72" fill="#f7f9fb" stroke="#c99a2e" stroke-width="3"/>
+  <text x="450" y="231" font-size="14" font-weight="600" fill="#1a3c5e" text-anchor="middle">Product</text>
+  <text x="450" y="249" font-size="14" font-weight="600" fill="#1a3c5e" text-anchor="middle">search</text>
+  <text x="450" y="267" font-size="14" font-weight="600" fill="#1a3c5e" text-anchor="middle">process</text>
+
+  <!-- Database: data store (cylinder) -->
+  <path d="M713,208 a57,14 0 0 0 114,0 v66 a57,14 0 0 1 -114,0 z" fill="#ffffff" stroke="#1a3c5e" stroke-width="2.5"/>
+  <ellipse cx="770" cy="208" rx="57" ry="14" fill="#ffffff" stroke="#1a3c5e" stroke-width="2.5"/>
+  <text x="770" y="252" font-size="15" font-weight="700" fill="#1a3c5e" text-anchor="middle">Database</text>
+  <text x="770" y="270" font-size="10.5" fill="#777777" text-anchor="middle">data store</text>
+
+  <!-- flows: User <-> Process -->
+  <line x1="202" y1="223" x2="376" y2="223" stroke="#1a3c5e" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <text x="289" y="215" font-size="11" fill="#333333" text-anchor="middle">search query (sneakers)</text>
+  <line x1="378" y1="260" x2="204" y2="260" stroke="#1a3c5e" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <text x="289" y="277" font-size="11" fill="#333333" text-anchor="middle">listings returned to user</text>
+
+  <!-- flows: Process <-> Database -->
+  <line x1="524" y1="223" x2="710" y2="223" stroke="#1a3c5e" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <text x="618" y="215" font-size="11" fill="#333333" text-anchor="middle">query</text>
+  <line x1="710" y1="260" x2="524" y2="260" stroke="#1a3c5e" stroke-width="1.8" marker-end="url(#arrow)"/>
+  <text x="618" y="277" font-size="11" fill="#333333" text-anchor="middle">inventory listings</text>
+
+  <text x="40" y="416" font-size="11.5" fill="#555555">Untrusted user input crosses the trust boundary into the search process and database, where SQL injection risk concentrates.</text>
+</svg>
