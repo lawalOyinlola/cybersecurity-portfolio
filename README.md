@@ -39,6 +39,7 @@ Documented using the **CAR (Context, Action, Result)** framework, grouped by the
 The core of my work: securing real software and its delivery pipeline.
 
 - **CI/CD Security Pipeline** _(featured, in progress)_ — Automated security scanning (SAST, dependency, and secrets scanning) added to a production web application through GitHub Actions, including triage and remediation of real dependency advisories surfaced by Dependabot.
+- **[PASTA Threat Model (Sneaker Marketplace App)](./labs/pasta-threat-model/analysis.md)** — Seven-stage application threat model of a payment-handling mobile app, tracing prioritized technology scope through a data flow diagram and attack tree to two vulnerabilities (SQL injection, session hijacking) and the four controls that each close a specific attack path.
 
 ### 🔎 Incident Analysis
 
