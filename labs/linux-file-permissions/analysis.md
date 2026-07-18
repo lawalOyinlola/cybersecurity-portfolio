@@ -96,8 +96,9 @@ and correcting file-system permissions.
 **Scenario and attribution**
 
 The scenario and the file system environment are adapted from the Google
-Cybersecurity Certificate (Coursera). The permission audit, the command choices,
-and the write-up documented in this lab are my own work.
+Cybersecurity Certificate, Module 4: Tools of the Trade, Linux and SQL
+(Coursera). The permission audit, the command choices, and the write-up
+documented in this lab are my own work.
 
 The supporting documents live in [`source/`](./source/):
 

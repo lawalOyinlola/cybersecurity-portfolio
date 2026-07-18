@@ -39,6 +39,7 @@ Documented using the **CAR (Context, Action, Result)** framework, grouped by the
 The core of my work: securing real software and its delivery pipeline.
 
 - **CI/CD Security Pipeline** _(featured, in progress)_ — Automated security scanning (SAST, dependency, and secrets scanning) added to a production web application through GitHub Actions, including triage and remediation of real dependency advisories surfaced by Dependabot.
+- **[PASTA Threat Model (Sneaker Marketplace App)](./labs/pasta-threat-model/analysis.md)** — Seven-stage application threat model of a payment-handling mobile app, tracing prioritized technology scope through a data flow diagram and attack tree to two vulnerabilities (SQL injection, session hijacking) and the four controls that each close a specific attack path.
 
 ### 🔎 Incident Analysis
 
@@ -49,8 +50,9 @@ The core of my work: securing real software and its delivery pipeline.
 
 - **[Internal Security Audit (Botium Toys)](./labs/internal-audit-botium-toys/analysis.md)** — Controls and compliance assessment of a fictional retailer against NIST CSF, PCI DSS, GDPR, and SOC, mapping a narrative risk assessment to named frameworks and producing a prioritized remediation roadmap.
 - **[Network Hardening Assessment](./labs/network-hardening-assessment/analysis.md)** — Post-breach security risk assessment mapping four network vulnerabilities to a minimal set of hardening controls (MFA, password policies, port filtering), chosen by coverage rather than one tool per finding.
-- **[Risk Register (Commercial Bank)](./labs/risk-register-bank/analysis.md)** — Likelihood, severity, and priority scoring of the key risks to a commercial bank's funds, with the reasoning behind each score and the resulting prioritization.
+- **[Vulnerability Assessment (Public E-commerce Database)](./labs/vulnerability-assessment-ecommerce-db/analysis.md)** — Qualitative NIST SP 800-30 Rev. 1 risk assessment of a MySQL server left publicly exposed for three years, scoring three threat source/event pairs on likelihood × severity and mapping the ranked risks to a root-cause, defense-in-depth control set.
 - **[Data Leak & Least Privilege](./labs/data-leak-least-privilege/analysis.md)** — Analysis of a data-leak incident and the NIST SP 800-53 AC-6 control improvements (role-based access, time-bound revocation) that would enforce least privilege and prevent recurrence.
+- **[Orphaned Account Access Review](./labs/orphaned-account-access-review/analysis.md)** — Event-log and directory correlation tracing a fraudulent payroll entry to a contractor account left active four years after offboarding, mapped to NIST SP 800-53 AC-6, AC-2, PS-4, and PS-5.
 
 ### 🧪 Technical Skills Labs
 
