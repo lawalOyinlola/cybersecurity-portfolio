@@ -54,7 +54,8 @@ _Auditable decision: [Alert Ticket (PDF)](./alert-ticket.pdf) · running
 
 **The file is malicious, confirmed by agreeing signals**, not one number: 51 of 69
 vendors flagged it, the community score is -297, and the threat label
-`trojan.flagpro/fragtor` ties it to the BlackTech threat actor. It masquerades as a
+`trojan.flagpro/fragtor` identifies it as the Flagpro malware family, publicly
+associated with the BlackTech group. It masquerades as a
 legitimate Windows binary (`bfsvc.exe`, Boot File Servicing Utility) but is
 unsigned, and the sandbox observed process injection, sandbox evasion, and
 command-and-control traffic. Three indicators of compromise, from the bottom,
@@ -106,8 +107,11 @@ Artifacts in this folder:
 - **[ioc-analysis-pyramid-of-pain.pdf](./ioc-analysis-pyramid-of-pain.pdf):** the VirusTotal IoC analysis mapped onto the Pyramid of Pain.
 - **[incident-handlers-journal.pdf](./incident-handlers-journal.pdf):** the running incident handler's journal.
 
-The editable sources and the provided playbook live in [`source/`](./source/):
+The editable sources live in [`source/`](./source/):
 
 - **alert-ticket.docx:** editable source of the completed alert ticket.
 - **ioc-analysis-pyramid-of-pain.pptx:** editable source of the IoC analysis.
-- **phishing-response-playbook.pdf:** the phishing incident response playbook and flowchart the triage was structured against.
+
+The phishing incident response playbook and flowchart the triage followed are
+course-provided materials from Module 6 (see attribution above); they are cited
+here rather than redistributed.
