@@ -12,5 +12,6 @@ roadmap_and_plans/
 # Personal credential files (kept local, not published)
 certificates/
 
-# Draft lab kept local, not published (low AppSec signal — see conversation)
+# Drafts kept local, not published (low AppSec signal — see conversation)
 labs/usb-baiting-parking-lot
+labs/incident-handler-journal-ransomware
