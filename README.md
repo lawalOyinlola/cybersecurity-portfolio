@@ -45,6 +45,7 @@ The core of my work: securing real software and its delivery pipeline.
 
 - **[ADT Home Security Data Breach](./labs/incident-response-adt/analysis.md)** — Architectural breakdown of the April 2026 voice phishing (vishing) intrusion, its impact on SSO identity controls, and customer PII remediation.
 - **[Network Traffic & Incident Analysis](./labs/network-traffic-analysis/analysis.md)** — Four grouped investigations: packet-capture analysis of a DNS service outage, a SYN flood denial of service, and a brute-force attack with malware redirect, plus a full NIST CSF analysis of an ICMP flood, each tracing evidence to root cause and remediation.
+- **[Phishing Incident Response (Playbook Triage & IoC Analysis)](./labs/phishing-incident-response/analysis.md)** — Level-one SOC triage of a phishing alert (ticket A-2703) worked through a defined playbook to an auditable escalate decision, then VirusTotal IoC analysis of the malicious attachment mapped onto the Pyramid of Pain and MITRE ATT&CK — one intrusion traced from alert to durable detection.
 
 ### 📋 Governance, Risk & Compliance
 
