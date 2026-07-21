@@ -81,8 +81,9 @@ from the Google Cybersecurity Certificate, Module 3: Connect and Protect, Networ
 and Network Security (Coursera). The vulnerability-to-control mapping, the
 selection rationale, and the recommendations documented in this lab are my own work.
 
-The supporting documents live in [`source/`](./source/):
+The completed deliverable lives in [`source/`](./source/):
 
 - **security-risk-assessment-network-hardening.docx:** editable source of the completed assessment deliverable.
-- **security-risk-assessment-report-template.docx:** the blank report template the write-up was structured against.
-- **network-hardening-tools-sheet.pdf:** reference describing the available network hardening tools and methods.
+
+The blank report template and the network hardening tools sheet are course-provided
+materials (see attribution above), cited here rather than redistributed.

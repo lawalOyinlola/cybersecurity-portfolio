@@ -77,12 +77,12 @@ incident report format a team would actually circulate.
 
 ## 📂 Source materials
 
-The supporting documents live in [`source/`](./source/):
+The completed deliverable lives in [`source/`](./source/):
 
 - **cybersecurity-incident-report-syn-flood-analysis.docx:** editable source of the completed report.
-- **cybersecurity-incident-report-template.docx:** the blank report template the write-up was structured against, kept as an editable document.
-- **wireshark-tcp-http-log.pdf:** the colour-coded Wireshark TCP/HTTP log analysed in this lab.
-- **how-to-read-a-wireshark-tcp-http-log.pdf:** a reference guide for interpreting the log, used only as background.
+
+The Wireshark log, its reference guide, and the report template are course-provided
+materials (see attribution below), cited here rather than redistributed.
 
 **Scenario and attribution**
 

@@ -84,8 +84,10 @@ Certificate, Module 2: Play It Safe, Manage Security Risks (Coursera). The audit
 methodology, control mapping, compliance analysis, prioritisation logic, and
 remediation recommendations documented in this lab are my own work.
 
-The supporting documents live in [`source/`](./source/):
+The completed deliverable lives in [`source/`](./source/):
 
 - **botium-toys-controls-compliance-checklist.docx:** editable source of the completed checklist deliverable.
-- **scope-goals-and-risk-assessment-report.pdf:** the IT manager's narrative risk assessment, the primary evidence for the controls answers.
-- **control-categories.pdf:** reference describing each control's type and purpose.
+
+The scope, goals, and risk assessment report and the control categories reference
+are course-provided materials (see attribution above), cited here rather than
+redistributed.

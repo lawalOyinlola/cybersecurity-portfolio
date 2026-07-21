@@ -85,9 +85,10 @@ example are adapted from the Google Cybersecurity Certificate, Module 3: Connect
 and Protect, Networks and Network Security (Coursera). The incident analysis, the
 NIST CSF mapping, and the recommendations documented in this lab are my own work.
 
-The supporting documents live in [`source/`](./source/):
+The completed deliverable lives in [`source/`](./source/):
 
 - **incident-report-analysis-nist-csf.docx:** editable source of the completed analysis deliverable.
-- **incident-report-analysis-template.docx:** the blank report template the write-up was structured against.
-- **nist-csf-framework.pdf:** reference describing the five NIST CSF functions.
-- **completed-example-of-an-incident-report-analysis.pdf:** a worked example for a different scenario, used only as a format reference.
+
+The report template, the NIST CSF reference, and the worked example are
+course-provided materials (see attribution above), cited here rather than
+redistributed.

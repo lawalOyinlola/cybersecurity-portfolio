@@ -70,11 +70,13 @@ report format a team would actually circulate.
 
 ## 📂 Source materials
 
-The supporting documents live in [`source/`](./source/):
+The completed deliverable lives in [`source/`](./source/):
 
 - **cybersecurity-incident-report-network-traffic-analysis.docx:** editable source of the completed report.
-- **cybersecurity-incident-report-template.docx:** the blank report template the write-up was structured against, kept as an editable document.
-- **example-cybersecurity-incident-report.pdf:** a worked example for a different scenario, used only as a format reference.
+
+The tcpdump capture, the report template, and the worked example are
+course-provided materials (see attribution below), cited here rather than
+redistributed.
 
 **Scenario and attribution**
 
