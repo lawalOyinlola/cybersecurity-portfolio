@@ -100,8 +100,10 @@ Cybersecurity Certificate, Module 4: Tools of the Trade, Linux and SQL
 (Coursera). The permission audit, the command choices, and the write-up
 documented in this lab are my own work.
 
-The supporting documents live in [`source/`](./source/):
+The completed deliverable lives in [`source/`](./source/):
 
 - **file-permissions-in-linux.docx:** editable source of the completed deliverable.
-- **current-file-permissions.pdf:** the initial permission state of the file system, used as the audit baseline.
-- **file-permissions-in-linux-guide.pdf:** course reference guide for the lab, used as background.
+
+The initial permission-state scenario and the course reference guide are
+course-provided materials (see attribution above), cited here rather than
+redistributed.

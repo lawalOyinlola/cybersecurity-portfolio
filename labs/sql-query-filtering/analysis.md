@@ -105,9 +105,10 @@ The scenario and the `organization` database (the `log_in_attempts` and
 Module 4: Tools of the Trade, Linux and SQL (Coursera). The queries, the
 filtering choices, and the write-up documented in this lab are my own work.
 
-The supporting documents live in [`source/`](./source/):
+The completed deliverable lives in [`source/`](./source/):
 
 - **apply-filters-to-sql-queries.docx:** editable source of the completed deliverable.
-- **apply-filters-to-sql-queries-guide.pdf:** course reference on applying SQL filters, used as background.
-- **instructions-for-including-sql-queries.pdf:** reference on documenting SQL queries, used as background.
-- **table-formats.pdf:** reference describing the database table formats.
+
+The SQL filtering guide, the query-documentation instructions, and the table-format
+reference are course-provided materials (see attribution above), cited here rather
+than redistributed.
