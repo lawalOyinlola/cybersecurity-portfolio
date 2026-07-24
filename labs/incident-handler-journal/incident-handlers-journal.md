@@ -46,8 +46,9 @@ to trace the phishing source.
 **Additional notes:** The root cause was a human-targeted phishing email, so
 security awareness training and stronger email filtering are the first preventive
 priorities. Offline, tested backups would reduce the leverage of a ransom demand.
-Open questions: were files exfiltrated before encryption, which would make this a
-HIPAA-reportable breach, and was network segmentation in place to limit spread?
+Open questions: were files exfiltrated before encryption, which could trigger a
+HIPAA breach assessment and potential notification obligations, and was network
+segmentation in place to limit spread?
 
 ---
 
@@ -111,11 +112,13 @@ as TTL, header length, and TCP flags.
 - The first packet whose Info column showed `Echo (ping) request` used the **ICMP**
   protocol.
 - A TCP packet's destination port was **80**, the default HTTP port.
-- The DNS traffic (`udp.port == 53`) queried **opensource.google.com**, and the
-  Answers section resolved it to **142.250.1.139**.
-- A sample HTTP packet, a `curl` request to `http://opensource.google.com`, had
-  destination **169.254.169.254**, a TTL of **64**, a frame length of **54 bytes**,
-  and an IP header length of **20 bytes**.
+- The DNS traffic (`udp.port == 53`) resolved the query for **opensource.google.com**
+  to **142.250.1.139** (shown in the Answers section).
+- A separate HTTP packet in the same capture, a `curl` request examined under the
+  `tcp.port == 80` filter, had its own destination of **169.254.169.254**, a TTL of
+  **64**, a frame length of **54 bytes**, and an IP header length of **20 bytes**. It
+  is a different trace from the DNS lookup above, so its destination is not the
+  resolved **142.250.1.139**.
 
 **Additional notes:** The core skill is using layered display filters (by address,
 MAC, protocol, port, and payload content) to reduce a large capture to just the
@@ -229,7 +232,7 @@ and correlating a single network flow with `jq "select(.flow_id==...)"`.
   packet leaving the home network for the external network (alert message "GET on
   wire").
 - The first alert had a **severity of 3**, and its signature was **"GET on wire"**.
-- `fast.log` is a quick, deprecated alert format useful for QA checks, `eve.json`
+- `fast.log` is a quick, line-based alert format useful for QA checks, `eve.json`
   is the standard, detailed JSON event log, and the `flow_id` field ties together
   all packets belonging to the same network flow.
 
