@@ -4,6 +4,7 @@
 # Editor / OS cruft
 Thumbs.db
 *.swp
+~$*
 
 # Planning and working materials (kept local, not published)
 CONTEXT.md
@@ -14,4 +15,3 @@ certificates/
 
 # Drafts kept local, not published (low AppSec signal — see conversation)
 labs/usb-baiting-parking-lot
-labs/incident-handler-journal-ransomware

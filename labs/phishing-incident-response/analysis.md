@@ -49,8 +49,8 @@ opens attachments from strangers.
 
 [![Alert ticket, escalated, with documented reasoning](./preview.png)](./alert-ticket.pdf)
 
-_Auditable decision: [Alert Ticket (PDF)](./alert-ticket.pdf) · running
-[Incident Handler's Journal (PDF)](./incident-handlers-journal.pdf)_
+_Auditable decision: [Alert Ticket (PDF)](./alert-ticket.pdf) ·
+[Incident Handler's Journal two-entry snapshot (PDF)](./incident-handlers-journal.pdf)_
 
 **The file is malicious, confirmed by agreeing signals**, not one number: 51 of 69
 vendors flagged it, the community score is -297, and the threat label
@@ -105,7 +105,7 @@ Artifacts in this folder:
 
 - **[alert-ticket.pdf](./alert-ticket.pdf):** the auditable ticket, escalated Open → Investigating → Escalated with documented reasoning.
 - **[ioc-analysis-pyramid-of-pain.pdf](./ioc-analysis-pyramid-of-pain.pdf):** the VirusTotal IoC analysis mapped onto the Pyramid of Pain.
-- **[incident-handlers-journal.pdf](./incident-handlers-journal.pdf):** the running incident handler's journal.
+- **[incident-handlers-journal.pdf](./incident-handlers-journal.pdf):** the incident handler's journal as it stood for this lab (a two-entry snapshot). The complete running journal is maintained in [`labs/incident-handler-journal/`](../incident-handler-journal/incident-handlers-journal.md).
 
 The editable sources live in [`source/`](./source/):
 
