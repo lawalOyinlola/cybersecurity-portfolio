@@ -50,7 +50,7 @@ opens attachments from strangers.
 [![Alert ticket, escalated, with documented reasoning](./preview.png)](./alert-ticket.pdf)
 
 _Auditable decision: [Alert Ticket (PDF)](./alert-ticket.pdf) ·
-[Incident Handler's Journal entry (PDF)](./incident-handlers-journal.pdf)_
+[Incident Handler's Journal two-entry snapshot (PDF)](./incident-handlers-journal.pdf)_
 
 **The file is malicious, confirmed by agreeing signals**, not one number: 51 of 69
 vendors flagged it, the community score is -297, and the threat label
