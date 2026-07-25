@@ -60,6 +60,7 @@ The core of my work: securing real software and its delivery pipeline.
 
 - **[Linux File Permissions](./labs/linux-file-permissions/analysis.md)** — Auditing and modifying file and directory authorization using `chmod` and `ls -la`, including interpretation of the permission string.
 - **[SQL Filtering for Investigations](./labs/sql-query-filtering/analysis.md)** — Using `AND`, `OR`, `NOT`, `LIKE`, and date and time filters to investigate login activity and asset data.
+- **[Python Algorithm for File Updates](./labs/python-file-updates/analysis.md)** — Automating allow list maintenance for a restricted patient-records subnetwork: a read → transform → write script using `with`/`open()`, `.read()`/`.write()`, `.split()`/`.join()`, a `for` loop, and membership-guarded `.remove()`.
 
 ---
 
