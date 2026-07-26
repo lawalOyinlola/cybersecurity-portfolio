@@ -30,13 +30,13 @@ construct to the step it needed to do.
   ```python
   import_file = "allow_list.txt"
   with open(import_file, "r") as file:
-  ```
-- **Read the contents** — `.read()` is called on the file object while the file is
-  still open (so this line sits inside the `with` block) and returns the whole file
-  as a single whitespace-separated string.
-  ```python
       ip_addresses = file.read()
   ```
+- **Read the contents** — `.read()` is called on the file object while the file is
+  still open (so this line sits inside the `with` block) and returns the entire file
+  as a single string, preserving the newlines and whitespace that separate the
+  addresses. Tokenizing that whitespace into individual addresses is the job of
+  `.split()` in the next step.
 - **Convert the string to a list** — individual addresses cannot be removed from a
   string, so `.split()` restructures the data. With no argument it splits on
   whitespace (including the line breaks between addresses), giving a list where each
@@ -46,8 +46,8 @@ construct to the step it needed to do.
   ip_addresses = ip_addresses.split()
   ```
 - **Iterate the remove list** — a `for` loop walks `remove_list` rather than the
-  allow list, so it only runs as many times as there are addresses to remove, which
-  stays efficient as the allow list grows.
+  allow list, so its body runs once for each address that should lose access, with
+  `element` holding the current one on each pass.
   ```python
   remove_list = ["192.168.97.225", "192.168.158.170",
                  "192.168.201.40", "192.168.58.57"]
@@ -79,7 +79,7 @@ construct to the step it needed to do.
 | `with` + `open()` | Opening the file in read (`"r"`) and write (`"w"`) modes |
 | `.read()` / `.write()` | Reading the file into a string; overwriting it with the result |
 | `.split()` / `"\n".join()` | Converting between the file's string form and a working list |
-| `for` loop | Iterating the shorter remove list once per address to remove |
+| `for` loop | Iterating the remove list once per address to remove |
 | `if` + `in` membership | Testing presence before removing, to avoid a `ValueError` |
 | `.remove()` | Deleting an address that appears on both lists |
 
@@ -107,7 +107,7 @@ with `with` and `open()`, reading and writing with `.read()` and `.write()`,
 converting between strings and lists with `.split()` and `.join()`, iterating with a
 `for` loop, and membership-guarded list mutation with `in` and `.remove()`. More
 than the syntax, it shows the judgement to turn a recurring authorization task into
-a safe, repeatable script: iterating the shorter list for efficiency, and testing
+a safe, repeatable script: driving the update from the remove list, and testing
 membership before removing so a missing value cannot crash the run. Automating this
 kind of access-control maintenance is squarely the DevSecOps direction the root
 README builds toward, and it reapplies the Python I already use for scripting to a
