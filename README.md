@@ -32,7 +32,7 @@ Semgrep, OWASP ZAP, Trivy, Gitleaks, Dependabot, GitHub Actions, tcpdump and Wir
 
 ## 🧪 Projects, Labs & Case Studies
 
-Documented using the **CAR (Context, Action, Result)** framework, grouped by theme. Each lab's write-up lives in its own `analysis.md`.
+Documented using the **CAR (Context, Action, Result)** framework, grouped by theme. Each individual investigation's write-up lives in its own `analysis.md`; grouped labs (multiple investigations under one theme) are indexed by a `README.md` that links out to each.
 
 ### 🚀 Application Security Engineering
 
