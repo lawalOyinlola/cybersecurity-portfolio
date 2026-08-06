@@ -1,0 +1,424 @@
+name: Security
+
+# Additive security scanning. Deliberately independent of ci.yml and
+# deploy.yml: disabling this file stops all scanning and changes nothing about
+# how the team builds, merges, or ships. That independence is the point — a
+# security gate that can take production deploys down with it is a gate people
+# delete rather than fix.
+#
+# Results are surfaced via job summaries, a pull request comment, and uploaded
+# artifacts rather than the GitHub Security tab. That is not a stylistic
+# choice: SARIF upload through the code scanning API requires GitHub Advanced
+# Security, which is unavailable on this private repository. Verified directly:
+#   GET /repos/:owner/:repo/code-scanning/alerts
+#   → 403 "Advanced Security must be enabled for this repository"
+# Results must land where people already look, so they land in the PR.
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  # Newly disclosed CVEs affect unchanged code. Without this, a repository that
+  # stops receiving commits stops being assessed.
+  schedule:
+    - cron: "0 6 * * 1" # Mondays 06:00 UTC
+  workflow_dispatch:
+
+# Least privilege by default. Individual jobs escalate only where they must,
+# and only in the narrow scope they need.
+permissions:
+  contents: read
+
+concurrency:
+  group: security-${{ github.ref }}
+  # Never cancel on main. The deploy gate looks up this run by commit SHA and
+  # trusts its conclusion; a cancelled run reports conclusion "cancelled",
+  # which the gate did not originally treat as a failure, so a cancellation
+  # here was silently waved through as a passing scan. That happened for real:
+  # merging PR #153 cancelled the Security run for that exact merge commit
+  # mid-scan, and the gate deployed anyway. Fixed on both sides — this stops
+  # the cancellation, and the gate below no longer trusts anything but an
+  # explicit "success" regardless. Feature branches and pull requests still
+  # get cancelled on superseding pushes, since nothing there gates a deploy.
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+env:
+  # Pinned tool versions. Floating versions mean a scan that passed yesterday
+  # can fail today for reasons unrelated to the code under review.
+  SEMGREP_VERSION: "1.172.0"
+  GITLEAKS_VERSION: "8.30.1"
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Static analysis. Registry rulesets only, no account or token required.
+  # ---------------------------------------------------------------------------
+  sast:
+    name: SAST (Semgrep)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+          # No `cache: pip` here on purpose: that input requires a resolvable
+          # requirements.txt / pyproject.toml to hash, and this repository has
+          # neither. It fails the step rather than degrading to no caching.
+
+      - name: Install Semgrep
+        run: pip install --quiet "semgrep==${SEMGREP_VERSION}"
+
+      - name: Scan
+        # Semgrep exits non-zero when it finds anything. The gate step below
+        # decides what actually blocks, so suppress the tool's own exit code
+        # here and keep policy in one place.
+        run: |
+          semgrep scan \
+            --config=p/owasp-top-ten \
+            --config=p/typescript \
+            --config=p/react \
+            --config=p/nodejsscan \
+            --config=p/secrets \
+            --config=p/javascript \
+            --exclude=node_modules --exclude=.next --exclude=dist \
+            --metrics=off \
+            --json -o semgrep.json || true
+
+      - name: Summarize
+        run: |
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json, collections
+          d = json.load(open("semgrep.json"))
+          res = d.get("results", [])
+          sev = collections.Counter(r["extra"]["severity"] for r in res)
+          print("## SAST (Semgrep)\n")
+          print(f"**{len(res)}** finding(s): "
+                f"{sev.get('ERROR',0)} error, {sev.get('WARNING',0)} warning, "
+                f"{sev.get('INFO',0)} info\n")
+          if res:
+              print("| Severity | Rule | Location |")
+              print("|---|---|---|")
+              for r in sorted(res, key=lambda r: r["extra"]["severity"]):
+                  rule = r["check_id"].split(".")[-1]
+                  print(f"| {r['extra']['severity']} | `{rule}` | "
+                        f"`{r['path']}:{r['start']['line']}` |")
+          # Parse failures mean files were only partially analysed. Silent
+          # coverage gaps are worse than findings, so surface them.
+          errs = d.get("errors", [])
+          if errs:
+              print(f"\n> {len(errs)} file(s) failed to parse fully — "
+                    "SAST coverage on those files is incomplete.")
+          PY
+
+      - name: Gate
+        run: |
+          ERRORS=$(python3 -c "import json;print(sum(1 for r in json.load(open('semgrep.json'))['results'] if r['extra']['severity']=='ERROR'))")
+          echo "ERROR-severity findings: $ERRORS"
+          # Policy: ERROR blocks, WARNING informs. See SECURITY_PIPELINE_POLICY.md.
+          [ "$ERRORS" -eq 0 ] || { echo "::error::$ERRORS ERROR-severity SAST finding(s)"; exit 1; }
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: semgrep-report
+          path: semgrep.json
+          retention-days: 30
+
+  # ---------------------------------------------------------------------------
+  # Dependency scanning. Two projects, two lockfiles, two independent scans.
+  # A single root scan would silently cover neither.
+  # ---------------------------------------------------------------------------
+  deps:
+    name: Dependencies (Trivy) — ${{ matrix.project }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [backend, frontend]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Scan filesystem
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        env:
+          # Include devDependencies. Trivy excludes them by default; Dependabot
+          # does not. That single difference had the two tools reporting 0 and
+          # 21 findings for the same commit, which is worse than either number
+          # alone — two dashboards disagreeing teaches people to trust neither.
+          #
+          # Dev dependencies do not ship to production, so they are lower
+          # priority, not zero: they execute on developer machines and inside
+          # CI, where the repository and its secrets are reachable. Build
+          # tooling is a well-established supply chain target. The severity
+          # policy already handles the priority difference — only fixable
+          # CRITICALs block — so including them costs visibility, not velocity.
+          #
+          # Set via env because trivy-action exposes no input for this flag.
+          TRIVY_INCLUDE_DEV_DEPS: "true"
+        with:
+          scan-type: fs
+          scan-ref: ${{ matrix.project }}
+          scanners: vuln
+          format: json
+          output: trivy-${{ matrix.project }}.json
+          # Never let a scanner failure masquerade as a clean result.
+          exit-code: "0"
+          trivyignores: security/.trivyignore
+
+      - name: Summarize
+        run: |
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json, collections, os
+          proj = os.environ["PROJECT"]
+          d = json.load(open(f"trivy-{proj}.json"))
+          rows, sev = [], collections.Counter()
+          for r in d.get("Results") or []:
+              for v in r.get("Vulnerabilities") or []:
+                  sev[v["Severity"]] += 1
+                  rows.append((v["Severity"], v["PkgName"],
+                               v.get("InstalledVersion"),
+                               v.get("FixedVersion") or "no fix"))
+          print(f"## Dependencies — {proj}\n")
+          print(f"**{sum(sev.values())}** vulnerability finding(s): "
+                f"{sev.get('CRITICAL',0)} critical, {sev.get('HIGH',0)} high, "
+                f"{sev.get('MEDIUM',0)} medium, {sev.get('LOW',0)} low\n")
+          # Group by package: 40 CVEs in one package is one upgrade decision,
+          # not 40 problems. Listing them individually trains people to ignore
+          # the report.
+          bypkg = collections.Counter(r[1] for r in rows)
+          if bypkg:
+              print("| Package | Findings | Installed | Fix |")
+              print("|---|---|---|---|")
+              for pkg, n in bypkg.most_common(15):
+                  inst = next(r[2] for r in rows if r[1] == pkg)
+                  fix = next((r[3] for r in rows if r[1] == pkg and r[3] != "no fix"), "no fix")
+                  print(f"| `{pkg}` | {n} | {inst} | {fix} |")
+          PY
+        env:
+          PROJECT: ${{ matrix.project }}
+
+      - name: Gate
+        run: |
+          CRIT=$(python3 -c "
+          import json
+          d=json.load(open('trivy-${{ matrix.project }}.json'))
+          n=sum(1 for r in (d.get('Results') or []) for v in (r.get('Vulnerabilities') or [])
+                if v['Severity']=='CRITICAL' and v.get('FixedVersion'))
+          print(n)")
+          echo "CRITICAL with an available fix: $CRIT"
+          # Policy: only CRITICAL *with a published fix* blocks. A critical with
+          # no fix available cannot be actioned by the person whose PR is being
+          # blocked, and blocking on it just teaches people to bypass the gate.
+          [ "$CRIT" -eq 0 ] || { echo "::error::$CRIT fixable CRITICAL dependency vulnerability(ies) in ${{ matrix.project }}"; exit 1; }
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: trivy-${{ matrix.project }}-report
+          path: trivy-${{ matrix.project }}.json
+          retention-days: 30
+
+  # ---------------------------------------------------------------------------
+  # Upstream container images. Pulled, never built here — but inherited risk is
+  # still risk, and nothing else in CI is looking at them.
+  # ---------------------------------------------------------------------------
+  # Reads the manifest into a matrix so each image is scanned in its own job.
+  # The manifest stays the single source of truth: adding a line here is the
+  # only step needed to bring a new image into scope.
+  images-manifest:
+    name: Read image manifest
+    runs-on: ubuntu-latest
+    outputs:
+      images: ${{ steps.read.outputs.images }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - id: read
+        run: |
+          images=$(grep -vE '^[[:space:]]*(#|$)' security/images.txt \
+                   | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          echo "images=$images" >> "$GITHUB_OUTPUT"
+          echo "Scanning: $images"
+
+  images:
+    name: Upstream images (Trivy)
+    runs-on: ubuntu-latest
+    needs: images-manifest
+    strategy:
+      fail-fast: false
+      matrix:
+        image: ${{ fromJSON(needs.images-manifest.outputs.images) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # Uses the SHA-pinned action rather than piping a remote install script
+      # into a shell. Semgrep's gha-curl-pipe-shell rule flagged the previous
+      # `curl ... | sh` form as an ERROR, and it was right to: it executes
+      # whatever that URL serves at run time, with no integrity check, inside a
+      # workflow. A security pipeline should not model the thing it warns about.
+      - name: Scan image
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: image
+          image-ref: ${{ matrix.image }}
+          scanners: vuln
+          format: json
+          output: image-report.json
+          exit-code: "0"
+          trivyignores: security/.trivyignore
+
+      - name: Summarize
+        run: |
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json, collections, os
+          image = os.environ["IMAGE"]
+          print(f"## Upstream image: `{image}`\n")
+          try:
+              d = json.load(open("image-report.json"))
+          except Exception as e:
+              print(f"> Scan produced no readable report: {e}"); raise SystemExit(0)
+          sev, fixable = collections.Counter(), collections.Counter()
+          for r in d.get("Results") or []:
+              for v in r.get("Vulnerabilities") or []:
+                  sev[v["Severity"]] += 1
+                  if v.get("FixedVersion"):
+                      fixable[v["Severity"]] += 1
+          total = sum(sev.values())
+          print(f"**{total}** finding(s): {sev.get('CRITICAL',0)} critical, "
+                f"{sev.get('HIGH',0)} high, {sev.get('MEDIUM',0)} medium, "
+                f"{sev.get('LOW',0)} low\n")
+          # How many have a published fix is the number that decides what to do:
+          # it separates version drift, which a bump resolves, from genuinely
+          # inherited risk that needs a compensating control.
+          print(f"**{sum(fixable.values())}** of those have a published fix "
+                f"({fixable.get('CRITICAL',0)} critical, {fixable.get('HIGH',0)} high).\n")
+          print("> Warn-only. These images are pulled, not built here, so a "
+                "finding is resolved by a version bump or a compensating "
+                "control — a maintenance decision, not something the author of "
+                "an unrelated pull request can fix.")
+          PY
+        env:
+          IMAGE: ${{ matrix.image }}
+
+      - name: Derive a filesystem-safe artifact name
+        id: slug
+        run: echo "name=$(echo '${{ matrix.image }}' | tr '/:' '__')" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: trivy-image-${{ steps.slug.outputs.name }}
+          path: image-report.json
+          retention-days: 30
+
+  # ---------------------------------------------------------------------------
+  # Secrets. Full history, every run.
+  #
+  # The gitleaks-action is deliberately not used: it requires a licence key for
+  # organization-owned repositories, and this repository is org-owned. The
+  # binary is the same scanner with the same rules and no registration.
+  # ---------------------------------------------------------------------------
+  secrets:
+    name: Secrets (Gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Working-tree-only scanning misses the case that matters most: a
+          # secret committed, then deleted, and still recoverable forever.
+          fetch-depth: 0
+
+      - name: Install Gitleaks
+        run: |
+          curl -sfL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
+            | tar -xz -C /usr/local/bin gitleaks
+          gitleaks version
+
+      - name: Scan full history
+        run: |
+          gitleaks detect --source . --log-opts="--all" \
+            --redact --report-format json --report-path gitleaks.json \
+            --exit-code 0
+
+      - name: Summarize and gate
+        run: |
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json, collections, pathlib
+          f = json.loads(pathlib.Path("gitleaks.json").read_text() or "[]")
+          print("## Secrets (Gitleaks)\n")
+          print(f"**{len(f)}** unsuppressed finding(s) across full history\n")
+          if f:
+              print("| Rule | File | Commit |")
+              print("|---|---|---|")
+              for x in f:
+                  print(f"| `{x['RuleID']}` | `{x['File']}` | `{x['Commit'][:8]}` |")
+              print("\n> Values are redacted in this report by design. Triage "
+                    "from the artifact locally; never paste a secret into CI "
+                    "output, which is readable by everyone with repo access.")
+          pathlib.Path("count.txt").write_text(str(len(f)))
+          PY
+          COUNT=$(cat count.txt)
+          # Policy: any unsuppressed secret blocks, with no severity ladder.
+          # Historical findings that were triaged are suppressed by fingerprint
+          # in .gitleaksignore, each with a written justification. So anything
+          # reaching here is new and unreviewed.
+          [ "$COUNT" -eq 0 ] || { echo "::error::$COUNT unsuppressed secret finding(s). Treat as live until proven otherwise: rotate first, then triage."; exit 1; }
+
+      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        if: always()
+        with:
+          name: gitleaks-report
+          path: gitleaks.json
+          retention-days: 30
+
+  # ---------------------------------------------------------------------------
+  # Single consolidated PR comment. Without this the results live in a tab
+  # nobody opens.
+  # ---------------------------------------------------------------------------
+  report:
+    name: Report to pull request
+    runs-on: ubuntu-latest
+    needs: [sast, deps, images, secrets]
+    if: always() && github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const r = {
+              'SAST (Semgrep)':        '${{ needs.sast.result }}',
+              'Dependencies (Trivy)':  '${{ needs.deps.result }}',
+              'Upstream images':       '${{ needs.images.result }}',
+              'Secrets (Gitleaks)':    '${{ needs.secrets.result }}',
+            };
+            const icon = s => s === 'success' ? '✅ pass'
+                          : s === 'failure' ? '❌ fail'
+                          : s === 'skipped' ? '⏭️ skipped' : `⚠️ ${s}`;
+            const body = [
+              '<!-- security-scan -->',
+              '### Security scan',
+              '',
+              '| Check | Result |',
+              '|---|---|',
+              ...Object.entries(r).map(([k, v]) => `| ${k} | ${icon(v)} |`),
+              '',
+              `Full reports are attached as artifacts on [this run](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}).`,
+              'Policy and triage rationale: `SECURITY_PIPELINE_POLICY.md`.',
+            ].join('\n');
+
+            // Update in place rather than appending a new comment per push, so
+            // a long-running PR does not accumulate a wall of scan comments.
+            const { data: comments } = await github.rest.issues.listComments({
+              ...context.repo, issue_number: context.issue.number,
+            });
+            const existing = comments.find(c =>
+              c.body.includes('<!-- security-scan -->'));
+            if (existing) {
+              await github.rest.issues.updateComment({
+                ...context.repo, comment_id: existing.id, body });
+            } else {
+              await github.rest.issues.createComment({
+                ...context.repo, issue_number: context.issue.number, body });
+            }
