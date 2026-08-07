@@ -1,0 +1,71 @@
+<svg viewBox="0 0 960 620" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif">
+  <rect width="960" height="620" fill="#ffffff"/>
+
+  <text x="40" y="44" font-size="22" font-weight="700" fill="#1a3c5e">Security findings, baseline to current</text>
+  <text x="40" y="68" font-size="13.5" fill="#555555">Each row scaled to its own baseline. Counts are absolute and not comparable across rows.</text>
+  <line x1="40" y1="84" x2="920" y2="84" stroke="#c99a2e" stroke-width="2"/>
+
+  <!-- legend -->
+  <rect x="672" y="30" width="14" height="14" rx="2" fill="#e8edf3" stroke="#c8d3e0" stroke-width="1"/>
+  <text x="694" y="42" font-size="11.5" fill="#333333">Baseline</text>
+  <rect x="772" y="30" width="14" height="14" rx="2" fill="#1a3c5e"/>
+  <text x="794" y="42" font-size="11.5" fill="#333333">Current</text>
+  <circle cx="879" cy="37" r="6" fill="#c99a2e"/>
+  <text x="892" y="42" font-size="11.5" fill="#333333">Zero</text>
+
+  <!-- Row 1: static analysis 8 -> 1 -->
+  <g transform="translate(0,128)">
+    <text x="40" y="0" font-size="14.5" font-weight="700" fill="#1a3c5e">Static analysis findings</text>
+    <text x="920" y="0" font-size="12" fill="#555555" text-anchor="end">baseline 8 &#8594; current 1, documented false positive</text>
+    <rect x="40" y="12" width="880" height="22" rx="3" fill="#e8edf3" stroke="#c8d3e0" stroke-width="1"/>
+    <rect x="40" y="12" width="110" height="22" rx="3" fill="#1a3c5e"/>
+    <text x="140" y="28" font-size="11.5" font-weight="700" fill="#ffffff" text-anchor="end">1</text>
+  </g>
+
+  <!-- Row 2: dependencies, production 104 -> 0 -->
+  <g transform="translate(0,206)">
+    <text x="40" y="0" font-size="14.5" font-weight="700" fill="#1a3c5e">Dependencies, production scope</text>
+    <text x="920" y="0" font-size="12" fill="#555555" text-anchor="end">baseline 104 &#8594; current 0</text>
+    <rect x="40" y="12" width="880" height="22" rx="3" fill="#e8edf3" stroke="#c8d3e0" stroke-width="1"/>
+    <circle cx="51" cy="23" r="7" fill="#c99a2e"/>
+    <text x="68" y="28" font-size="11.5" font-weight="700" fill="#1a3c5e">0</text>
+  </g>
+
+  <!-- Row 3: dependencies incl. build tooling 125 -> 4 -->
+  <g transform="translate(0,284)">
+    <text x="40" y="0" font-size="14.5" font-weight="700" fill="#1a3c5e">Dependencies, including build tooling</text>
+    <text x="920" y="0" font-size="12" fill="#555555" text-anchor="end">baseline 125 &#8594; current 4, accepted, dev only</text>
+    <rect x="40" y="12" width="880" height="22" rx="3" fill="#e8edf3" stroke="#c8d3e0" stroke-width="1"/>
+    <rect x="40" y="12" width="28.2" height="22" rx="3" fill="#1a3c5e"/>
+    <text x="78" y="28" font-size="11.5" font-weight="700" fill="#1a3c5e">4</text>
+  </g>
+
+  <!-- Row 4: upstream image, all severities 184 -> 122 -->
+  <g transform="translate(0,362)">
+    <text x="40" y="0" font-size="14.5" font-weight="700" fill="#1a3c5e">Upstream image findings, all severities</text>
+    <text x="920" y="0" font-size="12" fill="#555555" text-anchor="end">baseline 184 &#8594; current 122</text>
+    <rect x="40" y="12" width="880" height="22" rx="3" fill="#e8edf3" stroke="#c8d3e0" stroke-width="1"/>
+    <rect x="40" y="12" width="583.5" height="22" rx="3" fill="#1a3c5e"/>
+    <text x="613" y="28" font-size="11.5" font-weight="700" fill="#ffffff" text-anchor="end">122</text>
+  </g>
+
+  <!-- Row 5: upstream image, critical 3 -> 1 -->
+  <g transform="translate(0,440)">
+    <text x="40" y="0" font-size="14.5" font-weight="700" fill="#1a3c5e">Upstream image findings, critical</text>
+    <text x="920" y="0" font-size="12" fill="#555555" text-anchor="end">baseline 3 &#8594; current 1, accepted with a review date</text>
+    <rect x="40" y="12" width="880" height="22" rx="3" fill="#e8edf3" stroke="#c8d3e0" stroke-width="1"/>
+    <rect x="40" y="12" width="293.3" height="22" rx="3" fill="#1a3c5e"/>
+    <text x="323" y="28" font-size="11.5" font-weight="700" fill="#ffffff" text-anchor="end">1</text>
+  </g>
+
+  <!-- Row 6: secrets 15 -> 0 -->
+  <g transform="translate(0,518)">
+    <text x="40" y="0" font-size="14.5" font-weight="700" fill="#1a3c5e">Secrets across full git history</text>
+    <text x="920" y="0" font-size="12" fill="#555555" text-anchor="end">baseline 15 &#8594; current 0</text>
+    <rect x="40" y="12" width="880" height="22" rx="3" fill="#e8edf3" stroke="#c8d3e0" stroke-width="1"/>
+    <circle cx="51" cy="23" r="7" fill="#c99a2e"/>
+    <text x="68" y="28" font-size="11.5" font-weight="700" fill="#1a3c5e">0</text>
+  </g>
+
+  <text x="40" y="590" font-size="11.5" fill="#555555">The remaining image critical has no fixed version to upgrade into. It is an accepted, documented risk with a review date, not a suppression.</text>
+</svg>

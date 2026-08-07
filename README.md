@@ -32,19 +32,19 @@ Semgrep, OWASP ZAP, Trivy, Gitleaks, Dependabot, GitHub Actions, tcpdump and Wir
 
 ## 🧪 Projects, Labs & Case Studies
 
-Documented using the **CAR (Context, Action, Result)** framework, grouped by theme. Each lab's write-up lives in its own `analysis.md`.
+Documented using the **CAR (Context, Action, Result)** framework, grouped by theme. Each individual investigation's write-up lives in its own `analysis.md`; grouped labs (multiple investigations under one theme) are indexed by a `README.md` that links out to each.
 
 ### 🚀 Application Security Engineering
 
 The core of my work: securing real software and its delivery pipeline.
 
-- **CI/CD Security Pipeline** _(featured, in progress)_ — Automated security scanning (SAST, dependency, and secrets scanning) added to a production web application through GitHub Actions, including triage and remediation of real dependency advisories surfaced by Dependabot.
+- **[CI/CD Security Pipeline](./labs/cicd-security-pipeline/analysis.md)** _(featured)_ — Policy-driven SAST, dependency, container, and secrets scanning added to a live, self-hosted SaaS product via GitHub Actions, with every finding individually triaged (fixed, accepted, or false-positive with reasoning) and a fail-open defect in the pipeline's own deploy gate found and fixed after the fact.
 - **[PASTA Threat Model (Sneaker Marketplace App)](./labs/pasta-threat-model/analysis.md)** — Seven-stage application threat model of a payment-handling mobile app, tracing prioritized technology scope through a data flow diagram and attack tree to two vulnerabilities (SQL injection, session hijacking) and the four controls that each close a specific attack path.
 
 ### 🔎 Incident Analysis
 
 - **[ADT Home Security Data Breach](./labs/incident-response-adt/analysis.md)** — Architectural breakdown of the April 2026 voice phishing (vishing) intrusion, its impact on SSO identity controls, and customer PII remediation.
-- **[Network Traffic & Incident Analysis](./labs/network-traffic-analysis/analysis.md)** — Four grouped investigations: packet-capture analysis of a DNS service outage, a SYN flood denial of service, and a brute-force attack with malware redirect, plus a full NIST CSF analysis of an ICMP flood, each tracing evidence to root cause and remediation.
+- **[Network Traffic & Incident Analysis](./labs/network-traffic-analysis/)** — Four grouped investigations: packet-capture analysis of a DNS service outage, a SYN flood denial of service, and a brute-force attack with malware redirect, plus a full NIST CSF analysis of an ICMP flood, each tracing evidence to root cause and remediation.
 - **[Phishing Incident Response (Playbook Triage & IoC Analysis)](./labs/phishing-incident-response/analysis.md)** — Level-one SOC triage of a phishing alert (ticket A-2703) worked through a defined playbook to an auditable escalate decision, then VirusTotal IoC analysis of the malicious attachment mapped onto the Pyramid of Pain and MITRE ATT&CK — one intrusion traced from alert to durable detection.
 - **[Incident Handler's Journal](./labs/incident-handler-journal/incident-handlers-journal.md)** — A running nine-entry journal spanning the certificate work: two 5 W's incident investigations (ransomware, phishing) and six hands-on cybersecurity-tool entries (Wireshark, tcpdump, VirusTotal, Suricata, Splunk, and Chronicle), closed by a reflection on the learning journey.
 
@@ -54,8 +54,7 @@ The core of my work: securing real software and its delivery pipeline.
 - **[Network Hardening Assessment](./labs/network-hardening-assessment/analysis.md)** — Post-breach security risk assessment mapping four network vulnerabilities to a minimal set of hardening controls (MFA, password policies, port filtering), chosen by coverage rather than one tool per finding.
 - **[Network Segmentation & Least Privilege (Hospital Network)](./labs/network-segmentation-least-privilege/analysis.md)** — Hands-on Cisco Packet Tracer build of a two-department hospital network, hardened past its connectivity brief with a directional router ACL (doctors reach the pharmacy; the pharmacy cannot initiate into patient-record hosts), switch port security, and SSH-only management, verified by ping asymmetry and live ACL hit counters.
 - **[Vulnerability Assessment (Public E-commerce Database)](./labs/vulnerability-assessment-ecommerce-db/analysis.md)** — Qualitative NIST SP 800-30 Rev. 1 risk assessment of a MySQL server left publicly exposed for three years, scoring three threat source/event pairs on likelihood × severity and mapping the ranked risks to a root-cause, defense-in-depth control set.
-- **[Data Leak & Least Privilege](./labs/data-leak-least-privilege/analysis.md)** — Analysis of a data-leak incident and the NIST SP 800-53 AC-6 control improvements (role-based access, time-bound revocation) that would enforce least privilege and prevent recurrence.
-- **[Orphaned Account Access Review](./labs/orphaned-account-access-review/analysis.md)** — Event-log and directory correlation tracing a fraudulent payroll entry to a contractor account left active four years after offboarding, mapped to NIST SP 800-53 AC-6, AC-2, PS-4, and PS-5.
+- **[Access Control & Least Privilege](./labs/access-control-least-privilege/)** — Two grouped investigations: a data-leak incident from over-broad folder sharing, and a fraudulent payroll entry traced to a contractor account never deprovisioned, mapped to NIST SP 800-53 AC-6, AC-2, PS-4, and PS-5.
 
 ### 🧪 Technical Skills Labs
 
@@ -69,10 +68,10 @@ The core of my work: securing real software and its delivery pipeline.
 
 ### 🔒 Security Certifications
 
+- **Google Cybersecurity Professional Certificate** — Completed (Coursera) · [Verify credential](https://coursera.org/verify/professional-cert/PZZDNMRKGNAL) · [Credly badge](https://www.credly.com/badges/99d514e9-c306-4f55-95db-efd37a099b53/public_url)
 - **CompTIA Security+** — Target 2026 (foundational baseline)
 - **Microsoft SC-300, Identity & Access Administrator** — Planned
 - **Microsoft SC-500, Cloud & AI Security Engineer** — Planned (destination)
-- **Google Cybersecurity Professional Certificate** — In progress (Coursera)
 
 ### 🎓 Education
 
