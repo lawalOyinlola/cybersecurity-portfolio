@@ -542,7 +542,7 @@ MONITORED_REAL=$(cd -P -- <span class="k">"$MONITORED_DIR"</span> 2&gt;/dev/null
   || { log <span class="k">"FAIL monitored dir does not resolve"</span>; exit 1; }
 BASE=$(basename -- <span class="k">"$FILE"</span>)
 case <span class="k">"$BASE"</span> in . | ..) log <span class="k">"REFUSED not a deletable path: $FILE"</span>; exit 1 ;; esac
-PARENT_REAL=$(cd -P -- <span class="k">"$(dirname -- \"$FILE\")"</span> 2&gt;/dev/null &amp;&amp; pwd -P) \
+PARENT_REAL=$(cd -P -- <span class="k">"$(dirname -- "$FILE")"</span> 2&gt;/dev/null &amp;&amp; pwd -P) \
   || { log <span class="k">"REFUSED unresolvable parent: $FILE"</span>; exit 1; }
 TARGET=<span class="k">"$PARENT_REAL/$BASE"</span>
 
