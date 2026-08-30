@@ -1,0 +1,33 @@
+<!--
+  Custom FIM rules for privileged directory monitoring.
+  Location on the manager: /var/ossec/etc/rules/local_rules.xml
+
+  These re-fire Wazuh's built-in FIM rules at level 7, scoped to /root, so that
+  the VirusTotal integration can be bound to privileged-directory activity only
+  rather than to all filesystem change events.
+
+    550 -> integrity checksum changed
+    554 -> file added to the system
+
+  The <field> condition is what does the scoping. Without it these rules re-fire
+  for every directory under <syscheck>, including the defaults (/etc, /usr/bin,
+  /bin, /sbin, /boot), which both mislabels those events as /root and feeds all
+  of them to the VirusTotal integration bound to these rule IDs. The (/|$)
+  anchor matches /root and paths beneath it without also matching /rootkit.
+-->
+
+<group name="syscheck,">
+
+  <rule id="100200" level="7">
+    <if_sid>550</if_sid>
+    <field name="file" type="pcre2">^/root(/|$)</field>
+    <description>File modified in /root</description>
+  </rule>
+
+  <rule id="100201" level="7">
+    <if_sid>554</if_sid>
+    <field name="file" type="pcre2">^/root(/|$)</field>
+    <description>File added to /root</description>
+  </rule>
+
+</group>

@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wazuh Homelab — Build Runbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0E1420; --paper:#EAEFF4; --card:#FFFFFF; --line:#D2DBE6;
+  --text:#1A2230; --muted:#5A6A7D;
+  --signal:#0E9AAC; --signal2:#12B5C9;
+  --ok:#1FA971; --warn:#D9861F; --bad:#E0524A; --purple:#7A5AC2;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0; color:var(--text); background:var(--paper);
+  font-family:'Inter',system-ui,sans-serif; line-height:1.5;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:26px 26px; background-position:-1px -1px}
+.tabbar{position:sticky; top:0; z-index:20; background:rgba(14,20,32,.96); backdrop-filter:blur(6px);
+  border-bottom:2px solid var(--signal); padding:10px 20px}
+.tabbar .inner{max-width:940px; margin:0 auto; display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.brand{font-family:'Space Grotesk',sans-serif; font-weight:700; color:#fff; font-size:15px; letter-spacing:-.01em}
+.brand small{font-family:var(--mono); font-weight:400; font-size:10.5px; color:var(--signal2); letter-spacing:.14em; text-transform:uppercase; display:block}
+.steps-nav{display:flex; align-items:center; gap:4px; flex-wrap:wrap; margin-left:auto}
+.chev{color:#3A4D63; font-size:15px; font-weight:700}
+.tab{font-family:var(--mono); font-size:12px; color:#9FB0C2; background:transparent; border:1px solid #2A3A4D;
+  border-radius:8px; padding:7px 10px; cursor:pointer; transition:.15s; display:flex; gap:6px; align-items:center}
+.tab .n{font-weight:700; color:var(--signal2)}
+.tab:hover{border-color:var(--signal); color:#fff}
+.tab[aria-selected="true"]{background:var(--signal); border-color:var(--signal); color:#fff}
+.tab[aria-selected="true"] .n{color:#062a2f}
+.tab.done .n::after{content:" \2713"; color:var(--ok)}
+.wrap{max-width:820px; margin:0 auto; padding:0 20px 24px}
+.masthead{background:var(--ink); color:#fff; margin:0 -20px 30px; padding:32px 20px 28px; border-bottom:3px solid var(--signal)}
+.masthead .inner{max-width:820px; margin:0 auto}
+.kicker{font-family:var(--mono); font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--signal2)}
+h1{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:clamp(26px,5vw,38px); margin:.32em 0 .1em; letter-spacing:-.01em}
+.masthead p{color:#9FB0C2; margin:0; font-size:15px}
+.meta{display:flex; flex-wrap:wrap; gap:8px; margin-top:16px}
+.tag{font-family:var(--mono); font-size:11.5px; padding:5px 10px; border:1px solid #2A3A4D; border-radius:6px; color:#C6D3E0}
+.req{display:flex; gap:12px; align-items:center; background:#FBF1E3; border:1px solid #EAC189; border-radius:11px; padding:12px 15px; margin:0 0 22px}
+.req .b{font-family:var(--mono); font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:#fff; background:var(--warn); padding:3px 8px; border-radius:5px; flex:none}
+.req .x{font-size:13.5px; color:#4a3a1e}
+.jump{color:var(--signal); font-weight:600; cursor:pointer; text-decoration:underline; text-underline-offset:2px; background:none; border:none; font:inherit; padding:0}
+.jump:hover{color:#0b7a89}
+.starthere{display:inline-flex; gap:8px; align-items:center; background:#12352C; border:1px solid var(--ok); color:#CFF3E4; font-family:var(--mono); font-size:12px; padding:7px 12px; border-radius:20px; margin:0 0 20px}
+.starthere .d{width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.rail{position:relative; padding-left:56px}
+.rail::before{content:""; position:absolute; left:19px; top:8px; bottom:8px; width:2px; background:linear-gradient(var(--signal),#c9d5e2)}
+.step{position:relative; margin:0 0 20px}
+.num{position:absolute; left:-56px; top:0; width:40px; height:40px; border-radius:10px; background:var(--ink); color:#fff;
+  font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:17px; display:flex; align-items:center; justify-content:center; box-shadow:0 2px 0 var(--signal)}
+.card{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; box-shadow:0 1px 2px rgba(20,30,45,.04)}
+.card h3{font-family:'Space Grotesk',sans-serif; font-size:17px; margin:0 0 4px; letter-spacing:-.01em}
+.card p{margin:0; font-size:14px; color:var(--muted)} .card p b{color:var(--text)}
+.cmd{font-family:var(--mono); font-size:13px; background:var(--ink); color:#DCE6F0; border-radius:8px; padding:11px 13px; margin-top:11px; overflow-x:auto; white-space:pre; line-height:1.7}
+.cmd .p{color:var(--signal2)} .cmd .c{color:#6D8299} .cmd .k{color:#E0A96A}
+.chip{display:flex; gap:10px; margin-top:11px; padding:10px 12px; border-radius:9px; font-size:13px; align-items:flex-start}
+.chip b{font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; padding:2px 7px; border-radius:5px; flex:none; margin-top:1px}
+.tip{background:#E9F7F4} .tip b{background:var(--ok); color:#fff}
+.warn{background:#FBF1E3} .warn b{background:var(--warn); color:#fff}
+.pick{background:#EAF3FB} .pick b{background:var(--signal); color:#fff}
+.dep{background:#F0ECF9} .dep b{background:var(--purple); color:#fff}
+.chip span{color:#37485a}
+.spec,.picker{display:grid; gap:9px; margin-top:12px}
+.spec{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))} .picker{grid-template-columns:repeat(3,1fr)}
+.spec div,.picker div{background:#F3F7FB; border:1px solid var(--line); border-radius:9px; padding:10px 12px}
+.picker div{text-align:center}
+.spec .k,.picker .k{font-family:var(--mono); font-size:10.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted)}
+.spec .v{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:18px; margin-top:2px}
+.spec .v small{font-weight:500; font-size:12px; color:var(--muted)}
+.picker .v{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; margin-top:3px}
+.picker .yes{border-color:var(--ok)} .picker .yes .v{color:var(--ok)}
+.divider{display:flex; align-items:center; gap:12px; margin:34px 0 22px}
+.divider .l{height:1px; background:var(--line); flex:1}
+.divider .t{font-family:var(--mono); font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--signal); font-weight:500}
+.pipe,.map{background:var(--ink); border-radius:14px; padding:22px 18px; margin-bottom:8px}
+.pipe .cap,.map .cap{font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--signal2); text-align:center; margin-bottom:16px}
+.flow,.mrow{display:flex; align-items:center; justify-content:center; flex-wrap:wrap}
+.node{flex:1; min-width:118px; text-align:center; background:#16202F; border:1px solid #26384C; border-radius:10px; padding:12px 10px}
+.node.hi{border-color:var(--signal2)}
+.node .h{font-family:'Space Grotesk',sans-serif; font-weight:700; color:#fff; font-size:14px}
+.node .s{font-family:var(--mono); font-size:10.5px; color:#7C90A6; margin-top:3px}
+.arrow{display:flex; align-items:center; color:var(--signal2); font-size:22px; padding:0 6px; font-weight:700}
+.host{display:flex; gap:8px; justify-content:center; margin-top:14px; font-family:var(--mono); font-size:11px; color:#8DA0B4; flex-wrap:wrap}
+.host span{padding:3px 9px; border:1px solid #26384C; border-radius:20px} .host b{color:var(--signal2)}
+.box{background:#16202F; border:1px solid #26384C; border-radius:11px; padding:14px 16px; text-align:center; min-width:140px}
+.box .h{font-family:'Space Grotesk',sans-serif; font-weight:700; color:#fff; font-size:15px}
+.box .s{font-family:var(--mono); font-size:11px; color:#7C90A6; margin-top:3px}
+.box.watched{border-color:var(--signal)} .box.att{border-color:#E0524A}
+.link{display:flex; flex-direction:column; align-items:center; padding:0 12px; color:var(--signal2)}
+.link .a{font-size:20px; font-weight:700; line-height:1}
+.link .t{font-family:var(--mono); font-size:9.5px; color:#7C90A6; margin-top:4px}
+.boot{display:flex; flex-direction:column}
+.brow{display:flex; align-items:center; gap:14px}
+.bnode{flex:1; background:var(--card); border:1px solid var(--line); border-radius:11px; padding:13px 15px}
+.bnode .t{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px}
+.bnode .d{font-size:13px; color:var(--muted); margin-top:2px}
+.bnum{width:34px; height:34px; flex:none; border-radius:9px; background:var(--signal); color:#fff; font-family:'Space Grotesk',sans-serif; font-weight:700; display:flex; align-items:center; justify-content:center; font-size:15px}
+.bconn{height:16px; width:2px; background:var(--line); margin:4px 0 4px 16px}
+.dec{background:#16202F; color:#fff; border-radius:11px; padding:14px 16px; margin-top:2px}
+.dec .q{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px}
+.branches{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px}
+.branch{border-radius:9px; padding:10px 12px; font-size:13px}
+.byes{background:#12352C; border:1px solid #1FA971} .byes .l{color:#4FD9A6; font-family:var(--mono); font-size:11px; letter-spacing:.08em}
+.bno{background:#3A2A16; border:1px solid #D9861F} .bno .l{color:#F0B86A; font-family:var(--mono); font-size:11px; letter-spacing:.08em}
+.branch .x{color:#C7D3DF; margin-top:3px}
+.tt{display:flex; flex-direction:column; gap:10px}
+.trow{background:var(--card); border:1px solid var(--line); border-radius:11px; padding:13px 15px; display:grid; gap:6px}
+.trow .sym{font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; display:flex; align-items:center; gap:8px}
+.dot{width:9px;height:9px;border-radius:50%;flex:none}
+.d-bad{background:var(--bad)} .d-warn{background:var(--warn)} .d-ok{background:var(--ok)}
+.trow .cause{font-size:13px; color:var(--muted)} .trow .cause b{color:var(--text)}
+.trow .fix{font-family:var(--mono); font-size:12px; background:#F3F7FB; border:1px solid var(--line); border-radius:7px; padding:8px 10px; color:#243447}
+.handoff{margin-top:30px; background:var(--ink); border-radius:14px; padding:20px; display:flex; align-items:center; gap:16px; flex-wrap:wrap}
+.handoff .txt{flex:1; min-width:180px}
+.handoff .l{font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--signal2)}
+.handoff .t{font-family:'Space Grotesk',sans-serif; font-weight:700; color:#fff; font-size:18px; margin-top:3px}
+.handoff .s{color:#9FB0C2; font-size:13px; margin-top:2px}
+.gobtn{font-family:var(--mono); font-size:14px; background:var(--signal); color:#062a2f; font-weight:700; border:none; border-radius:10px; padding:13px 18px; cursor:pointer; transition:.15s; white-space:nowrap}
+.gobtn:hover{background:var(--signal2)}
+.donebadge{font-family:var(--mono); font-size:12px; color:var(--ok); border:1px solid var(--ok); border-radius:20px; padding:6px 12px}
+.pager{max-width:820px; margin:8px auto 60px; padding:0 20px; display:flex; justify-content:space-between; gap:12px}
+.pbtn{font-family:var(--mono); font-size:13px; border:1px solid var(--line); background:var(--card); color:var(--text); border-radius:10px; padding:12px 16px; cursor:pointer; display:flex; flex-direction:column; gap:2px; transition:.15s}
+.pbtn:hover:not(:disabled){border-color:var(--signal); color:var(--signal)}
+.pbtn:disabled{opacity:.35; cursor:default}
+.pbtn small{font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+.pbtn.next{text-align:right; margin-left:auto}
+.foot{margin-top:8px; font-size:12.5px; color:var(--muted); font-family:var(--mono)}
+code{font-family:var(--mono); font-size:.92em}
+.panel{display:none} .panel.on{display:block}
+table.mx{width:100%; border-collapse:collapse; margin-top:12px; font-size:13.5px}
+table.mx th{font-family:var(--mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); text-align:left; padding:8px 10px; border-bottom:1px solid var(--line)}
+table.mx td{padding:9px 10px; border-bottom:1px solid var(--line)}
+table.mx tr:last-child td{border-bottom:none}
+table.mx .nm{font-family:'Space Grotesk',sans-serif; font-weight:700}
+table.mx code{background:#F3F7FB; padding:2px 6px; border-radius:5px; border:1px solid var(--line)}
+@media (prefers-reduced-motion:no-preference){
+  .panel.on .step,.panel.on .trow{opacity:0; transform:translateY(10px); animation:rise .5s ease forwards}
+  .panel.on .step:nth-child(1),.panel.on .trow:nth-child(1){animation-delay:.02s}
+  .panel.on .step:nth-child(2),.panel.on .trow:nth-child(2){animation-delay:.06s}
+  .panel.on .step:nth-child(3),.panel.on .trow:nth-child(3){animation-delay:.1s}
+  .panel.on .step:nth-child(4),.panel.on .trow:nth-child(4){animation-delay:.14s}
+  .panel.on .step:nth-child(5),.panel.on .trow:nth-child(5){animation-delay:.18s}
+  .panel.on .step:nth-child(6),.panel.on .trow:nth-child(6){animation-delay:.22s}
+  @keyframes rise{to{opacity:1; transform:none}}
+}
+@media (max-width:560px){ .arrow{transform:rotate(90deg)} .flow,.mrow{flex-direction:column} .branches,.picker{grid-template-columns:1fr} .link .a{transform:rotate(90deg)} .steps-nav{margin-left:0; width:100%} }
+</style>
+</head>
+<body>
+
+<div class="tabbar">
+  <div class="inner">
+    <div class="brand">Homelab SIEM<small>Guided &middot; 1 &rarr; 2 &rarr; 3 &rarr; 4 &rarr; 5</small></div>
+    <div class="steps-nav" role="tablist">
+      <button class="tab" role="tab" aria-selected="true"  data-go="0"><span class="n">1</span> Ubuntu VM</button>
+      <span class="chev">&rsaquo;</span>
+      <button class="tab" role="tab" aria-selected="false" data-go="1"><span class="n">2</span> Install Wazuh</button>
+      <span class="chev">&rsaquo;</span>
+      <button class="tab" role="tab" aria-selected="false" data-go="2"><span class="n">3</span> Deploy Agents</button>
+      <span class="chev">&rsaquo;</span>
+      <button class="tab" role="tab" aria-selected="false" data-go="3"><span class="n">4</span> Suricata + Ops</button>
+      <span class="chev">&rsaquo;</span>
+      <button class="tab" role="tab" aria-selected="false" data-go="4"><span class="n">5</span> VT + Response</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= FLOW 1 ================= -->
+<section class="panel on" id="p0">
+  <div class="masthead"><div class="inner">
+    <div class="kicker">Flow 1 of 5 &middot; Build the host</div>
+    <h1>Ubuntu Server VM on UTM</h1>
+    <p>Native ARM64 VM &mdash; this becomes the Wazuh server.</p>
+    <div class="meta"><span class="tag">UTM &middot; Virtualize</span><span class="tag">Ubuntu Server 24.04 &middot; arm64</span><span class="tag">6GB &middot; 4 core &middot; 64GB</span></div>
+  </div></div>
+  <div class="wrap">
+    <span class="starthere"><span class="d"></span>START HERE &mdash; nothing else is needed first</span>
+    <div class="chip pick" style="margin-top:0"><b>Why</b><span>Apple Silicon runs <b>arm64 natively</b> (fast). amd64 images get emulated and run slow.</span></div>
+
+    <div class="divider"><span class="t">Build</span><span class="l"></span></div>
+    <div class="rail">
+      <div class="step"><div class="num">1</div><div class="card"><h3>Get the ISO</h3><p>Ubuntu Server, <b>ARM64</b>, from Canonical only.</p>
+        <div class="cmd">https://cdimage.ubuntu.com/releases/24.04/release/
+<span class="c"># ubuntu-24.04.x-live-server-arm64.iso</span></div>
+        <div class="chip warn"><b>Not</b><span>Not Desktop &middot; not amd64 &middot; not 26.04 (Wazuh 4.14 supports up to 24.04).</span></div></div></div>
+
+      <div class="step"><div class="num">2</div><div class="card"><h3>New VM &rarr; Virtualize &rarr; Linux</h3><p>UTM &middot; <b>+</b> &middot; <b>Virtualize</b> (not Emulate). Boot from ISO &rarr; select the file.</p></div></div>
+
+      <div class="step"><div class="num">3</div><div class="card"><h3>Hardware</h3>
+        <div class="spec"><div><div class="k">Memory</div><div class="v">6144 <small>MiB</small></div></div>
+        <div><div class="k">CPU</div><div class="v">4 <small>cores</small></div></div>
+        <div><div class="k">Disk</div><div class="v">64 <small>GB</small></div></div></div>
+        <div class="chip tip"><b>Tip</b><span>Skip Shared Directory. Name it <b>Wazuh-Server</b> &middot; Save.</span></div></div></div>
+
+      <div class="step"><div class="num">4</div><div class="card"><h3>Run the installer</h3><p>Accept defaults, except:</p>
+        <div class="spec"><div><div class="k">Storage</div><div class="v" style="font-size:14px">Use entire disk</div></div>
+        <div><div class="k">OpenSSH</div><div class="v" style="font-size:14px">&check; Install</div></div>
+        <div><div class="k">Snaps</div><div class="v" style="font-size:14px">Select none</div></div></div>
+        <div class="chip tip"><b>SSH</b><span>OpenSSH gives you copy-paste from Mac Terminal &mdash; used in every later flow.</span></div></div></div>
+
+      <div class="step"><div class="num">5</div><div class="card"><h3>Eject ISO on reboot</h3><p>At <i>&ldquo;remove the installation medium&rdquo;</i>: UTM <b>disc icon &rarr; eject</b>, then Enter.</p>
+        <div class="chip warn"><b>Fix</b><span>Booting back into the installer? Power off &rarr; Edit &rarr; Drives &rarr; remove the ISO &rarr; start again.</span></div></div></div>
+
+      <div class="step"><div class="num">6</div><div class="card"><h3>Network mode &amp; IP</h3><p>Set the VM's network to <b>Shared Network</b>. Then log in and run:</p>
+        <div class="cmd"><span class="p">$</span> ip a   <span class="c"># inet 192.168.64.x under enp0s1</span></div>
+        <div class="chip pick"><b>Key</b><span>Server = <b>&lt;SERVER_IP&gt;</b>. Every later flow points at this. All lab VMs must use Shared Network so they can reach each other.</span></div></div></div>
+    </div>
+
+    <div class="divider"><span class="t">Do this immediately after install</span><span class="l"></span></div>
+    <div class="rail"><div class="step"><div class="num">!</div>
+      <div class="card" style="border-color:var(--warn)"><h3>Claim the full disk (LVM half-disk trap)</h3>
+        <p>Ubuntu's guided install gives <code>/</code> only <b>~half</b> the disk. A full disk silently freezes Wazuh later &mdash; fix it now:</p>
+        <div class="cmd"><span class="p">$</span> df -h /        <span class="c"># is / much smaller than the disk?</span>
+<span class="p">$</span> lsblk           <span class="c"># lv ~30G but vda3 ~60G?</span>
+<span class="p">$</span> sudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
+<span class="p">$</span> sudo resize2fs /dev/ubuntu-vg/ubuntu-lv</div></div></div>
+    </div>
+
+    <div class="handoff">
+      <div class="txt"><div class="l">Flow 1 complete</div><div class="t">VM live at &lt;SERVER_IP&gt;</div><div class="s">Next: install the Wazuh server stack on it.</div></div>
+      <button class="gobtn" data-go="1">Go to Flow 2 &rarr;</button>
+    </div>
+    <div class="foot" style="margin-top:16px">Flow 1 of 5 &middot; Ubuntu Server VM</div>
+  </div>
+</section>
+
+<!-- ================= FLOW 2 ================= -->
+<section class="panel" id="p1">
+  <div class="masthead"><div class="inner">
+    <div class="kicker">Flow 2 of 5 &middot; Install the SIEM</div>
+    <h1>Install Wazuh</h1>
+    <p>Manager, indexer and dashboard onto the Flow 1 VM.</p>
+    <div class="meta"><span class="tag">Server &lt;SERVER_IP&gt;</span><span class="tag">Wazuh 4.14</span></div>
+  </div></div>
+  <div class="wrap">
+    <div class="req"><span class="b">Before</span><span class="x">Needs <button class="jump" data-go="0">Flow 1</button> done &mdash; VM booted, disk expanded, IP known.</span></div>
+
+    <div class="pipe"><div class="cap">What you're building</div>
+      <div class="flow">
+        <div class="node"><div class="h">Agents</div><div class="s">Flow 3</div></div><div class="arrow">&rarr;</div>
+        <div class="node hi"><div class="h">Manager</div><div class="s">this flow</div></div><div class="arrow">&rarr;</div>
+        <div class="node hi"><div class="h">Indexer</div><div class="s">this flow</div></div><div class="arrow">&rarr;</div>
+        <div class="node hi"><div class="h">Dashboard</div><div class="s">this flow</div></div>
+      </div>
+      <div class="host"><span>all three install on the server</span><span>agents come in <b>Flow 3</b></span></div>
+    </div>
+
+    <div class="divider"><span class="t">On the server</span><span class="l"></span></div>
+    <div class="rail">
+      <div class="step"><div class="num">1</div><div class="card"><h3>Run the assisted installer</h3><p>SSH in from Mac Terminal, then:</p>
+        <div class="cmd"><span class="p">$</span> ssh &lt;user&gt;@&lt;SERVER_IP&gt;
+<span class="p">$</span> sudo apt update
+<span class="p">$</span> curl -sO https://packages.wazuh.com/4.14/wazuh-install.sh \
+    && sudo bash ./wazuh-install.sh -a</div>
+        <div class="chip tip"><b>Save</b><span>At <b>--- Summary ---</b> copy the <b>admin</b> password. Recover later from <code>wazuh-install-files.tar</code>.</span></div>
+        <div class="chip warn"><b>Wait</b><span>Takes 10&ndash;20 min. Don't close the SSH session mid-run.</span></div></div></div>
+
+      <div class="step"><div class="num">2</div><div class="card"><h3>Open the dashboard</h3><p>From your Mac browser &mdash; accept the self-signed cert warning.</p>
+        <div class="cmd">https://&lt;SERVER_IP&gt;   <span class="c"># user: admin</span></div>
+        <div class="chip pick"><b>Expect</b><span>It loads but says <b>&ldquo;no agents registered.&rdquo;</b> Correct at this stage.</span></div></div></div>
+    </div>
+
+    <div class="handoff">
+      <div class="txt"><div class="l">Flow 2 complete</div><div class="t">Dashboard live, but empty</div><div class="s">Next: give it endpoints to watch.</div></div>
+      <button class="gobtn" data-go="2">Go to Flow 3 &rarr;</button>
+    </div>
+    <div class="foot" style="margin-top:16px">Flow 2 of 5 &middot; Install Wazuh</div>
+  </div>
+</section>
+
+<!-- ================= FLOW 3 ================= -->
+<section class="panel" id="p2">
+  <div class="masthead"><div class="inner">
+    <div class="kicker">Flow 3 of 5 &middot; Add endpoints</div>
+    <h1>Deploy the Agents</h1>
+    <p>Same steps on both boxes &mdash; only the architecture differs.</p>
+    <div class="meta"><span class="tag">Kali &lt;GATEWAY_IP&gt; &middot; arm64</span><span class="tag">Victim &lt;AGENT_IP&gt; &middot; amd64</span></div>
+  </div></div>
+  <div class="wrap">
+    <div class="req"><span class="b">Before</span><span class="x">Needs <button class="jump" data-go="1">Flow 2</button> done &mdash; you deploy agents <i>from</i> the dashboard.</span></div>
+
+    <div class="map"><div class="cap">The lab</div>
+      <div class="mrow">
+        <div class="box att"><div class="h">Kali</div><div class="s">attacker<br>&lt;GATEWAY_IP&gt;</div></div>
+        <div class="link"><div class="a">&rarr;</div><div class="t">attacks</div></div>
+        <div class="box watched"><div class="h">Ubuntu victim</div><div class="s">target<br>&lt;AGENT_IP&gt;</div></div>
+        <div class="link"><div class="a">&rarr;</div><div class="t">both report to</div></div>
+        <div class="box"><div class="h">Wazuh</div><div class="s">&lt;SERVER_IP&gt;</div></div>
+      </div>
+    </div>
+    <div class="chip pick" style="margin-top:0"><b>Rule</b><span>Agents go on the machines you want <b>watched</b>. Never on the Wazuh server itself.</span></div>
+
+    <div class="divider"><span class="t">Match the architecture</span><span class="l"></span></div>
+    <table class="mx">
+      <tr><th>Box</th><th>Check with</th><th>Package</th></tr>
+      <tr><td class="nm">Kali</td><td><code>dpkg --print-architecture</code></td><td><code>DEB aarch64</code></td></tr>
+      <tr><td class="nm">Ubuntu victim</td><td><code>dpkg --print-architecture</code></td><td><code>DEB amd64</code></td></tr>
+    </table>
+    <div class="chip warn"><b>Common error</b><span>Wrong arch = package won't install. Always run the check first.</span></div>
+
+    <div class="divider"><span class="t">Repeat per box</span><span class="l"></span></div>
+    <div class="rail">
+      <div class="step"><div class="num">1</div><div class="card"><h3>Deploy new agent</h3><p>Dashboard &rarr; Endpoints &rarr; <b>Deploy new agent</b>. Linux &rarr; DEB &rarr; your arch. Server address <b>&lt;SERVER_IP&gt;</b>, then name it (<code>attacker-agent</code> / <code>victim-agent</code>).</p>
+        <div class="chip dep"><b>Note</b><span>The name can't be changed after enrollment.</span></div></div></div>
+
+      <div class="step"><div class="num">2</div><div class="card"><h3>Run the generated command</h3><p>Copy it from the dashboard &mdash; it bakes in your IP and name. Shape:</p>
+        <div class="cmd"><span class="p">$</span> wget &lt;wazuh-agent_4.14.x-1_ARCH.deb&gt; \
+  && sudo <span class="k">WAZUH_MANAGER</span>='&lt;SERVER_IP&gt;' \
+          <span class="k">WAZUH_AGENT_NAME</span>='&lt;name&gt;' \
+     dpkg -i ./wazuh-agent_4.14.x-1_ARCH.deb</div>
+        <div class="chip tip"><b>Paste</b><span>No clipboard in the VM window? SSH in from Mac Terminal instead.</span></div></div></div>
+
+      <div class="step"><div class="num">3</div><div class="card"><h3>Enable &amp; start</h3>
+        <div class="cmd"><span class="p">$</span> sudo systemctl daemon-reload
+<span class="p">$</span> sudo systemctl enable wazuh-agent
+<span class="p">$</span> sudo systemctl start wazuh-agent</div>
+        <div class="chip tip"><b>Auto</b><span><code>enable</code> = reconnects on every boot. One-time only.</span></div></div></div>
+
+      <div class="step"><div class="num">&check;</div><div class="card"><h3>Verify</h3><p>Endpoints should show both, <b>active</b>, within a minute:</p>
+        <table class="mx">
+          <tr><th>ID</th><th>Name</th><th>OS</th><th>Status</th></tr>
+          <tr><td>001</td><td class="nm">attacker-agent</td><td>Kali</td><td style="color:var(--ok)">active</td></tr>
+          <tr><td>002</td><td class="nm">victim-agent</td><td>Ubuntu 16.04</td><td style="color:var(--ok)">active</td></tr>
+        </table>
+        <div class="chip warn"><b>Stuck?</b><span><code>ping &lt;SERVER_IP&gt;</code> from the box, then <code>tail -20 /var/ossec/logs/ossec.log</code>.</span></div></div></div>
+    </div>
+
+    <div class="handoff">
+      <div class="txt"><div class="l">Flow 3 complete</div><div class="t">Both endpoints reporting</div><div class="s">Next: add network IDS and detect a real attack.</div></div>
+      <button class="gobtn" data-go="3">Go to Flow 4 &rarr;</button>
+    </div>
+    <div class="foot" style="margin-top:16px">Flow 3 of 5 &middot; Deploy Agents</div>
+  </div>
+</section>
+
+<!-- ================= FLOW 4 ================= -->
+<section class="panel" id="p3">
+  <div class="masthead"><div class="inner">
+    <div class="kicker">Flow 4 of 5 &middot; Detect &amp; operate</div>
+    <h1>Suricata + Attack Detection</h1>
+    <p>Network IDS on the victim, then attack it and watch it fire.</p>
+    <div class="meta"><span class="tag">Suricata 6.x</span><span class="tag">on the victim &lt;AGENT_IP&gt;</span><span class="tag">eve.json &rarr; agent</span></div>
+  </div></div>
+  <div class="wrap">
+    <div class="req"><span class="b">Before</span><span class="x">Needs <button class="jump" data-go="2">Flow 3</button> done &mdash; the agent is what ships Suricata's alerts to Wazuh.</span></div>
+
+    <div class="pipe"><div class="cap">Where Suricata sits</div>
+      <div class="flow">
+        <div class="node"><div class="h">Kali</div><div class="s">sends attack</div></div><div class="arrow">&rarr;</div>
+        <div class="node hi"><div class="h">Suricata</div><div class="s">inspects packets<br>writes eve.json</div></div><div class="arrow">&rarr;</div>
+        <div class="node"><div class="h">Agent</div><div class="s">ships the file</div></div><div class="arrow">&rarr;</div>
+        <div class="node"><div class="h">Dashboard</div><div class="s">rule 86601</div></div>
+      </div>
+      <div class="host"><span>IDS goes on the <b>defended</b> box, never the attacker</span></div>
+    </div>
+
+    <div class="divider"><span class="t">On the victim box</span><span class="l"></span></div>
+    <div class="rail">
+      <div class="step"><div class="num">1</div><div class="card"><h3>Install Suricata</h3>
+        <div class="cmd"><span class="p">$</span> sudo add-apt-repository ppa:oisf/suricata-stable
+<span class="p">$</span> sudo apt-get update
+<span class="p">$</span> sudo apt-get install suricata -y
+<span class="p">$</span> suricata -V</div>
+        <div class="chip warn"><b>EOL box?</b><span>If <code>apt-get update</code> 404s on Ubuntu 16.04, repoint sources to <code>old-releases.ubuntu.com</code> first, then retry.</span></div></div></div>
+
+      <div class="step"><div class="num">2</div><div class="card"><h3>Download rules</h3><p>Match the rules URL to your installed Suricata major version.</p>
+        <div class="cmd"><span class="p">$</span> cd /tmp/
+<span class="p">$</span> curl -LO https://rules.emergingthreats.net/open/suricata-6.0.8/emerging.rules.tar.gz
+<span class="p">$</span> sudo tar -xvzf emerging.rules.tar.gz
+<span class="p">$</span> sudo mkdir -p /etc/suricata/rules
+<span class="p">$</span> sudo mv rules/*.rules /etc/suricata/rules/</div></div></div>
+
+      <div class="step"><div class="num">3</div><div class="card"><h3>Edit suricata.yaml</h3>
+        <div class="cmd"><span class="p">$</span> ip a                                <span class="c"># note YOUR interface, e.g. enp0s1</span>
+<span class="p">$</span> sudo nano /etc/suricata/suricata.yaml</div>
+        <p style="margin-top:11px">Four things must be right:</p>
+        <div class="cmd"><span class="c"># 1. very first lines of the file</span>
+%YAML 1.1
+---
+<span class="c"># 2. one entry each - delete the originals, don't just add</span>
+HOME_NET: "[&lt;LAB_SUBNET&gt;/24]"
+EXTERNAL_NET: "any"
+<span class="c"># 3. rules</span>
+default-rule-path: /etc/suricata/rules
+rule-files:
+  - "*.rules"
+<span class="c"># 4. capture interface - must match ip a</span>
+af-packet:
+  - interface: enp0s1</div>
+        <div class="chip warn"><b>Trap</b><span>Duplicate <code>HOME_NET</code> / <code>EXTERNAL_NET</code> keys break YAML. Remove the old lines with Ctrl+K.</span></div></div></div>
+
+      <div class="step"><div class="num">4</div><div class="card"><h3>Test the config</h3>
+        <div class="cmd"><span class="p">$</span> sudo suricata -T -c /etc/suricata/suricata.yaml</div>
+        <p style="margin-top:11px">Want: <b>&ldquo;Configuration provided was successfully loaded.&rdquo;</b></p>
+        <div class="chip warn"><b>Known error</b><span><code>SC_ERR_UNKNOWN_PROTOCOL</code> for <b>dnp3</b> or <b>modbus</b> &rarr; find each in the yaml, set <code>enabled: yes</code>, re-test. Ctrl+W searches in nano.</span></div>
+        <div class="chip tip"><b>Slow</b><span>On an emulated box this can take several minutes. That's the CPU, not a hang.</span></div></div></div>
+
+      <div class="step"><div class="num">5</div><div class="card"><h3>Start Suricata</h3>
+        <div class="cmd"><span class="p">$</span> sudo systemctl restart suricata
+<span class="p">$</span> sudo systemctl status suricata   <span class="c"># want: active (running), Ctrl+C to exit</span></div></div></div>
+
+      <div class="step"><div class="num">6</div><div class="card"><h3>Point the agent at eve.json</h3><p>Add inside <code>&lt;ossec_config&gt;</code> in <code>/var/ossec/etc/ossec.conf</code>:</p>
+        <div class="cmd">&lt;localfile&gt;
+  &lt;log_format&gt;json&lt;/log_format&gt;
+  &lt;location&gt;/var/log/suricata/eve.json&lt;/location&gt;
+&lt;/localfile&gt;</div>
+        <div class="cmd"><span class="p">$</span> sudo systemctl restart wazuh-agent</div></div></div>
+    </div>
+
+    <div class="divider"><span class="t">Attack it from Kali</span><span class="l"></span></div>
+    <div class="rail">
+      <div class="step"><div class="num">7</div><div class="card"><h3>Generate real traffic</h3><p>Run <b>from Kali</b>, aimed at the victim:</p>
+        <div class="cmd"><span class="p">$</span> ping -c 20 &lt;AGENT_IP&gt;     <span class="c"># simple check</span>
+<span class="p">$</span> nmap -sV &lt;AGENT_IP&gt;        <span class="c"># the interesting one</span></div>
+        <p style="margin-top:11px">Dashboard &rarr; <b>Threat Hunting &rarr; victim-agent</b> &rarr; <b>Last 24 hours</b>. Expect:</p>
+        <table class="mx">
+          <tr><th>Alert</th><th>Source</th></tr>
+          <tr><td>GPL ICMP_INFO PING *NIX</td><td>Suricata 86601</td></tr>
+          <tr><td>ET SCAN Possible Nmap User-Agent</td><td>Suricata 86601</td></tr>
+          <tr><td>ET SCAN Potential VNC Scan</td><td>Suricata 86601</td></tr>
+          <tr><td>sshd: insecure connection attempt</td><td>host log 31101</td></tr>
+        </table>
+        <div class="chip tip"><b>Two layers</b><span>Network IDS <i>and</i> host logs catching the same attack &mdash; that's the point of the setup.</span></div></div></div>
+    </div>
+
+    <div class="divider"><span class="t">Daily start-up</span><span class="l"></span></div>
+    <div class="boot">
+      <div class="brow"><div class="bnum">1</div><div class="bnode"><div class="t">Start the Wazuh-Server VM</div><div class="d">Must stay running the whole session.</div></div></div>
+      <div class="bconn"></div>
+      <div class="brow"><div class="bnum">2</div><div class="bnode"><div class="t">Start Kali and/or the victim</div><div class="d">Agents auto-connect. Suricata auto-starts.</div></div></div>
+      <div class="bconn"></div>
+      <div class="brow"><div class="bnum">3</div><div class="bnode"><div class="t">Open https://&lt;SERVER_IP&gt;</div><div class="d">From your Mac browser.</div></div></div>
+      <div class="bconn"></div>
+      <div class="dec"><div class="q">Dashboard loads?</div>
+        <div class="branches">
+          <div class="branch byes"><div class="l">YES &rarr;</div><div class="x">Log in and work.</div></div>
+          <div class="branch bno"><div class="l">NO &rarr;</div><div class="x">Restart services, wait 1&ndash;2 min, reload.</div></div>
+        </div>
+        <div class="cmd" style="margin-top:12px"><span class="p">$</span> sudo systemctl restart wazuh-indexer
+<span class="p">$</span> sudo systemctl restart wazuh-manager
+<span class="p">$</span> sudo systemctl restart wazuh-dashboard</div>
+      </div>
+    </div>
+
+    <div class="divider"><span class="t">Troubleshooting</span><span class="l"></span></div>
+    <div class="tt">
+      <div class="trow"><div class="sym"><span class="dot d-bad"></span>Event count frozen &middot; nothing new</div>
+        <div class="cause"><b>#1 suspect: server disk full.</b> The indexer locks indices read-only. Check the server first, always.</div>
+        <div class="fix">df -h /  &rarr;  sudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv  &rarr;  sudo resize2fs &hellip;  &rarr;  restart 3 services</div></div>
+      <div class="trow"><div class="sym"><span class="dot d-warn"></span>No Suricata alerts appear</div>
+        <div class="cause">Check the chain in order: is eve.json being written &rarr; is the localfile block in ossec.conf &rarr; was the agent restarted after the edit?</div>
+        <div class="fix">sudo tail /var/log/suricata/eve.json  &middot;  sudo grep -A2 suricata /var/ossec/etc/ossec.conf</div></div>
+      <div class="trow"><div class="sym"><span class="dot d-warn"></span>Auth failures never appear (Kali)</div>
+        <div class="cause">Kali is <b>journal-only</b> &mdash; there is no <code>/var/log/auth.log</code>. The agent reads journald by default; don't add a second journald block.</div>
+        <div class="fix">journalctl -n 20 | grep -i sudo   &rarr;  confirm the events exist</div></div>
+      <div class="trow"><div class="sym"><span class="dot d-warn"></span>One VM can't reach another</div>
+        <div class="cause">All lab VMs must be on UTM <b>Shared Network</b>. A bridged box sits on a different subnet and routes to the internet instead.</div>
+        <div class="fix">ping &lt;SERVER_IP&gt;  &rarr;  &ldquo;Time to live exceeded&rdquo; from a public IP = wrong network mode</div></div>
+      <div class="trow"><div class="sym"><span class="dot d-ok"></span>Looking but see nothing</div>
+        <div class="cause">Wrong page, filter or window. Status lives on <b>Endpoints</b>; events on <b>Threat Hunting &rarr; Events</b>. A <code>rule.level</code> filter hides level-5 auth events.</div>
+        <div class="fix">Clear filters  &middot;  time range = Last 24 hours  &middot;  Refresh</div></div>
+    </div>
+
+    <div class="handoff">
+      <div class="txt"><div class="l">Detection works &mdash; now automate the response</div><div class="t">Flow 5 &middot; VirusTotal + Active Response</div><div class="s">Enrich a file drop with threat intel, remove it automatically, then audit the script that does it.</div></div>
+      <button class="gobtn" data-go="4">Go to Flow 5 &rarr;</button>
+    </div>
+    <div class="foot" style="margin-top:16px">Flow 4 of 5 &middot; Suricata + Ops</div>
+  </div>
+</section>
+
+
+<!-- ================= FLOW 5 ================= -->
+<section class="panel" id="p4">
+  <div class="masthead"><div class="inner">
+    <div class="kicker">Flow 5 of 5 &middot; Enrich and respond</div>
+    <h1>VirusTotal + Active Response</h1>
+    <p>Detect a file drop, check it against threat intel, remove it automatically &mdash; then audit the script that does the removing.</p>
+    <div class="meta"><span class="tag">FIM &middot; realtime</span><span class="tag">VirusTotal &middot; free tier</span><span class="tag">Active response &middot; local</span></div>
+  </div></div>
+  <div class="wrap">
+    <div class="req"><span class="b">Needs</span><span class="x">Flows 1&ndash;3 complete. A VirusTotal account for the free API key. Flow 4 is not required.</span></div>
+
+    <div class="pipe">
+      <div class="cap">The chain</div>
+      <div class="flow">
+        <div class="node"><div class="h">FIM</div><div class="s">file appears</div></div>
+        <div class="arrow">&rarr;</div>
+        <div class="node"><div class="h">Rule 100201</div><div class="s">level 7</div></div>
+        <div class="arrow">&rarr;</div>
+        <div class="node hi"><div class="h">VirusTotal</div><div class="s">hash lookup</div></div>
+        <div class="arrow">&rarr;</div>
+        <div class="node"><div class="h">Rule 87105</div><div class="s">level 12</div></div>
+        <div class="arrow">&rarr;</div>
+        <div class="node"><div class="h">remove-threat</div><div class="s">runs as root</div></div>
+      </div>
+      <div class="host"><span>agent: <b>&lt;AGENT_IP&gt;</b></span><span>manager: <b>&lt;SERVER_IP&gt;</b></span><span>test file: <b>EICAR</b></span></div>
+    </div>
+
+    <div class="chip pick" style="margin-top:14px"><b>Why</b><span>FIM is <b>change-based</b>, not signature-based. Wazuh has no idea a file is malicious &mdash; it only knows one appeared where none should. That is exactly why the enrichment step exists.</span></div>
+
+    <div class="divider"><span class="t">On the agent</span><span class="l"></span></div>
+    <div class="rail">
+
+      <div class="step"><div class="num">1</div><div class="card"><h3>Watch /root in real time</h3><p>Add to the <b>existing</b> <code>&lt;syscheck&gt;</code> block, beside the other <code>&lt;directories&gt;</code> lines.</p>
+        <div class="cmd"><span class="p">$</span> sudo nano /var/ossec/etc/ossec.conf
+
+<span class="c">&lt;!-- inside &lt;syscheck&gt; --&gt;</span>
+&lt;directories realtime=<span class="k">"yes"</span>&gt;/root&lt;/directories&gt;</div>
+        <div class="chip tip"><b>Tip</b><span><code>realtime="yes"</code> uses inotify, so the event fires on the write instead of waiting for the next scan.</span></div></div></div>
+
+      <div class="step"><div class="num">2</div><div class="card"><h3>Install jq</h3><p>The response script parses alert JSON with it. <b>Verify it landed</b> &mdash; this is the single most common cause of a silently broken pipeline.</p>
+        <div class="cmd"><span class="p">$</span> sudo apt install jq -y
+<span class="p">$</span> which jq
+<span class="c"># /usr/bin/jq</span></div>
+        <div class="chip warn"><b>EOL</b><span>On an end-of-life release the security pocket 404s, so <code>apt update</code> exits non-zero. Chaining <code>apt update &amp;&amp; apt install</code> silently skips the install. Run the install <b>on its own</b>.</span></div></div></div>
+
+      <div class="step"><div class="num">3</div><div class="card"><h3>Write the response script</h3><p>Hardened: it verifies its dependency, refuses paths outside the monitored directory, confirms the delete, and logs every outcome.</p>
+        <div class="cmd"><span class="p">$</span> sudo nano /var/ossec/active-response/bin/remove-threat.sh
+
+<span class="c">#!/bin/bash</span>
+LOG=<span class="k">"/var/ossec/logs/active-responses.log"</span>
+MONITORED_DIR=<span class="k">"/root"</span>
+IFS= read -r INPUT_JSON
+
+log() { echo <span class="k">"$(date '+%Y/%m/%d %H:%M:%S') remove-threat: $1"</span> &gt;&gt; <span class="k">"$LOG"</span>; }
+
+command -v jq &gt;/dev/null 2&gt;&amp;1 || { log <span class="k">"FAIL jq not installed"</span>; exit 1; }
+
+FILE=$(printf <span class="k">'%s'</span> <span class="k">"$INPUT_JSON"</span> | jq -r <span class="k">'.parameters.alert.data.virustotal.source.file // empty'</span> 2&gt;/dev/null)
+[ -n <span class="k">"$FILE"</span> ] || { log <span class="k">"FAIL no file path in alert"</span>; exit 1; }
+
+<span class="c"># resolve before comparing: "/root/../tmp/x" matches "/root/*" but escapes it</span>
+MONITORED_REAL=$(cd -P -- <span class="k">"$MONITORED_DIR"</span> 2&gt;/dev/null &amp;&amp; pwd -P) \
+  || { log <span class="k">"FAIL monitored dir does not resolve"</span>; exit 1; }
+BASE=$(basename -- <span class="k">"$FILE"</span>)
+case <span class="k">"$BASE"</span> in . | ..) log <span class="k">"REFUSED not a deletable path: $FILE"</span>; exit 1 ;; esac
+PARENT_REAL=$(cd -P -- <span class="k">"$(dirname -- "$FILE")"</span> 2&gt;/dev/null &amp;&amp; pwd -P) \
+  || { log <span class="k">"REFUSED unresolvable parent: $FILE"</span>; exit 1; }
+TARGET=<span class="k">"$PARENT_REAL/$BASE"</span>
+
+case <span class="k">"$TARGET"</span> in
+  <span class="k">"$MONITORED_REAL"</span>/*) ;;
+  *) log <span class="k">"REFUSED path outside $MONITORED_REAL: $FILE"</span>; exit 1 ;;
+esac
+
+<span class="c"># -e follows symlinks, so -L is needed to catch a dangling one left behind</span>
+if rm -f -- <span class="k">"$TARGET"</span> &amp;&amp; [ ! -e <span class="k">"$TARGET"</span> ] &amp;&amp; [ ! -L <span class="k">"$TARGET"</span> ]; then
+  log <span class="k">"OK deleted $TARGET"</span>
+else
+  log <span class="k">"FAIL could not delete $TARGET"</span>
+  exit 1
+fi
+exit 0</div>
+        <div class="chip dep"><b>Read it</b><span>Most guides ship four lines that pipe alert JSON straight into <code>rm -f</code> as root, with no path check and an unconditional <code>exit 0</code>. That is arbitrary root deletion driven by input you do not control.</span></div></div></div>
+
+      <div class="step"><div class="num">4</div><div class="card"><h3>Permissions, then restart</h3><p>Wrong ownership or a missing execute bit means the agent cannot invoke it.</p>
+        <div class="cmd"><span class="p">$</span> sudo chmod 750 /var/ossec/active-response/bin/remove-threat.sh
+<span class="p">$</span> sudo chown root:wazuh /var/ossec/active-response/bin/remove-threat.sh
+<span class="p">$</span> sudo systemctl restart wazuh-agent
+<span class="c"># expect -rwxr-x--- root wazuh</span></div></div></div>
+    </div>
+
+    <div class="divider"><span class="t">On the manager</span><span class="l"></span></div>
+    <div class="rail">
+
+      <div class="step"><div class="num">5</div><div class="card"><h3>Custom FIM rules</h3><p>Re-fire the built-ins at level 7, scoped to <code>/root</code>, so the integration can bind to privileged activity only.</p>
+        <div class="cmd"><span class="p">$</span> sudo nano /var/ossec/etc/rules/local_rules.xml
+
+&lt;group name=<span class="k">"syscheck,"</span>&gt;
+  &lt;rule id=<span class="k">"100200"</span> level=<span class="k">"7"</span>&gt;
+    &lt;if_sid&gt;550&lt;/if_sid&gt;
+    &lt;field name=<span class="k">"file"</span> type=<span class="k">"pcre2"</span>&gt;^/root(/|$)&lt;/field&gt;
+    &lt;description&gt;File modified in /root&lt;/description&gt;
+  &lt;/rule&gt;
+  &lt;rule id=<span class="k">"100201"</span> level=<span class="k">"7"</span>&gt;
+    &lt;if_sid&gt;554&lt;/if_sid&gt;
+    &lt;field name=<span class="k">"file"</span> type=<span class="k">"pcre2"</span>&gt;^/root(/|$)&lt;/field&gt;
+    &lt;description&gt;File added to /root&lt;/description&gt;
+  &lt;/rule&gt;
+&lt;/group&gt;</div>
+        <div class="chip tip"><b>What</b><span><b>550</b> = checksum changed. <b>554</b> = file added. You are relabelling them, not replacing them. The <code>&lt;field&gt;</code> line is what limits them to <code>/root</code>; drop it and every monitored directory, including the <code>/etc</code> and <code>/usr/bin</code> defaults, feeds the VirusTotal integration.</span></div></div></div>
+
+      <div class="step"><div class="num">6</div><div class="card"><h3>VirusTotal integration</h3><p>Scope it to those two rule IDs. Not to all FIM activity.</p>
+        <div class="cmd"><span class="p">$</span> sudo nano /var/ossec/etc/ossec.conf
+
+&lt;integration&gt;
+  &lt;name&gt;virustotal&lt;/name&gt;
+  &lt;api_key&gt;<span class="k">PASTE_YOUR_VT_API_KEY</span>&lt;/api_key&gt;
+  &lt;rule_id&gt;100200,100201&lt;/rule_id&gt;
+  &lt;alert_format&gt;json&lt;/alert_format&gt;
+&lt;/integration&gt;</div>
+        <div class="chip warn"><b>Quota</b><span>Free tier is <b>4 lookups/min, 500/day</b>. Widen this beyond privileged directories and routine churn will exhaust it, after which lookups fail quietly.</span></div></div></div>
+
+      <div class="step"><div class="num">7</div><div class="card"><h3>Command and active response</h3><p>Two blocks in the same file, and the order is not optional.</p>
+        <div class="cmd">&lt;command&gt;
+  &lt;name&gt;remove-threat&lt;/name&gt;
+  &lt;executable&gt;remove-threat.sh&lt;/executable&gt;
+  &lt;timeout_allowed&gt;no&lt;/timeout_allowed&gt;
+&lt;/command&gt;
+
+&lt;active-response&gt;
+  &lt;command&gt;remove-threat&lt;/command&gt;
+  &lt;location&gt;local&lt;/location&gt;
+  &lt;rules_id&gt;87105&lt;/rules_id&gt;
+&lt;/active-response&gt;</div>
+        <div class="chip warn"><b>Order</b><span>Every <code>&lt;command&gt;</code> must sit <b>above</b> every <code>&lt;active-response&gt;</code>. Get it wrong and the manager refuses to start.</span></div>
+        <div class="chip warn"><b>Trap</b><span>The default config ships a commented <code>&lt;active-response&gt;</code> sample. Paste inside those <code>&lt;!-- --&gt;</code> markers and your block is inert while looking perfectly correct.</span></div></div></div>
+
+      <div class="step"><div class="num">8</div><div class="card"><h3>Restart and actually check</h3><p><code>systemctl status</code> can report active while the manager is not processing. Read the log.</p>
+        <div class="cmd"><span class="p">$</span> sudo systemctl restart wazuh-manager
+<span class="p">$</span> sudo grep -n -B2 -A6 <span class="k">"remove-threat"</span> /var/ossec/etc/ossec.conf
+<span class="p">$</span> sudo grep -iE <span class="k">"error|critical"</span> /var/ossec/logs/ossec.log | tail -20</div></div></div>
+    </div>
+
+    <div class="divider"><span class="t">Test both directions</span><span class="l"></span></div>
+    <div class="rail">
+
+      <div class="step"><div class="num">9</div><div class="card"><h3>Positive test</h3><p>Terminal one tails the log. Terminal two drops the file. EICAR is a standard test string, harmless by design.</p>
+        <div class="cmd"><span class="c"># terminal 1 (agent)</span>
+<span class="p">$</span> sudo tail -f /var/ossec/logs/active-responses.log
+
+<span class="c"># terminal 2 (agent)</span>
+<span class="p">$</span> sudo curl -Lo /root/eicar.com https://secure.eicar.org/eicar.com
+<span class="p">$</span> sudo ls -la /root
+
+<span class="c"># expect: remove-threat: OK deleted /root/eicar.com</span></div>
+        <div class="chip tip"><b>Corroborate</b><span>In the dashboard look for <b>100201</b> &rarr; <b>87105</b> &rarr; <b>553</b>. Rule 553 is FIM independently observing the deletion, which beats the script reporting on itself.</span></div></div></div>
+
+      <div class="step"><div class="num">10</div><div class="card"><h3>Negative test</h3><p>Prove the path validation is real, not decorative. Feed the script a disposable file outside the monitored directory.</p>
+        <div class="cmd"><span class="p">$</span> sudo touch /tmp/canary
+<span class="p">$</span> echo '{"parameters":{"alert":{"data":{"virustotal":{"source":{"file":"/tmp/canary"}}}}}}' \
+    | sudo /var/ossec/active-response/bin/remove-threat.sh
+<span class="p">$</span> ls -l /tmp/canary
+<span class="p">$</span> sudo tail -n 2 /var/ossec/logs/active-responses.log
+
+<span class="c"># expect: canary survives</span>
+<span class="c"># expect: REFUSED path outside /root: /tmp/canary</span>
+
+<span class="c"># now the traversal case, which a lexical "/root/*" check would let through</span>
+<span class="p">$</span> echo '{"parameters":{"alert":{"data":{"virustotal":{"source":{"file":"/root/../tmp/canary"}}}}}}' \
+    | sudo /var/ossec/active-response/bin/remove-threat.sh
+<span class="p">$</span> ls -l /tmp/canary
+
+<span class="c"># expect: canary still survives</span>
+<span class="c"># expect: REFUSED path outside /root: /root/../tmp/canary</span></div>
+        <div class="chip warn"><b>Never</b><span>Do not run this against an <b>unhardened</b> script, and never with a real path. Without the guard it deletes whatever you hand it, as root.</span></div></div></div>
+    </div>
+
+    <div class="divider"><span class="t">Troubleshooting</span><span class="l"></span></div>
+    <div class="tt">
+      <div class="trow"><div class="sym"><span class="dot d-bad"></span>Alerts fire but the file is still there</div>
+        <div class="cause"><b>#1 suspect: jq is missing.</b> The hardened script above logs <code>FAIL jq not installed</code> and exits 1, so check the log first. The <b>unhardened</b> version is the dangerous case: it extracts an empty string, <code>rm -f ""</code> does nothing, and it still exits 0, leaving failure indistinguishable from success upstream. An empty log here is itself the symptom.</div>
+        <div class="fix">which jq &nbsp;&rarr;&nbsp; sudo apt install jq -y &nbsp;&rarr;&nbsp; retest</div></div>
+      <div class="trow"><div class="sym"><span class="dot d-bad"></span>active-responses.log has only restart.sh lines</div>
+        <div class="cause">Wazuh does <b>not</b> write this log for you. Scripts log themselves. The bundled <code>restart.sh</code> does; most tutorial <code>remove-threat.sh</code> versions do not, on any path.</div>
+        <div class="fix">Add logging to the script &mdash; or verify removal with <code>ls</code> and rule 553 instead</div></div>
+      <div class="trow"><div class="sym"><span class="dot d-warn"></span>Manager will not start after editing</div>
+        <div class="cause">A <code>&lt;command&gt;</code> block placed after an <code>&lt;active-response&gt;</code> block, or a block pasted inside the commented sample.</div>
+        <div class="fix">sudo grep -n -B2 -A6 "remove-threat" /var/ossec/etc/ossec.conf</div></div>
+      <div class="trow"><div class="sym"><span class="dot d-warn"></span>Manager dispatches, nothing happens on the agent</div>
+        <div class="cause">Agent-side active response disabled, wrong ownership, missing execute bit, or whitespace before the shebang.</div>
+        <div class="fix">sudo grep -A3 "&lt;active-response&gt;" /var/ossec/etc/ossec.conf &nbsp;&middot;&nbsp; ls -l &hellip;/remove-threat.sh</div></div>
+      <div class="trow"><div class="sym"><span class="dot d-warn"></span>Host log and dashboard timestamps disagree</div>
+        <div class="cause">Agent and manager on different timezones. Alerts carry UTC so SIEM correlation is fine, but <b>local rendering differs</b> &mdash; which is what breaks host-artifact-versus-SIEM timeline work.</div>
+        <div class="fix">timedatectl &nbsp;&rarr;&nbsp; sudo timedatectl set-timezone &lt;manager zone&gt;</div></div>
+      <div class="trow"><div class="sym"><span class="dot d-ok"></span>Verdict changes between runs</div>
+        <div class="cause">Engine coverage moves. The same hash returned 65/67 one day and 64/67 the next. Consensus is a signal, not a fact.</div>
+        <div class="fix">Compare data.virustotal.positives against total in the alert document</div></div>
+    </div>
+
+    <div class="divider"><span class="t">What this does not prove</span><span class="l"></span></div>
+    <div class="chip warn"><b>EICAR</b><span>A test string, not malware. You validated a pipeline, not a detection.</span></div>
+    <div class="chip warn" style="margin-top:9px"><b>Hash</b><span>VirusTotal is a lookup. A file it has never seen returns clean. That is absence of evidence, not evidence of safety &mdash; novel payloads pass straight through.</span></div>
+    <div class="chip warn" style="margin-top:9px"><b>Sample</b><span>Deleting destroys the artifact you would need for IOC extraction. Quarantine is the better default on a server under investigation.</span></div>
+    <div class="chip warn" style="margin-top:9px"><b>Access</b><span>The payload is gone; the path that delivered it is not. Something wrote to <code>/root</code> as root and nothing here tells you how, or whether persistence was created.</span></div>
+
+    <div class="handoff" style="background:#12352C">
+      <div class="txt"><div class="l" style="color:#4FD9A6">All five flows complete</div><div class="t">Detect &rarr; enrich &rarr; respond &rarr; audit the responder</div><div class="s">Automated response is code running as root, triggered by input you do not control.</div></div>
+      <span class="donebadge">&check; Done</span>
+    </div>
+    <div class="foot" style="margin-top:16px">Flow 5 of 5 &middot; VirusTotal + Active Response</div>
+  </div>
+</section>
+
+<div class="pager">
+  <button class="pbtn prev" id="prev"><small>Prev</small><span id="prevlbl">&mdash;</span></button>
+  <button class="pbtn next" id="next"><small>Next</small><span id="nextlbl">&mdash;</span></button>
+</div>
+
+<script>
+(function(){
+  var titles=["Flow 1 \u00b7 Ubuntu VM","Flow 2 \u00b7 Install Wazuh","Flow 3 \u00b7 Deploy Agents","Flow 4 \u00b7 Suricata + Ops","Flow 5 \u00b7 VT + Response"];
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  var panels=[].slice.call(document.querySelectorAll('.panel'));
+  var jumps=[].slice.call(document.querySelectorAll('[data-go]'));
+  var prev=document.getElementById('prev'), next=document.getElementById('next');
+  var prevlbl=document.getElementById('prevlbl'), nextlbl=document.getElementById('nextlbl');
+  var i=0, seen=[true,false,false,false,false];
+  function show(n){
+    i=Math.max(0,Math.min(panels.length-1,n));
+    seen[i]=true;
+    panels.forEach(function(p,x){p.classList.toggle('on',x===i);});
+    tabs.forEach(function(t,x){t.setAttribute('aria-selected',x===i); t.classList.toggle('done',seen[x]&&x!==i);});
+    prev.disabled=(i===0); next.disabled=(i===panels.length-1);
+    prevlbl.textContent=i>0?titles[i-1]:'\u2014';
+    nextlbl.textContent=i<panels.length-1?titles[i+1]:'\u2014';
+    window.scrollTo({top:0});
+  }
+  jumps.forEach(function(el){ el.addEventListener('click',function(){ show(+el.dataset.go); }); });
+  prev.addEventListener('click',function(){show(i-1);});
+  next.addEventListener('click',function(){show(i+1);});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowLeft')show(i-1); if(e.key==='ArrowRight')show(i+1);
+  });
+  show(0);
+})();
+</script>
+</body>
+</html>
