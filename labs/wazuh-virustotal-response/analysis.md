@@ -92,12 +92,13 @@ The `America/New_York` setting is inherited from the base VM image rather than p
 
 ### Remediation
 
-The script was rewritten with four changes:
+The script was rewritten with five changes:
 
 1. **Dependency check.** Verifies `jq` is present before attempting extraction, and logs a failure if not
 2. **Empty-value guard.** Refuses to proceed when the alert yields no file path
 3. **Path validation.** Confines deletion to `/root/*` and logs a refusal for anything else
 4. **Outcome verification and logging.** Confirms the file is actually gone after `rm`, and writes the result to `active-responses.log` on every path
+5. **Non-zero exit on failure.** Every failure path returns 1, so the original's unconditional `exit 0` cannot recur in the replacement
 
 Both branches were tested:
 

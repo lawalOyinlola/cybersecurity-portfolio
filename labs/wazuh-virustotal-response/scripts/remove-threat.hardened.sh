@@ -10,11 +10,12 @@
 # Triggered by rule 87105 (VirusTotal malicious verdict) with location: local.
 # Runs as root. Reads alert JSON on stdin.
 #
-# Hardened against four defects in the original:
+# Hardened against five defects in the original:
 #   - dependency is verified before use
 #   - empty extraction is rejected rather than passed to rm
 #   - deletion is confined to the monitored directory
 #   - every path writes an outcome to active-responses.log
+#   - failure exits non-zero instead of reporting success
 #
 # MONITORED_DIR must match the <directories> entry under <syscheck>. Widening
 # the FIM scope without widening this will cause legitimate deletions to be
@@ -23,7 +24,9 @@
 LOG="/var/ossec/logs/active-responses.log"
 MONITORED_DIR="/root"
 
-read INPUT_JSON
+# IFS= and -r keep the JSON byte-exact: -r stops backslashes in a filename
+# being consumed as escapes before jq parses it.
+IFS= read -r INPUT_JSON
 
 log() {
   echo "$(date '+%Y/%m/%d %H:%M:%S') remove-threat: $1" >> "$LOG"
@@ -57,6 +60,7 @@ if rm -f "$FILE" && [ ! -e "$FILE" ]; then
   log "OK deleted $FILE"
 else
   log "FAIL could not delete $FILE"
+  exit 1
 fi
 
 exit 0

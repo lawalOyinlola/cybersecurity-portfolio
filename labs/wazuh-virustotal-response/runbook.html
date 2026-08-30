@@ -528,7 +528,7 @@ af-packet:
 <span class="c">#!/bin/bash</span>
 LOG=<span class="k">"/var/ossec/logs/active-responses.log"</span>
 MONITORED_DIR=<span class="k">"/root"</span>
-read INPUT_JSON
+IFS= read -r INPUT_JSON
 
 log() { echo <span class="k">"$(date '+%Y/%m/%d %H:%M:%S') remove-threat: $1"</span> &gt;&gt; <span class="k">"$LOG"</span>; }
 
@@ -546,6 +546,7 @@ if rm -f <span class="k">"$FILE"</span> &amp;&amp; [ ! -e <span class="k">"$FILE
   log <span class="k">"OK deleted $FILE"</span>
 else
   log <span class="k">"FAIL could not delete $FILE"</span>
+  exit 1
 fi
 exit 0</div>
         <div class="chip dep"><b>Read it</b><span>Most guides ship four lines that pipe alert JSON straight into <code>rm -f</code> as root, with no path check and an unconditional <code>exit 0</code>. That is arbitrary root deletion driven by input you do not control.</span></div></div></div>
@@ -566,14 +567,16 @@ exit 0</div>
 &lt;group name=<span class="k">"syscheck,"</span>&gt;
   &lt;rule id=<span class="k">"100200"</span> level=<span class="k">"7"</span>&gt;
     &lt;if_sid&gt;550&lt;/if_sid&gt;
+    &lt;field name=<span class="k">"file"</span> type=<span class="k">"pcre2"</span>&gt;^/root(/|$)&lt;/field&gt;
     &lt;description&gt;File modified in /root&lt;/description&gt;
   &lt;/rule&gt;
   &lt;rule id=<span class="k">"100201"</span> level=<span class="k">"7"</span>&gt;
     &lt;if_sid&gt;554&lt;/if_sid&gt;
+    &lt;field name=<span class="k">"file"</span> type=<span class="k">"pcre2"</span>&gt;^/root(/|$)&lt;/field&gt;
     &lt;description&gt;File added to /root&lt;/description&gt;
   &lt;/rule&gt;
 &lt;/group&gt;</div>
-        <div class="chip tip"><b>What</b><span><b>550</b> = checksum changed. <b>554</b> = file added. You are relabelling them, not replacing them.</span></div></div></div>
+        <div class="chip tip"><b>What</b><span><b>550</b> = checksum changed. <b>554</b> = file added. You are relabelling them, not replacing them. The <code>&lt;field&gt;</code> line is what limits them to <code>/root</code>; drop it and every monitored directory, including the <code>/etc</code> and <code>/usr/bin</code> defaults, feeds the VirusTotal integration.</span></div></div></div>
 
       <div class="step"><div class="num">6</div><div class="card"><h3>VirusTotal integration</h3><p>Scope it to those two rule IDs. Not to all FIM activity.</p>
         <div class="cmd"><span class="p">$</span> sudo nano /var/ossec/etc/ossec.conf
