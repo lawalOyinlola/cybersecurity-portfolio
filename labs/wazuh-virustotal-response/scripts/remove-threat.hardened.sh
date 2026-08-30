@@ -13,7 +13,8 @@
 # Hardened against five defects in the original:
 #   - dependency is verified before use
 #   - empty extraction is rejected rather than passed to rm
-#   - deletion is confined to the monitored directory
+#   - deletion is confined to the monitored directory, after the path is
+#     canonicalised so traversal cannot escape it
 #   - every path writes an outcome to active-responses.log
 #   - failure exits non-zero instead of reporting success
 #
@@ -47,19 +48,55 @@ FILE=$(printf '%s' "$INPUT_JSON" | jq -r '.parameters.alert.data.virustotal.sour
 }
 
 # 3. Path validation. Deletion is confined to the monitored directory.
-case "$FILE" in
-  "$MONITORED_DIR"/*) ;;
+#
+#    A lexical match is not sufficient on its own. "/root/../tmp/canary" fits
+#    the pattern "/root/*" but resolves outside /root, so the containment has
+#    to be checked against the resolved path, not the string in the alert.
+#
+#    The parent directory is resolved, which collapses ".." segments and any
+#    symlinked parent component. The final component is deliberately left
+#    unresolved so that a symlink is deleted as a symlink rather than followed
+#    to whatever it points at.
+#
+#    cd -P with pwd -P is used rather than realpath, which is not POSIX and is
+#    absent on some systems. Depending on a tool that might not be installed is
+#    the defect this script exists to correct.
+
+MONITORED_REAL=$(cd -P -- "$MONITORED_DIR" 2>/dev/null && pwd -P) || {
+  log "FAIL monitored dir does not resolve: $MONITORED_DIR"
+  exit 1
+}
+
+BASE=$(basename -- "$FILE")
+case "$BASE" in
+  . | ..)
+    log "REFUSED not a deletable path: $FILE"
+    exit 1
+    ;;
+esac
+
+PARENT_REAL=$(cd -P -- "$(dirname -- "$FILE")" 2>/dev/null && pwd -P) || {
+  log "REFUSED unresolvable parent: $FILE"
+  exit 1
+}
+
+TARGET="$PARENT_REAL/$BASE"
+
+case "$TARGET" in
+  "$MONITORED_REAL"/*) ;;
   *)
-    log "REFUSED path outside $MONITORED_DIR: $FILE"
+    log "REFUSED path outside $MONITORED_REAL: $FILE"
     exit 1
     ;;
 esac
 
 # 4. Delete, verify the file is actually gone, and record the outcome.
-if rm -f "$FILE" && [ ! -e "$FILE" ]; then
-  log "OK deleted $FILE"
+#    -e follows symlinks, so it reports "gone" for a dangling symlink still
+#    sitting at the path. -L catches that case.
+if rm -f -- "$TARGET" && [ ! -e "$TARGET" ] && [ ! -L "$TARGET" ]; then
+  log "OK deleted $TARGET"
 else
-  log "FAIL could not delete $FILE"
+  log "FAIL could not delete $TARGET"
   exit 1
 fi
 

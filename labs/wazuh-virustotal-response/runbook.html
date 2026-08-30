@@ -537,15 +537,25 @@ command -v jq &gt;/dev/null 2&gt;&amp;1 || { log <span class="k">"FAIL jq not in
 FILE=$(printf <span class="k">'%s'</span> <span class="k">"$INPUT_JSON"</span> | jq -r <span class="k">'.parameters.alert.data.virustotal.source.file // empty'</span> 2&gt;/dev/null)
 [ -n <span class="k">"$FILE"</span> ] || { log <span class="k">"FAIL no file path in alert"</span>; exit 1; }
 
-case <span class="k">"$FILE"</span> in
-  <span class="k">"$MONITORED_DIR"</span>/*) ;;
-  *) log <span class="k">"REFUSED path outside $MONITORED_DIR: $FILE"</span>; exit 1 ;;
+<span class="c"># resolve before comparing: "/root/../tmp/x" matches "/root/*" but escapes it</span>
+MONITORED_REAL=$(cd -P -- <span class="k">"$MONITORED_DIR"</span> 2&gt;/dev/null &amp;&amp; pwd -P) \
+  || { log <span class="k">"FAIL monitored dir does not resolve"</span>; exit 1; }
+BASE=$(basename -- <span class="k">"$FILE"</span>)
+case <span class="k">"$BASE"</span> in . | ..) log <span class="k">"REFUSED not a deletable path: $FILE"</span>; exit 1 ;; esac
+PARENT_REAL=$(cd -P -- <span class="k">"$(dirname -- \"$FILE\")"</span> 2&gt;/dev/null &amp;&amp; pwd -P) \
+  || { log <span class="k">"REFUSED unresolvable parent: $FILE"</span>; exit 1; }
+TARGET=<span class="k">"$PARENT_REAL/$BASE"</span>
+
+case <span class="k">"$TARGET"</span> in
+  <span class="k">"$MONITORED_REAL"</span>/*) ;;
+  *) log <span class="k">"REFUSED path outside $MONITORED_REAL: $FILE"</span>; exit 1 ;;
 esac
 
-if rm -f <span class="k">"$FILE"</span> &amp;&amp; [ ! -e <span class="k">"$FILE"</span> ]; then
-  log <span class="k">"OK deleted $FILE"</span>
+<span class="c"># -e follows symlinks, so -L is needed to catch a dangling one left behind</span>
+if rm -f -- <span class="k">"$TARGET"</span> &amp;&amp; [ ! -e <span class="k">"$TARGET"</span> ] &amp;&amp; [ ! -L <span class="k">"$TARGET"</span> ]; then
+  log <span class="k">"OK deleted $TARGET"</span>
 else
-  log <span class="k">"FAIL could not delete $FILE"</span>
+  log <span class="k">"FAIL could not delete $TARGET"</span>
   exit 1
 fi
 exit 0</div>
@@ -632,14 +642,22 @@ exit 0</div>
 <span class="p">$</span> sudo tail -n 2 /var/ossec/logs/active-responses.log
 
 <span class="c"># expect: canary survives</span>
-<span class="c"># expect: REFUSED path outside /root: /tmp/canary</span></div>
+<span class="c"># expect: REFUSED path outside /root: /tmp/canary</span>
+
+<span class="c"># now the traversal case, which a lexical "/root/*" check would let through</span>
+<span class="p">$</span> echo '{"parameters":{"alert":{"data":{"virustotal":{"source":{"file":"/root/../tmp/canary"}}}}}}' \
+    | sudo /var/ossec/active-response/bin/remove-threat.sh
+<span class="p">$</span> ls -l /tmp/canary
+
+<span class="c"># expect: canary still survives</span>
+<span class="c"># expect: REFUSED path outside /root: /root/../tmp/canary</span></div>
         <div class="chip warn"><b>Never</b><span>Do not run this against an <b>unhardened</b> script, and never with a real path. Without the guard it deletes whatever you hand it, as root.</span></div></div></div>
     </div>
 
     <div class="divider"><span class="t">Troubleshooting</span><span class="l"></span></div>
     <div class="tt">
       <div class="trow"><div class="sym"><span class="dot d-bad"></span>Alerts fire but the file is still there</div>
-        <div class="cause"><b>#1 suspect: jq is missing.</b> The script runs, extracts an empty string, <code>rm -f ""</code> does nothing, and it exits 0. Failure is indistinguishable from success upstream.</div>
+        <div class="cause"><b>#1 suspect: jq is missing.</b> The hardened script above logs <code>FAIL jq not installed</code> and exits 1, so check the log first. The <b>unhardened</b> version is the dangerous case: it extracts an empty string, <code>rm -f ""</code> does nothing, and it still exits 0, leaving failure indistinguishable from success upstream. An empty log here is itself the symptom.</div>
         <div class="fix">which jq &nbsp;&rarr;&nbsp; sudo apt install jq -y &nbsp;&rarr;&nbsp; retest</div></div>
       <div class="trow"><div class="sym"><span class="dot d-bad"></span>active-responses.log has only restart.sh lines</div>
         <div class="cause">Wazuh does <b>not</b> write this log for you. Scripts log themselves. The bundled <code>restart.sh</code> does; most tutorial <code>remove-threat.sh</code> versions do not, on any path.</div>
