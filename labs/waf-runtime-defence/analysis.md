@@ -166,7 +166,7 @@ not add on top. The conclusion is not that the WAF is worthless. It is that on
 an application whose framework already parameterises its queries, escapes its
 output, verifies its tokens, and isolates its tenants, the WAF's honest value is
 narrow and specific: it blocks known payloads in transit and buys time to
-respond, and it leaves broken object level authorisation, the one breach-class
+respond, and it leaves broken object-level authorisation, the one breach-class
 this lab actually measured it against, exactly where it found it, as the
 application's own problem to solve. By the same structural logic it is blind to
 business-logic flaws, which this lab did not test but which no signature can

@@ -224,44 +224,56 @@ P1, P3, P4, C1-C3, C5, A1, A2, A5, A6, I1-I3, I5.
 **Executed (normal traffic):** N1-N5, N7 from
 detection onward; N8 and N9 from the blocking phases, where they were added.
 
-**Planned but not executed, and why.** The equivalence is judged from the point
-of view of the measurement, which is what the WAF does versus the engine-off
-control. Cases that differ only in application-side semantics but present the
-same shape to the WAF, on the same route and body limits, are equivalent for
-that purpose; cases whose delivery path or input size genuinely differs are
-flagged.
+**Planned but not executed.** The measured set is the 26 attack cases listed
+above; the plan defines more. The remainder were dropped to keep the five runs
+to one session, and none of them was run at any paranoia level. What follows is
+what each would have tested, and what the executed set does and does not let us
+say about it. **Everything in this list is an expectation or a gap. No outcome
+below was measured.**
 
 - **A3 (tampered `sub` claim), A4 (expired JWT), I4 (cross-tenant GET of a user
-  id):** all carry a well-formed bearer token on the same `Authorization`
-  header and the same authenticated routes as the executed A1/A2 and I1/I2. The
-  WAF does not evaluate token validity or object ownership; it sees an opaque
-  bearer and does not fire, and the application answers 401 (A3/A4) or 404
-  (I4). A1/A2 and I1/I2 already fix the WAF-facing result, so these add
-  application-side variety, not measurement signal.
-- **P2 (`..%2f` encoded), P5 (`..\` Windows variant):** the same `:id` route
-  and UUID-pipe control as the executed P1, differing only in traversal
-  encoding. The executed traversal set already spans plain (P1), double-encoded
-  (P3) and dot-slash (P4), so the encoding axis is covered.
-- **X5 (`javascript:` URI in a stored field):** the same vehicle field and
-  stored path as the executed X4, a different XSS vector rather than a different
-  delivery. X4 already establishes the WAF's response to XSS-class content in
-  that field.
-- **C4 (`| ls -la` in the history `from` query parameter):** this one is not a
-  duplicate and is called out as a gap. Every executed command-injection case
-  was placed in a path segment (C1, C2) or a JSON body (C3, C5); C4 would have
-  tested command injection in a query parameter, the one placement the executed
-  set does not cover. Given that query-string SQL injection (S3) was caught by
-  the WAF while path-segment injection was not, a query-parameter command
-  payload could plausibly land differently from C1/C2, and the suite does not
-  measure it. It is a limitation of the executed set, noted rather than papered
-  over.
-- **N6 (long valid JWT on the header):** a true duplicate; every authenticated
-  case already carries one.
-- **N10 (40-point coordinate POST):** a larger coordinate body than N2's single
-  position, testing body size rather than new content. It sits far inside the
-  request-body limits that N2's smaller coordinate payload already cleared, so
-  it is a size variant, not new signal; the body-inspection surface is exercised
-  by N2.
+  id).** All three present the same shape to the WAF as cases that did run: an
+  opaque bearer token on the `Authorization` header. No CRS rule fired on A1,
+  A2, I1 or I2 at any level, so "the WAF does not fire" is the reasonable
+  expectation here, but it is an expectation and not a result. On the
+  application side these are genuinely distinct and remain unmeasured: A3 and A4
+  exercise different JWT rejection paths from A2, and I4 tests tenant scoping on
+  `/api/users/:id`, a different controller from the vehicle routes that I1-I3
+  covered.
+
+- **P2 (`..%2f` encoded), P5 (`..\` Windows separator).** These are
+  normalisation variants, and this lab is the wrong place to assume
+  normalisation variants collapse into one another: P3, double-encoded, was
+  blocked by the WAF, while P1, plain, was not. Encoding demonstrably changes
+  the WAF result on this ruleset. The executed set therefore samples three
+  points on that axis rather than settling it, and P2 and P5 are two more points
+  on it that were never tested.
+
+- **X5 (`javascript:` URI in a stored field).** A different XSS vector from the
+  tag-based payloads X1-X4 and X6. Whether CRS fires on a scheme-only payload
+  carrying no angle brackets is a separate question from the ones those cases
+  answered, and it was not measured.
+
+- **N6 (long valid JWT on the header).** Every authenticated case carries a
+  valid bearer token, so the header is exercised on every run, but not at the
+  length N6 was written to probe. Header-size behaviour is untested.
+
+- **C4 (`| ls -la` in the history `from` query parameter).** The most
+  consequential of these gaps. Every executed command-injection case was placed
+  in a path segment (C1, C2) or a JSON body (C3, C5); C4 would have tested
+  command injection in a query parameter, the one placement the executed set
+  does not cover. Given that query-string SQL injection (S3) was caught by the
+  WAF while path-segment injection was not, a query-parameter command payload
+  could plausibly land differently from C1/C2, and the suite does not measure
+  it. It is a limitation of the executed set, noted rather than papered over.
+
+- **N10 (40-point coordinate POST).** A body-size variant of N2's single
+  position. At a few kilobytes it would sit well inside the configured
+  `SecRequestBodyNoFilesLimit` of 131072 bytes (see
+  [../config/modsecurity.conf](../config/modsecurity.conf)), so no body limit is
+  expected to bite, but the larger body was never actually put through
+  inspection.
+
 - **Class 7 in full (E1-E4)** was scoped out of the measurement. Rate limiting
   and user enumeration are properties of the application's throttler and of its
   response wording, not of any CRS signature at PL1, so the WAF-versus-control
