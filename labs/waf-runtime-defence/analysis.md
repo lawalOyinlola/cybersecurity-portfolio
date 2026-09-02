@@ -33,8 +33,12 @@ what does a runtime WAF add on top, and at what operational cost?
 
 The method is what makes this a measurement rather than a demonstration. The
 same set of payloads ran in three phases against two listeners: one with the
-rule engine live, one an identical TLS and proxy path with the engine off. Any
-difference between the two is attributable to the WAF and to nothing else.
+rule engine live, one an identical TLS and proxy path with the engine off.
+Differences between the two are attributable to the WAF, with one known
+confound noted honestly: both listeners reach the same application instance and
+share its rate limiter, so a small number of control-leg responses are throttle
+artifacts rather than WAF effects. Those cases are marked as such in the results
+matrix rather than read as WAF behaviour.
 
 ![What actually stops each attack class: the control that fires first](./what-stops-each-class.svg)
 
@@ -81,10 +85,13 @@ by the application on its own. It blocked zero payloads that the framework did
 not also stop, and the one measured class capable of causing a real breach here,
 cross-tenant object access, passed through it untouched.
 
-**What the framework already handled, with no WAF.** SQL injection died at
-Prisma's parameterised queries and at the UUID validation on id routes, every
-case rejected before a query was built. Reflected cross-site scripting was
-escaped by React on render. Forged and tampered JWTs were rejected by signature
+**What the framework already handled, with no WAF.** SQL injection never
+reached a query in any case. Input validation rejected all six first: the UUID
+pipe on id routes, email validation on login, and an explicit date check on the
+history endpoint's range parameters, each returning 400 before a query was
+constructed. Prisma's parameterisation sits behind that as the backstop that
+would have bound any payload as a literal had one gotten through, but in this
+test none did. Reflected cross-site scripting was escaped by React on render. Forged and tampered JWTs were rejected by signature
 verification. Path traversal and command injection reached no file or shell
 sink. Stored payloads persisted as inert text. The application's response to
 the payload set with no WAF present was to neutralise all of it.
@@ -111,14 +118,19 @@ legitimate updates. The WAF stopped it for a reason that had nothing to do with
 the attack, and fixing the false positive removed the block. An accidental
 403 on the right request for the wrong reason is not coverage.
 
-**A bypass found by placement.** The same SQL injection, traversal, and command
-payloads the WAF caught in a query string or JSON body, it missed when they were
-placed in a URL path segment, at both paranoia levels. The core rules inspect
-arguments, not path segments. In this application the UUID validation rejects
-the segment first, so the gap is closed by the framework; against an application
-that consumed a raw path segment it would be a live bypass at every level
-tested. Finding and documenting one such gap is worth more than the dozen
-payloads the WAF caught cleanly.
+**A bypass found by placement.** SQL injection and command injection that the
+WAF caught in a query string or JSON body, it missed entirely when the same
+payload sat in a URL path segment, at both paranoia levels: the core injection
+rules inspect arguments, not path segments. Traversal coverage on path segments
+was inconsistent rather than absent, a double-encoded traversal in one route
+was caught while plain and dot-slash variants in another were not. In this
+application the path-segment injection cases target an id route guarded by UUID
+validation, so the application rejects them regardless of the WAF, but that is
+the framework's control, not the firewall's, and it does not extend to routes
+that take a non-UUID path token. Against an application that consumed a raw path
+segment, the injection gap would be a live bypass at every level tested. Finding
+and documenting one such gap is worth more than the dozen payloads the WAF
+caught cleanly.
 
 **The tuning was the most realistic part, and the first false positive was not
 where the reputation says it is.** The feared content false positives on a JSON
@@ -154,17 +166,18 @@ not add on top. The conclusion is not that the WAF is worthless. It is that on
 an application whose framework already parameterises its queries, escapes its
 output, verifies its tokens, and isolates its tenants, the WAF's honest value is
 narrow and specific: it blocks known payloads in transit and buys time to
-respond, and it leaves the two classes that cause real breaches, broken object
-level authorisation and business logic, exactly where it found them, as the
-application's own problem to solve. A WAF sold as a fix for those is sold
+respond, and it leaves broken object level authorisation, the one breach-class
+this lab actually measured it against, exactly where it found it, as the
+application's own problem to solve. By the same structural logic it is blind to
+business-logic flaws, which this lab did not test but which no signature can
+reach either. A WAF sold as a fix for those is sold
 dishonestly. Measured as a compensating control, it earns its place and no more.
 
-The work also produced a genuine reliability defect in the application, found
-while building the harness rather than by any scanner: a transaction that
-deadlocked itself on every self-service profile update. It was reported to the
-engineering team with a root-cause analysis and a fix, and is kept out of this
-public writeup by the same rule the CI/CD lab followed. The public artifact is
-about WAF efficacy, not about the product's vulnerabilities.
+The work also surfaced a genuine reliability defect in the application, found
+while building the harness rather than by any scanner. It was reported to the
+engineering team privately with a root-cause analysis and a fix, and its details
+are kept out of this public writeup by the same rule the CI/CD lab followed. The
+public artifact is about WAF efficacy, not about the product's vulnerabilities.
 
 ## Source materials
 

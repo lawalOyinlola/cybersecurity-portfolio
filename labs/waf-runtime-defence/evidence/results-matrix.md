@@ -65,7 +65,7 @@ a higher paranoia level introduces for no gain in coverage.
 | N3 | vehicle name O'Brien & Co. | pass | pass | pass |
 | N4 | history with ISO timestamps | pass | pass | pass |
 | N5 | register orgName A&B <Logistics> | pass | pass | **403 FP** |
-| N7 | driverName unicode Jose Skoda | pass | pass | pass |
+| N7 | driverName unicode "José Škoda" | pass | pass | pass |
 | N8 | legit PATCH own vehicle (method FP) | **403 FP** | pass | pass |
 | N9 | legit PATCH own user (method FP) | **403 FP** | pass | pass |
 

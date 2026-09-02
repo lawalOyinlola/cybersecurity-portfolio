@@ -68,10 +68,10 @@
   <!-- conclusion band -->
   <text x="40" y="420" font-size="15" font-weight="700" fill="#1a3c5e">The pattern</text>
   <text x="40" y="446" font-size="13" fill="#333333">The application already stops every class the WAF stops. The WAF's genuine addition is blocking stored and in-transit</text>
-  <text x="40" y="466" font-size="13" fill="#333333">payloads before they land, and buying response time. The two classes that decide real breaches, path-placed injection</text>
-  <text x="40" y="486" font-size="13" fill="#333333">and IDOR, are exactly the two the WAF cannot reach. A compensating control, not a fix.</text>
+  <text x="40" y="466" font-size="13" fill="#333333">payloads before they land, and buying response time. The breach-class it cannot reach is IDOR, and it also missed SQL</text>
+  <text x="40" y="486" font-size="13" fill="#333333">and command injection placed in a URL path. Those are the gaps that matter. A compensating control, not a fix.</text>
 
   <rect x="40" y="516" width="880" height="60" rx="4" fill="#f5f2e8" stroke="#c99a2e" stroke-width="1"/>
   <text x="60" y="540" font-size="12.5" font-weight="700" fill="#8a6d1a">Blocked 12 of 26 attack payloads. Every one was already handled by the framework.</text>
-  <text x="60" y="560" font-size="12.5" fill="#8a6d1a">The two classes it cannot reach, IDOR and path-placed injection, passed untouched at every paranoia level.</text>
+  <text x="60" y="560" font-size="12.5" fill="#8a6d1a">IDOR passed it untouched at every level, and so did SQL and command injection placed in a URL path.</text>
 </svg>
