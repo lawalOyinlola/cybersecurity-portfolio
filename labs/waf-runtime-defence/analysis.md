@@ -186,6 +186,9 @@ raw audit logs, and the application defect, stays out of this repository. This
 lab includes what documents the method without exposing the product:
 
 - **[analysis.md](./analysis.md):** this writeup.
+- **[Published blog post](https://lawaloyinlola.com/blog/what-my-waf-actually-blocked)**
+  and **[LinkedIn briefing](https://lnkd.in/p/d_SXgSJ3):** the public write-ups of
+  what the WAF actually blocked, missed, and broke.
 - **[payloads/test-cases.md](./payloads/test-cases.md):** the payload set and
   the expected application behaviour reasoned out ahead of each run.
 - **[config/](./config):** the one CRS exclusion applied, with the NGINX and
