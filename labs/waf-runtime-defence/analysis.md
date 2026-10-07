@@ -40,7 +40,10 @@ share its rate limiter, so a small number of control-leg responses are throttle
 artifacts rather than WAF effects. Those cases are marked as such in the results
 matrix rather than read as WAF behaviour.
 
-![What actually stops each attack class: the control that fires first](./what-stops-each-class.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./what-stops-each-class-dark.svg">
+  <img src="./what-stops-each-class-light.svg" alt="What actually stops each attack class: the control that fires first">
+</picture>
 
 - **Baselined with no WAF first.** Twenty-six attack payloads across six
   classes, run against the application with the engine off, recording what the
@@ -142,7 +145,10 @@ update. It was fixed with a single exclusion restoring the standard verb set,
 placed so it takes effect before the rule that enforces the policy, changing the
 method policy and nothing else. Every attack block survived the change.
 
-![The tuning curve: attacks blocked against false positives at each operating point](./paranoia-tradeoff.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./paranoia-tradeoff-dark.svg">
+  <img src="./paranoia-tradeoff-light.svg" alt="Tuning versus paranoia level: attacks blocked against false positives at each operating point">
+</picture>
 
 **The paranoia trade-off resolved against more paranoia.** Raising to level 2
 caught nothing the tuned level 1 did not. It fired more rules on attacks already
@@ -195,6 +201,9 @@ lab includes what documents the method without exposing the product:
   ModSecurity settings that shaped the measurement.
 - **[evidence/results-matrix.md](./evidence/results-matrix.md):** every case,
   every phase, generated from the raw logs.
-- **[what-stops-each-class.svg](./what-stops-each-class.svg)** and
-  **[paranoia-tradeoff.svg](./paranoia-tradeoff.svg):** the diagrams above, as
-  standalone files.
+- **What stops each class
+  ([light](./what-stops-each-class-light.svg), [dark](./what-stops-each-class-dark.svg))**
+  and **the tuning trade-off
+  ([light](./paranoia-tradeoff-light.svg), [dark](./paranoia-tradeoff-dark.svg)):**
+  the diagrams above, as standalone files. The page shows whichever matches your
+  theme.
