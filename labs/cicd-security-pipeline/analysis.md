@@ -18,7 +18,10 @@ separate from this public writeup.
 
 ## ⚙️ Action
 
-![Pipeline flow: three triggers into five parallel scan jobs, a pull request report, and a block/warn policy split](./pipeline-diagram.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./pipeline-diagram-dark.svg">
+  <img src="./pipeline-diagram-light.svg" alt="Pipeline flow: three triggers into five parallel scan jobs, a pull request report, and a block/warn policy split">
+</picture>
 
 - **Audited before building.** The deployment was described as containerized;
   it was not. Only an upstream, third-party service runs in a container, and
@@ -40,9 +43,10 @@ separate from this public writeup.
   nothing about how the team ships.
 - **Set severity by baseline, not dogma.** Blocking on any high-severity
   finding would have failed every pull request from day one and gotten the
-  pipeline disabled within a week. The policy blocks on secrets and on
-  critical vulnerabilities with a published fix; everything else warns and is
-  tracked to a review date.
+  pipeline disabled within a week. The policy blocks on secrets, on
+  error-severity static analysis findings, and on critical dependency
+  vulnerabilities with a published fix; everything else warns and is tracked
+  to a review date.
 - **Triaged every finding individually**: fixed, accepted with a written,
   technically grounded reason and a review date, or classified false positive
   with the reasoning stated. No bare suppressions.
@@ -58,7 +62,10 @@ separate from this public writeup.
 | Of which critical | 3 | 1 (accepted, documented) |
 | Secrets across full git history | 15 | 0 |
 
-![Baseline to current findings by category, each row scaled to its own baseline](./findings-before-after.svg)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./findings-before-after-dark.svg">
+  <img src="./findings-before-after-light.svg" alt="Baseline to current findings by category, each row scaled to its own baseline">
+</picture>
 
 The one remaining critical is an unpatched vulnerability inside a helper
 binary in the upstream database image, used only to drop privileges at
@@ -104,6 +111,9 @@ the method without exposing the product:
 
 - **[security.yml](./security.yml):** the actual scanning workflow, unedited
   apart from removing the product's name from an internal comment marker.
-- **[pipeline-diagram.svg](./pipeline-diagram.svg)** and
-  **[findings-before-after.svg](./findings-before-after.svg):** the diagrams
-  above, as standalone files.
+- **The pipeline
+  ([light](./pipeline-diagram-light.svg), [dark](./pipeline-diagram-dark.svg))**
+  and **the findings
+  ([light](./findings-before-after-light.svg), [dark](./findings-before-after-dark.svg)):**
+  the diagrams above, as standalone files. The page shows whichever matches your
+  theme.
