@@ -1,0 +1,7 @@
+# Raw audit logs hold lab session tokens and are rebuilt by every phase.
+logs/waf/*.log
+evidence/*/audit.json
+.DS_Store
+.env
+sqli.json
+pw.json

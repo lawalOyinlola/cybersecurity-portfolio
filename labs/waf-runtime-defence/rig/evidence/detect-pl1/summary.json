@@ -1,0 +1,472 @@
+{
+ "phase": "detect-pl1",
+ "attacks": 20,
+ "stopped": [
+  "S1",
+  "S2",
+  "S3",
+  "X1",
+  "X2",
+  "X3",
+  "T2",
+  "C1",
+  "C2",
+  "C3",
+  "J1",
+  "R1",
+  "U1",
+  "U2"
+ ],
+ "not_stopped": [
+  "S4",
+  "T1",
+  "E1",
+  "E2",
+  "A1",
+  "A2"
+ ],
+ "false_positives": [
+  "N4",
+  "N5",
+  "N6",
+  "N7",
+  "N8"
+ ],
+ "rows": [
+  {
+   "id": "S1",
+   "class": "sqli",
+   "name": "login bypass (JSON body)",
+   "kind": "attack",
+   "control_code": 200,
+   "control_hit": true,
+   "waf_code": 200,
+   "waf_hit": true,
+   "verdict": "would-block",
+   "score": 5,
+   "rules": [
+    "942100"
+   ]
+  },
+  {
+   "id": "S2",
+   "class": "sqli",
+   "name": "UNION extraction (query)",
+   "kind": "attack",
+   "control_code": 200,
+   "control_hit": true,
+   "waf_code": 200,
+   "waf_hit": true,
+   "verdict": "would-block",
+   "score": 15,
+   "rules": [
+    "942100",
+    "942190",
+    "942270"
+   ]
+  },
+  {
+   "id": "S3",
+   "class": "sqli",
+   "name": "tautology (query)",
+   "kind": "attack",
+   "control_code": 200,
+   "control_hit": true,
+   "waf_code": 200,
+   "waf_hit": true,
+   "verdict": "would-block",
+   "score": 5,
+   "rules": [
+    "942100"
+   ]
+  },
+  {
+   "id": "S4",
+   "class": "sqli",
+   "name": "tautology in a URL path",
+   "kind": "attack",
+   "control_code": 200,
+   "control_hit": null,
+   "waf_code": 200,
+   "waf_hit": null,
+   "verdict": "-",
+   "score": 0,
+   "rules": []
+  },
+  {
+   "id": "X1",
+   "class": "xss",
+   "name": "script tag (query)",
+   "kind": "attack",
+   "control_code": 200,
+   "control_hit": null,
+   "waf_code": 200,
+   "waf_hit": null,
+   "verdict": "would-block",
+   "score": 20,
+   "rules": [
+    "941100",
+    "941110",
+    "941160",
+    "941390"
+   ]
+  },
+  {
+   "id": "X2",
+   "class": "xss",
+   "name": "stored script tag (JSON body)",
+   "kind": "attack",
+   "control_code": 201,
+   "control_hit": true,
+   "waf_code": 201,
+   "waf_hit": true,
+   "verdict": "would-block",
+   "score": 25,
+   "rules": [
+    "911100",
+    "941100",
+    "941110",
+    "941160",
+    "941390"
+   ]
+  },
+  {
+   "id": "X3",
+   "class": "xss",
+   "name": "stored event handler (JSON body)",
+   "kind": "attack",
+   "control_code": 201,
+   "control_hit": true,
+   "waf_code": 201,
+   "waf_hit": true,
+   "verdict": "would-block",
+   "score": 30,
+   "rules": [
+    "911100",
+    "941100",
+    "941120",
+    "941160",
+    "941180",
+    "941390"
+   ]
+  },
+  {
+   "id": "T1",
+   "class": "traversal",
+   "name": "null byte file-type bypass (path)",
+   "kind": "attack",
+   "control_code": 200,
+   "control_hit": true,
+   "waf_code": 200,
+   "waf_hit": true,
+   "verdict": "-",
+   "score": 0,
+   "rules": []
+  },
+  {
+   "id": "T2",
+   "class": "traversal",
+   "name": "../ sequence (query)",
+   "kind": "attack",
+   "control_code": 200,
+   "control_hit": false,
+   "waf_code": 200,
+   "waf_hit": false,
+   "verdict": "would-block",
+   "score": 30,
+   "rules": [
+    "930100",
+    "930110",
+    "930120",
+    "932160"
+   ]
+  },
+  {
+   "id": "C1",
+   "class": "command",
+   "name": "shell metacharacters (query)",
+   "kind": "attack",
+   "control_code": 200,
+   "control_hit": false,
+   "waf_code": 200,
+   "waf_hit": false,
+   "verdict": "would-block",
+   "score": 10,
+   "rules": [
+    "930120",
+    "932160"
+   ]
+  },
+  {
+   "id": "C2",
+   "class": "command",
+   "name": "command substitution (query)",
+   "kind": "attack",
+   "control_code": 200,
+   "control_hit": false,
+   "waf_code": 200,
+   "waf_hit": false,
+   "verdict": "would-block",
+   "score": 5,
+   "rules": [
+    "932130"
+   ]
+  },
+  {
+   "id": "C3",
+   "class": "command",
+   "name": "log4shell lookup (header)",
+   "kind": "attack",
+   "control_code": 200,
+   "control_hit": null,
+   "waf_code": 200,
+   "waf_hit": null,
+   "verdict": "would-block",
+   "score": 5,
+   "rules": [
+    "944150"
+   ]
+  },
+  {
+   "id": "J1",
+   "class": "nosql",
+   "name": "$ne operator rewrites every review (JSON body)",
+   "kind": "attack",
+   "control_code": 200,
+   "control_hit": true,
+   "waf_code": 200,
+   "waf_hit": true,
+   "verdict": "would-block",
+   "score": 10,
+   "rules": [
+    "911100",
+    "942290"
+   ]
+  },
+  {
+   "id": "R1",
+   "class": "ssrf",
+   "name": "cloud metadata address (form body)",
+   "kind": "attack",
+   "control_code": 302,
+   "control_hit": null,
+   "waf_code": 302,
+   "waf_hit": null,
+   "verdict": "would-block",
+   "score": 10,
+   "rules": [
+    "931100",
+    "934110"
+   ]
+  },
+  {
+   "id": "U1",
+   "class": "scanner",
+   "name": "sqlmap user agent",
+   "kind": "attack",
+   "control_code": 200,
+   "control_hit": null,
+   "waf_code": 200,
+   "waf_hit": null,
+   "verdict": "would-block",
+   "score": 5,
+   "rules": [
+    "913100"
+   ]
+  },
+  {
+   "id": "U2",
+   "class": "scanner",
+   "name": "Nikto user agent",
+   "kind": "attack",
+   "control_code": 200,
+   "control_hit": null,
+   "waf_code": 200,
+   "waf_hit": null,
+   "verdict": "would-block",
+   "score": 5,
+   "rules": [
+    "913100"
+   ]
+  },
+  {
+   "id": "E1",
+   "class": "exposure",
+   "name": "public signing key",
+   "kind": "attack",
+   "control_code": 200,
+   "control_hit": true,
+   "waf_code": 200,
+   "waf_hit": true,
+   "verdict": "-",
+   "score": 0,
+   "rules": []
+  },
+  {
+   "id": "E2",
+   "class": "exposure",
+   "name": "open redirect",
+   "kind": "attack",
+   "control_code": 302,
+   "control_hit": true,
+   "waf_code": 302,
+   "waf_hit": true,
+   "verdict": "-",
+   "score": 0,
+   "rules": []
+  },
+  {
+   "id": "A1",
+   "class": "authz",
+   "name": "read someone else's basket (BOLA)",
+   "kind": "attack",
+   "control_code": 200,
+   "control_hit": true,
+   "waf_code": 200,
+   "waf_hit": true,
+   "verdict": "-",
+   "score": 0,
+   "rules": []
+  },
+  {
+   "id": "A2",
+   "class": "authz",
+   "name": "register as admin (mass assignment)",
+   "kind": "attack",
+   "control_code": 201,
+   "control_hit": true,
+   "waf_code": 201,
+   "waf_hit": true,
+   "verdict": "-",
+   "score": 0,
+   "rules": []
+  },
+  {
+   "id": "N1",
+   "class": "normal",
+   "name": "search for apple",
+   "kind": "normal",
+   "control_code": 200,
+   "control_hit": true,
+   "waf_code": 200,
+   "waf_hit": true,
+   "verdict": "-",
+   "score": 0,
+   "rules": []
+  },
+  {
+   "id": "N2",
+   "class": "normal",
+   "name": "search with an ampersand",
+   "kind": "normal",
+   "control_code": 200,
+   "control_hit": true,
+   "waf_code": 200,
+   "waf_hit": true,
+   "verdict": "-",
+   "score": 0,
+   "rules": []
+  },
+  {
+   "id": "N3",
+   "class": "normal",
+   "name": "add to basket (POST)",
+   "kind": "normal",
+   "control_code": 200,
+   "control_hit": true,
+   "waf_code": 200,
+   "waf_hit": true,
+   "verdict": "-",
+   "score": 0,
+   "rules": []
+  },
+  {
+   "id": "N4",
+   "class": "normal",
+   "name": "change quantity (PUT)",
+   "kind": "normal",
+   "control_code": 200,
+   "control_hit": true,
+   "waf_code": 200,
+   "waf_hit": true,
+   "verdict": "would-block",
+   "score": 5,
+   "rules": [
+    "911100"
+   ]
+  },
+  {
+   "id": "N5",
+   "class": "normal",
+   "name": "remove item (DELETE)",
+   "kind": "normal",
+   "control_code": 200,
+   "control_hit": true,
+   "waf_code": 200,
+   "waf_hit": true,
+   "verdict": "would-block",
+   "score": 5,
+   "rules": [
+    "911100"
+   ]
+  },
+  {
+   "id": "N6",
+   "class": "normal",
+   "name": "review with an ampersand and apostrophe",
+   "kind": "normal",
+   "control_code": 201,
+   "control_hit": true,
+   "waf_code": 201,
+   "waf_hit": true,
+   "verdict": "would-block",
+   "score": 5,
+   "rules": [
+    "911100"
+   ]
+  },
+  {
+   "id": "N7",
+   "class": "normal",
+   "name": "register with a strong password",
+   "kind": "normal",
+   "control_code": 201,
+   "control_hit": true,
+   "waf_code": 201,
+   "waf_hit": true,
+   "verdict": "would-block",
+   "score": 10,
+   "rules": [
+    "942540"
+   ]
+  },
+  {
+   "id": "N8",
+   "class": "normal",
+   "name": "log in with that password",
+   "kind": "normal",
+   "control_code": 200,
+   "control_hit": true,
+   "waf_code": 200,
+   "waf_hit": true,
+   "verdict": "would-block",
+   "score": 5,
+   "rules": [
+    "942540"
+   ]
+  },
+  {
+   "id": "N9",
+   "class": "normal",
+   "name": "download a public file",
+   "kind": "normal",
+   "control_code": 200,
+   "control_hit": true,
+   "waf_code": 200,
+   "waf_hit": true,
+   "verdict": "-",
+   "score": 0,
+   "rules": []
+  }
+ ]
+}
