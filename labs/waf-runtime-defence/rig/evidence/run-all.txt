@@ -1,0 +1,389 @@
+### baseline: engine=Off paranoia=1 tuning=none
+ Container waflab-control Running 
+ Container waflab-juice Running 
+ Container waflab-juice Restarting 
+ Container waflab-juice Started 
+ Container waflab-juice Running 
+ Container waflab-waf Recreate 
+ Container waflab-waf Recreated 
+ Container waflab-waf Starting 
+ Container waflab-waf Started 
+wrote 29 cases to evidence/baseline/results.jsonl
+
+=== baseline ===
+ID   CLASS      APP       WAF         SCORE RULES
+S1   sqli       EXPLOITED -                 
+S2   sqli       EXPLOITED -                 
+S3   sqli       EXPLOITED -                 
+S4   sqli       n/a       -                 
+X1   xss        n/a       -                 
+X2   xss        EXPLOITED -                 
+X3   xss        EXPLOITED -                 
+T1   traversal  EXPLOITED -                 
+T2   traversal  safe      -                 
+C1   command    safe      -                 
+C2   command    safe      -                 
+C3   command    n/a       -                 
+J1   nosql      EXPLOITED -                 
+R1   ssrf       n/a       -                 
+U1   scanner    n/a       -                 
+U2   scanner    n/a       -                 
+E1   exposure   EXPLOITED -                 
+E2   exposure   EXPLOITED -                 
+A1   authz      EXPLOITED -                 
+A2   authz      EXPLOITED -                 
+N1   normal     ok        -                 
+N2   normal     ok        -                 
+N3   normal     ok        -                 
+N4   normal     ok        -                 
+N5   normal     ok        -                 
+N6   normal     ok        -                 
+N7   normal     ok        -                 
+N8   normal     ok        -                 
+N9   normal     ok        -                 
+
+attacks : 20   stopped by the WAF 0   not stopped 20
+normal  : 9   false positives 0
+passed  : S1, S2, S3, S4, X1, X2, X3, T1, T2, C1, C2, C3, J1, R1, U1, U2, E1, E2, A1, A2
+### detect-pl1: engine=DetectionOnly paranoia=1 tuning=none
+ Container waflab-control Running 
+ Container waflab-juice Running 
+ Container waflab-juice Restarting 
+ Container waflab-juice Started 
+ Container waflab-juice Running 
+ Container waflab-waf Recreate 
+ Container waflab-waf Recreated 
+ Container waflab-waf Starting 
+ Container waflab-waf Started 
+wrote 29 cases to evidence/detect-pl1/results.jsonl
+
+=== detect-pl1 ===
+ID   CLASS      APP       WAF         SCORE RULES
+S1   sqli       EXPLOITED would-block 5     942100
+S2   sqli       EXPLOITED would-block 15    942100,942190,942270
+S3   sqli       EXPLOITED would-block 5     942100
+S4   sqli       n/a       -                 
+X1   xss        n/a       would-block 20    941100,941110,941160,941390
+X2   xss        EXPLOITED would-block 25    911100,941100,941110,941160,941390
+X3   xss        EXPLOITED would-block 30    911100,941100,941120,941160,941180,941390
+T1   traversal  EXPLOITED -                 
+T2   traversal  safe      would-block 30    930100,930110,930120,932160
+C1   command    safe      would-block 10    930120,932160
+C2   command    safe      would-block 5     932130
+C3   command    n/a       would-block 5     944150
+J1   nosql      EXPLOITED would-block 10    911100,942290
+R1   ssrf       n/a       would-block 10    931100,934110
+U1   scanner    n/a       would-block 5     913100
+U2   scanner    n/a       would-block 5     913100
+E1   exposure   EXPLOITED -                 
+E2   exposure   EXPLOITED -                 
+A1   authz      EXPLOITED -                 
+A2   authz      EXPLOITED -                 
+N1   normal     ok        -                 
+N2   normal     ok        -                 
+N3   normal     ok        -                 
+N4   normal     ok        would-block 5     911100
+N5   normal     ok        would-block 5     911100
+N6   normal     ok        would-block 5     911100
+N7   normal     ok        would-block 10    942540
+N8   normal     ok        would-block 5     942540
+N9   normal     ok        -                 
+
+attacks : 20   stopped by the WAF 14   not stopped 6
+normal  : 9   false positives 5  (N4, N5, N6, N7, N8)
+stopped : S1, S2, S3, X1, X2, X3, T2, C1, C2, C3, J1, R1, U1, U2
+passed  : S4, T1, E1, E2, A1, A2
+### block-pl1-untuned: engine=On paranoia=1 tuning=none
+ Container waflab-control Running 
+ Container waflab-juice Running 
+ Container waflab-juice Restarting 
+ Container waflab-juice Started 
+ Container waflab-juice Running 
+ Container waflab-waf Recreate 
+ Container waflab-waf Recreated 
+ Container waflab-waf Starting 
+ Container waflab-waf Started 
+wrote 29 cases to evidence/block-pl1-untuned/results.jsonl
+
+=== block-pl1-untuned ===
+ID   CLASS      APP       WAF         SCORE RULES
+S1   sqli       EXPLOITED BLOCKED     5     942100
+S2   sqli       EXPLOITED BLOCKED     15    942100,942190,942270
+S3   sqli       EXPLOITED BLOCKED     5     942100
+S4   sqli       n/a       -                 
+X1   xss        n/a       BLOCKED     20    941100,941110,941160,941390
+X2   xss        EXPLOITED BLOCKED     25    911100,941100,941110,941160,941390
+X3   xss        EXPLOITED BLOCKED     30    911100,941100,941120,941160,941180,941390
+T1   traversal  EXPLOITED -                 
+T2   traversal  safe      BLOCKED     30    930100,930110,930120,932160
+C1   command    safe      BLOCKED     10    930120,932160
+C2   command    safe      BLOCKED     5     932130
+C3   command    n/a       BLOCKED     5     944150
+J1   nosql      EXPLOITED BLOCKED     10    911100,942290
+R1   ssrf       n/a       BLOCKED     10    931100,934110
+U1   scanner    n/a       BLOCKED     5     913100
+U2   scanner    n/a       BLOCKED     5     913100
+E1   exposure   EXPLOITED -                 
+E2   exposure   EXPLOITED -                 
+A1   authz      EXPLOITED -                 
+A2   authz      EXPLOITED -                 
+N1   normal     ok        -                 
+N2   normal     ok        -                 
+N3   normal     ok        -                 
+N4   normal     ok        BLOCKED     5     911100
+N5   normal     ok        BLOCKED     5     911100
+N6   normal     ok        BLOCKED     5     911100
+N7   normal     ok        BLOCKED     10    942540
+N8   normal     ok        BLOCKED     5     942540
+N9   normal     ok        -                 
+
+attacks : 20   stopped by the WAF 14   not stopped 6
+normal  : 9   false positives 5  (N4, N5, N6, N7, N8)
+stopped : S1, S2, S3, X1, X2, X3, T2, C1, C2, C3, J1, R1, U1, U2
+passed  : S4, T1, E1, E2, A1, A2
+### block-pl1-excl1: engine=On paranoia=1 tuning=excl-1
+ Container waflab-control Running 
+ Container waflab-juice Running 
+ Container waflab-juice Restarting 
+ Container waflab-juice Started 
+ Container waflab-juice Running 
+ Container waflab-waf Recreate 
+ Container waflab-waf Recreated 
+ Container waflab-waf Starting 
+ Container waflab-waf Started 
+wrote 29 cases to evidence/block-pl1-excl1/results.jsonl
+
+=== block-pl1-excl1 ===
+ID   CLASS      APP       WAF         SCORE RULES
+S1   sqli       EXPLOITED BLOCKED     5     942100
+S2   sqli       EXPLOITED BLOCKED     15    942100,942190,942270
+S3   sqli       EXPLOITED BLOCKED     5     942100
+S4   sqli       n/a       -                 
+X1   xss        n/a       BLOCKED     20    941100,941110,941160,941390
+X2   xss        EXPLOITED BLOCKED     20    941100,941110,941160,941390
+X3   xss        EXPLOITED BLOCKED     25    941100,941120,941160,941180,941390
+T1   traversal  EXPLOITED -                 
+T2   traversal  safe      BLOCKED     30    930100,930110,930120,932160
+C1   command    safe      BLOCKED     10    930120,932160
+C2   command    safe      BLOCKED     5     932130
+C3   command    n/a       BLOCKED     5     944150
+J1   nosql      EXPLOITED BLOCKED     5     942290
+R1   ssrf       n/a       BLOCKED     10    931100,934110
+U1   scanner    n/a       BLOCKED     5     913100
+U2   scanner    n/a       BLOCKED     5     913100
+E1   exposure   EXPLOITED -                 
+E2   exposure   EXPLOITED -                 
+A1   authz      EXPLOITED -                 
+A2   authz      EXPLOITED -                 
+N1   normal     ok        -                 
+N2   normal     ok        -                 
+N3   normal     ok        -                 
+N4   normal     ok        -                 
+N5   normal     ok        -                 
+N6   normal     ok        -                 
+N7   normal     ok        BLOCKED     10    942540
+N8   normal     ok        BLOCKED     5     942540
+N9   normal     ok        -                 
+
+attacks : 20   stopped by the WAF 14   not stopped 6
+normal  : 9   false positives 2  (N7, N8)
+stopped : S1, S2, S3, X1, X2, X3, T2, C1, C2, C3, J1, R1, U1, U2
+passed  : S4, T1, E1, E2, A1, A2
+### block-pl1-tuned: engine=On paranoia=1 tuning=tuned
+ Container waflab-control Running 
+ Container waflab-juice Running 
+ Container waflab-juice Restarting 
+ Container waflab-juice Started 
+ Container waflab-juice Running 
+ Container waflab-waf Recreate 
+ Container waflab-waf Recreated 
+ Container waflab-waf Starting 
+ Container waflab-waf Started 
+wrote 29 cases to evidence/block-pl1-tuned/results.jsonl
+
+=== block-pl1-tuned ===
+ID   CLASS      APP       WAF         SCORE RULES
+S1   sqli       EXPLOITED BLOCKED     5     942100
+S2   sqli       EXPLOITED BLOCKED     15    942100,942190,942270
+S3   sqli       EXPLOITED BLOCKED     5     942100
+S4   sqli       n/a       -                 
+X1   xss        n/a       BLOCKED     20    941100,941110,941160,941390
+X2   xss        EXPLOITED BLOCKED     20    941100,941110,941160,941390
+X3   xss        EXPLOITED BLOCKED     25    941100,941120,941160,941180,941390
+T1   traversal  EXPLOITED -                 
+T2   traversal  safe      BLOCKED     30    930100,930110,930120,932160
+C1   command    safe      BLOCKED     10    930120,932160
+C2   command    safe      BLOCKED     5     932130
+C3   command    n/a       BLOCKED     5     944150
+J1   nosql      EXPLOITED BLOCKED     5     942290
+R1   ssrf       n/a       BLOCKED     10    931100,934110
+U1   scanner    n/a       BLOCKED     5     913100
+U2   scanner    n/a       BLOCKED     5     913100
+E1   exposure   EXPLOITED -                 
+E2   exposure   EXPLOITED -                 
+A1   authz      EXPLOITED -                 
+A2   authz      EXPLOITED -                 
+N1   normal     ok        -                 
+N2   normal     ok        -                 
+N3   normal     ok        -                 
+N4   normal     ok        -                 
+N5   normal     ok        -                 
+N6   normal     ok        -                 
+N7   normal     ok        -                 
+N8   normal     ok        -                 
+N9   normal     ok        -                 
+
+attacks : 20   stopped by the WAF 14   not stopped 6
+normal  : 9   false positives 0
+stopped : S1, S2, S3, X1, X2, X3, T2, C1, C2, C3, J1, R1, U1, U2
+passed  : S4, T1, E1, E2, A1, A2
+### block-pl2-tuned: engine=On paranoia=2 tuning=tuned
+ Container waflab-juice Running 
+ Container waflab-control Recreate 
+ Container waflab-control Recreated 
+ Container waflab-control Starting 
+ Container waflab-control Started 
+ Container waflab-juice Restarting 
+ Container waflab-juice Started 
+ Container waflab-juice Running 
+ Container waflab-waf Recreate 
+ Container waflab-waf Recreated 
+ Container waflab-waf Starting 
+ Container waflab-waf Started 
+wrote 29 cases to evidence/block-pl2-tuned/results.jsonl
+
+=== block-pl2-tuned ===
+ID   CLASS      APP       WAF         SCORE RULES
+S1   sqli       EXPLOITED BLOCKED     25    942100,942130,942180,942330,942390
+S2   sqli       EXPLOITED BLOCKED     43    942100,942190,942200,942260,942270,942330,942370,942430,942480
+S3   sqli       EXPLOITED BLOCKED     20    942100,942130,942370,942390
+S4   sqli       n/a       BLOCKED     5     942101
+X1   xss        n/a       BLOCKED     30    941100,941110,941160,941320,941390,942131
+X2   xss        EXPLOITED BLOCKED     30    941100,941110,941160,941320,941390,942131
+X3   xss        EXPLOITED BLOCKED     35    941100,941120,941150,941160,941180,941320,941390
+T1   traversal  EXPLOITED -                 
+T2   traversal  safe      BLOCKED     35    930100,930110,930120,932160,932236
+C1   command    safe      BLOCKED     15    930120,932160,932236
+C2   command    safe      BLOCKED     10    932130,932236
+C3   command    n/a       BLOCKED     10    944150,944151
+J1   nosql      EXPLOITED BLOCKED     5     942290
+R1   ssrf       n/a       BLOCKED     15    931100,931130,934110
+U1   scanner    n/a       BLOCKED     5     913100
+U2   scanner    n/a       BLOCKED     5     913100
+E1   exposure   EXPLOITED -                 
+E2   exposure   EXPLOITED BLOCKED     5     931130
+A1   authz      EXPLOITED -                 
+A2   authz      EXPLOITED -                 
+N1   normal     ok        -                 
+N2   normal     ok        -                 
+N3   normal     ok        -                 
+N4   normal     ok        -                 
+N5   normal     ok        -                 
+N6   normal     ok        BLOCKED     15    932200,942210
+N7   normal     ok        BLOCKED     30    942180,942340,942440
+N8   normal     ok        BLOCKED     15    942180,942340,942440
+N9   normal     ok        -                 
+
+attacks : 20   stopped by the WAF 16   not stopped 4
+normal  : 9   false positives 3  (N6, N7, N8)
+stopped : S1, S2, S3, S4, X1, X2, X3, T2, C1, C2, C3, J1, R1, U1, U2, E2
+passed  : T1, E1, A1, A2
+### block-pl2-tuned-more: engine=On paranoia=2 tuning=tuned-pl2
+ Container waflab-juice Running 
+ Container waflab-control Running 
+ Container waflab-juice Restarting 
+ Container waflab-juice Started 
+ Container waflab-juice Running 
+ Container waflab-waf Recreate 
+ Container waflab-waf Recreated 
+ Container waflab-waf Starting 
+ Container waflab-waf Started 
+wrote 29 cases to evidence/block-pl2-tuned-more/results.jsonl
+
+=== block-pl2-tuned-more ===
+ID   CLASS      APP       WAF         SCORE RULES
+S1   sqli       EXPLOITED BLOCKED     25    942100,942130,942180,942330,942390
+S2   sqli       EXPLOITED BLOCKED     43    942100,942190,942200,942260,942270,942330,942370,942430,942480
+S3   sqli       EXPLOITED BLOCKED     20    942100,942130,942370,942390
+S4   sqli       n/a       BLOCKED     5     942101
+X1   xss        n/a       BLOCKED     30    941100,941110,941160,941320,941390,942131
+X2   xss        EXPLOITED BLOCKED     30    941100,941110,941160,941320,941390,942131
+X3   xss        EXPLOITED BLOCKED     35    941100,941120,941150,941160,941180,941320,941390
+T1   traversal  EXPLOITED -                 
+T2   traversal  safe      BLOCKED     35    930100,930110,930120,932160,932236
+C1   command    safe      BLOCKED     15    930120,932160,932236
+C2   command    safe      BLOCKED     10    932130,932236
+C3   command    n/a       BLOCKED     10    944150,944151
+J1   nosql      EXPLOITED BLOCKED     5     942290
+R1   ssrf       n/a       BLOCKED     15    931100,931130,934110
+U1   scanner    n/a       BLOCKED     5     913100
+U2   scanner    n/a       BLOCKED     5     913100
+E1   exposure   EXPLOITED -                 
+E2   exposure   EXPLOITED BLOCKED     5     931130
+A1   authz      EXPLOITED -                 
+A2   authz      EXPLOITED -                 
+N1   normal     ok        -                 
+N2   normal     ok        -                 
+N3   normal     ok        -                 
+N4   normal     ok        -                 
+N5   normal     ok        -                 
+N6   normal     ok        -                 
+N7   normal     ok        -                 
+N8   normal     ok        -                 
+N9   normal     ok        -                 
+
+attacks : 20   stopped by the WAF 16   not stopped 4
+normal  : 9   false positives 0
+stopped : S1, S2, S3, S4, X1, X2, X3, T2, C1, C2, C3, J1, R1, U1, U2, E2
+passed  : T1, E1, A1, A2
+### block-pl1-patched: engine=On paranoia=1 tuning=patched
+ Container waflab-juice Running 
+ Container waflab-control Recreate 
+ Container waflab-control Recreated 
+ Container waflab-control Starting 
+ Container waflab-control Started 
+ Container waflab-juice Restarting 
+ Container waflab-juice Started 
+ Container waflab-juice Running 
+ Container waflab-waf Recreate 
+ Container waflab-waf Recreated 
+ Container waflab-waf Starting 
+ Container waflab-waf Started 
+wrote 29 cases to evidence/block-pl1-patched/results.jsonl
+
+=== block-pl1-patched ===
+ID   CLASS      APP       WAF         SCORE RULES
+S1   sqli       EXPLOITED BLOCKED     5     942100
+S2   sqli       EXPLOITED BLOCKED     15    942100,942190,942270
+S3   sqli       EXPLOITED BLOCKED     5     942100
+S4   sqli       n/a       -                 
+X1   xss        n/a       BLOCKED     20    941100,941110,941160,941390
+X2   xss        EXPLOITED BLOCKED     20    941100,941110,941160,941390
+X3   xss        EXPLOITED BLOCKED     25    941100,941120,941160,941180,941390
+T1   traversal  EXPLOITED BLOCKED           1000010
+T2   traversal  safe      BLOCKED     30    930100,930110,930120,932160
+C1   command    safe      BLOCKED     10    930120,932160
+C2   command    safe      BLOCKED     5     932130
+C3   command    n/a       BLOCKED     5     944150
+J1   nosql      EXPLOITED BLOCKED     5     942290
+R1   ssrf       n/a       BLOCKED     10    931100,934110
+U1   scanner    n/a       BLOCKED     5     913100
+U2   scanner    n/a       BLOCKED     5     913100
+E1   exposure   EXPLOITED -                 
+E2   exposure   EXPLOITED -                 
+A1   authz      EXPLOITED -                 
+A2   authz      EXPLOITED -                 
+N1   normal     ok        -                 
+N2   normal     ok        -                 
+N3   normal     ok        -                 
+N4   normal     ok        -                 
+N5   normal     ok        -                 
+N6   normal     ok        -                 
+N7   normal     ok        -                 
+N8   normal     ok        -                 
+N9   normal     ok        -                 
+
+attacks : 20   stopped by the WAF 15   not stopped 5
+normal  : 9   false positives 0
+stopped : S1, S2, S3, X1, X2, X3, T1, T2, C1, C2, C3, J1, R1, U1, U2
+passed  : S4, E1, E2, A1, A2

@@ -1,0 +1,59 @@
+# WAF runtime defence lab, public edition.
+#
+# Three containers on one private network:
+#
+#   juice     the target (OWASP Juice Shop), reachable only through the two proxies
+#   waf       NGINX + ModSecurity + OWASP CRS, rule engine set by ENGINE   http://localhost:8080
+#   control   the same image and config with the rule engine Off           http://localhost:9080
+#
+# The control is what makes this a measurement. Both proxies add the same hop,
+# so any difference between the two ports is the WAF, not the proxy.
+
+x-proxy: &proxy
+  image: owasp/modsecurity-crs:4.30.0-nginx-202610051210
+  depends_on: [juice]
+  environment: &proxy-env
+    BACKEND: "http://juice:3000"
+    SERVER_NAME: localhost
+    PARANOIA: "${PARANOIA:-1}"
+    BLOCKING_PARANOIA: "${PARANOIA:-1}"
+    ANOMALY_INBOUND: "5"
+    ANOMALY_OUTBOUND: "4"
+    # Look inside request bodies; most Juice Shop traffic is JSON.
+    MODSEC_REQ_BODY_ACCESS: "on"
+    MODSEC_REQ_BODY_LIMIT: "13107200"
+    MODSEC_REQ_BODY_NOFILES_LIMIT: "131072"
+    # Log to a file as JSON so results are parsed, not eyeballed.
+    MODSEC_AUDIT_ENGINE: "RelevantOnly"
+    MODSEC_AUDIT_LOG: "/var/log/modsec/audit.log"
+    MODSEC_AUDIT_LOG_FORMAT: "JSON"
+    MODSEC_AUDIT_LOG_PARTS: "ABIJDEFHKZ"
+    MODSEC_AUDIT_LOG_TYPE: "Serial"
+
+services:
+  juice:
+    image: bkimminich/juice-shop:v20.3.0
+    container_name: waflab-juice
+    restart: unless-stopped
+
+  waf:
+    <<: *proxy
+    container_name: waflab-waf
+    environment:
+      <<: *proxy-env
+      MODSEC_RULE_ENGINE: "${ENGINE:-DetectionOnly}"
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ./waf/modsec/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf:/opt/owasp-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf:ro
+      - ./logs/waf:/var/log/modsec
+
+  control:
+    <<: *proxy
+    container_name: waflab-control
+    environment:
+      <<: *proxy-env
+      MODSEC_RULE_ENGINE: "Off"
+      MODSEC_AUDIT_ENGINE: "Off"
+    ports:
+      - "127.0.0.1:9080:8080"
