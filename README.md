@@ -117,7 +117,7 @@ Security posts from [the blog](https://lawaloyinlola.com/blog), newest first. Ea
 
 ### 🎓 Education
 
-- **Higher Diploma in Science in Computing (NFQ Level 8), Griffith College Dublin, Ireland**: Admitted. Start deferred from September 2026 to the February 2027 to February 2028 session due to visa delays, and still pending.
+- **Higher Diploma in Science in Computing (NFQ Level 8), Griffith College Dublin, Ireland**: February 2027 to February 2028
 - **Diploma in Frontend Engineering, AltSchool Africa**: Graduated 95/100
 - **Frontend Engineering Finalist, HNG Internship**
 
