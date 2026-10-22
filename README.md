@@ -45,6 +45,11 @@ I build full-stack, and that is the foundation I build security on: I can follow
 
 Documented using the **CAR (Context, Action, Result)** framework, grouped by theme. Each individual investigation's write-up lives in its own `analysis.md`; grouped labs (multiple investigations under one theme) are indexed by a `README.md` that links out to each. The step-by-step guides for the labs I built myself are published on the site, and the [interactive labs map](https://lawaloyinlola.com/security/labs) shows how they connect.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./assets/evidence-map-dark.svg">
+  <img src="./assets/evidence-map-light.svg" alt="Portfolio evidence by security domain: AppSec and DevSecOps has five built or operated labs, Identity and Cloud have none yet, and the foundational range holds six investigated incident analyses, six GRC and risk investigations, and three technical labs.">
+</picture>
+
 ### 🚀 Application Security Engineering
 
 The core of my work: securing real software and its delivery pipeline.
@@ -112,7 +117,7 @@ Security posts from [the blog](https://lawaloyinlola.com/blog), newest first. Ea
 
 ### 🎓 Education
 
-- **Higher Diploma in Science in Computing (NFQ Level 8), Griffith College Dublin, Ireland**: Admitted, starting September 2026
+- **Higher Diploma in Science in Computing (NFQ Level 8), Griffith College Dublin, Ireland**: Admitted. Start deferred from September 2026 to the February 2027 to February 2028 session due to visa delays, and still pending.
 - **Diploma in Frontend Engineering, AltSchool Africa**: Graduated 95/100
 - **Frontend Engineering Finalist, HNG Internship**
 
