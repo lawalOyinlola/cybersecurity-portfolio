@@ -1,0 +1,33 @@
+<svg viewBox="0 0 760 380" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif" role="img" aria-label="Controls and compliance coverage for Botium Toys. Controls assessment: 5 of 14 in place. PCI DSS: 0 of 4. GDPR: 2 of 4. SOC 1 and 2: 1 of 4. Each bar is filled to the share of controls in place.">
+  <rect width="760" height="380" fill="#151a2b"/>
+  <text x="40" y="44" font-size="20" font-weight="700" fill="#dbe5f1">Controls and compliance coverage</text>
+  <text x="40" y="66" font-size="13" fill="#9aa1b8">Share in place against each framework. Encryption is the one gap that crosses all three at once.</text>
+  <line x1="40" y1="82" x2="720" y2="82" stroke="#f2c230" stroke-width="2"/>
+
+  <!-- Controls 5/14 -->
+  <text x="40" y="128" font-size="13.5" font-weight="700" fill="#dbe5f1">Controls assessment</text>
+  <rect x="240" y="114" width="420" height="24" rx="3" fill="#222a34"/>
+  <rect x="240" y="114" width="150" height="24" rx="3" fill="#7f9bbd"/>
+  <text x="672" y="131" font-size="13" font-weight="700" fill="#dbe5f1">5 / 14</text>
+
+  <!-- PCI 0/4 -->
+  <text x="40" y="172" font-size="13.5" font-weight="700" fill="#dbe5f1">PCI DSS</text>
+  <rect x="240" y="158" width="420" height="24" rx="3" fill="#222a34"/>
+  <text x="672" y="175" font-size="13" font-weight="700" fill="#f07d6f">0 / 4</text>
+
+  <!-- GDPR 2/4 -->
+  <text x="40" y="216" font-size="13.5" font-weight="700" fill="#dbe5f1">GDPR</text>
+  <rect x="240" y="202" width="420" height="24" rx="3" fill="#222a34"/>
+  <rect x="240" y="202" width="210" height="24" rx="3" fill="#7f9bbd"/>
+  <text x="672" y="219" font-size="13" font-weight="700" fill="#dbe5f1">2 / 4</text>
+
+  <!-- SOC 1/4 -->
+  <text x="40" y="260" font-size="13.5" font-weight="700" fill="#dbe5f1">SOC 1 / 2</text>
+  <rect x="240" y="246" width="420" height="24" rx="3" fill="#222a34"/>
+  <rect x="240" y="246" width="105" height="24" rx="3" fill="#7f9bbd"/>
+  <text x="672" y="263" font-size="13" font-weight="700" fill="#dbe5f1">1 / 4</text>
+
+  <line x1="40" y1="300" x2="720" y2="300" stroke="#2e3550" stroke-width="1"/>
+  <text x="40" y="324" font-size="12" fill="#8b95a3">Nine of fourteen controls are missing. Remediation is ordered by regulatory exposure first:</text>
+  <text x="40" y="342" font-size="12" fill="#8b95a3">encryption leads, because it is the single gap that cuts across PCI DSS, GDPR and SOC together.</text>
+</svg>
