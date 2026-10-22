@@ -57,7 +57,7 @@ The core of my work: securing real software and its delivery pipeline.
 
 ### 🔎 Incident Analysis
 
-- **[Phishing Bridge (Run a Campaign, Then Detect It)](https://lawaloyinlola.com/security/labs/phishing-simulation-lab)**: A purple-team lab on the same Apple Silicon network as the pentest. A GoPhish campaign with a Mailpit catch-all mail server runs on Kali, and a second VM opens the lure so the click crosses the network. A custom Wazuh decoder parses the GoPhish log, and three rules mapped to MITRE ATT&CK T1566 fire on the email open, the landing-page visit, and the form submission. Each rule is proven with `wazuh-logtest` before the dashboard is trusted, and Suricata records the same click as a separate network event. No real mail is sent, every target is an invented `.local` address, and password capture stays off. Published: [live guide](https://lawaloyinlola.com/security/labs/phishing-simulation-lab).
+- **[Phishing Bridge (Run a Campaign, Then Detect It)](./labs/phishing-simulation-lab/analysis.md)**: A purple-team exercise on the same Apple Silicon network as the pentest, running one phishing click end to end and watching it from both seats. A campaign and a local catch-all mail server run on the attacker box, and a second VM opens the lure so the click crosses the network from the victim's own address. The defensive half is the real work: the framework's access log is not JSON and no built-in Wazuh decoder recognises it, so a custom PCRE2 decoder was written to extract the source, method, path, and record id, then three rules mapped to MITRE ATT&CK T1566 fire on the open, the visit, and the submission. A detection resting on an undecoded log fails silently, so each rule is proven against a known log line before the dashboard is trusted. No real mail is sent, every target is an invented `.local` address, and password capture stays off. Published: [live guide](https://lawaloyinlola.com/security/labs/phishing-simulation-lab).
 - **[ADT Home Security Data Breach](./labs/incident-response-adt/analysis.md)**: Architectural breakdown of the April 2026 voice phishing (vishing) intrusion, its impact on SSO identity controls, and customer PII remediation.
 - **[Network Traffic & Incident Analysis](./labs/network-traffic-analysis/)**: Four grouped investigations: packet-capture analysis of a DNS service outage, a SYN flood denial of service, and a brute-force attack with malware redirect, plus a full NIST CSF analysis of an ICMP flood, each tracing evidence to root cause and remediation.
 - **[Phishing Incident Response (Playbook Triage & IoC Analysis)](./labs/phishing-incident-response/analysis.md)**: Level-one SOC triage of a phishing alert (ticket A-2703) worked through a defined playbook to an auditable escalate decision, then VirusTotal IoC analysis of the malicious attachment mapped onto the Pyramid of Pain and MITRE ATT&CK. One intrusion, traced from alert to durable detection.
@@ -112,8 +112,8 @@ Security posts from [the blog](https://lawaloyinlola.com/blog), newest first. Ea
 
 ### 🎓 Education
 
-- **Higher Diploma in Science in Computing (NFQ Level 8), Griffith College Dublin, Ireland**: In progress, expected June 2027
-- **Diploma in Frontend Engineering, AltSchool Africa**: Graduated 96/100
+- **Higher Diploma in Science in Computing (NFQ Level 8), Griffith College Dublin, Ireland**: Admitted, starting September 2026
+- **Diploma in Frontend Engineering, AltSchool Africa**: Graduated 95/100
 - **Frontend Engineering Finalist, HNG Internship**
 
 ---
