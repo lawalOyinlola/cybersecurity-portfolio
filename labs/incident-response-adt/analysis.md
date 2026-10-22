@@ -11,6 +11,11 @@ The threat actor group, identified as ShinyHunters, did not utilize advanced mal
 - **Initial Access:** The attackers utilized Voice Phishing (Vishing). By impersonating trusted entities over a live telephone call, they successfully manipulated an ADT employee into surrendering their login credentials.
 - **Lateral Movement:** The compromised credentials granted the attackers unauthorized access to ADT's Okta single sign-on (SSO) environment, allowing them to pivot directly into the company's cloud-based customer management systems.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./attack-path-dark.svg">
+  <img src="./attack-path-light.svg" alt="The attack path from a vishing call to credential surrender to Okta SSO access to exfiltration of 5.5 million customers' PII, with the containing control under each step: phishing-resistant MFA, awareness training, and zero-trust least privilege.">
+</picture>
+
 ## 📉 Impact Analysis
 
 The threat actors exfiltrated the Personally Identifiable Information (PII) of approximately 5.5 million customers.
