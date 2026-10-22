@@ -1,0 +1,54 @@
+<svg viewBox="0 0 960 470" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif" role="img" aria-label="Portfolio evidence by security domain. Current direction: AppSec and DevSecOps, five built or operated; Identity and Access, no dedicated lab yet; Cloud and AI, no lab yet. Foundational range: Detection and incident response, six investigated from evidence; GRC and risk, one built and five assessed against a framework; Technical foundations, three built.">
+  <rect width="960" height="470" fill="#151a2b"/>
+  <text x="40" y="44" font-size="22" font-weight="700" fill="#dbe5f1">Portfolio evidence by security domain</text>
+  <text x="40" y="68" font-size="13.5" fill="#9aa1b8">20 investigations across 17 labs, counted once each by primary domain and classed by the evidence produced.</text>
+  <line x1="40" y1="84" x2="920" y2="84" stroke="#f2c230" stroke-width="2"/>
+
+  <!-- legend -->
+  <rect x="40"  y="98" width="14" height="14" rx="2" fill="#7f9bbd"/>
+  <text x="60"  y="110" font-size="11.5" fill="#c6cdda">Built or operated</text>
+  <rect x="186" y="98" width="14" height="14" rx="2" fill="#4a6b8a"/>
+  <text x="206" y="110" font-size="11.5" fill="#c6cdda">Investigated from evidence</text>
+  <rect x="386" y="98" width="14" height="14" rx="2" fill="#2f4360"/>
+  <text x="406" y="110" font-size="11.5" fill="#c6cdda">Assessed against a framework</text>
+
+  <!-- ================= CURRENT DIRECTION ================= -->
+  <text x="40" y="146" font-size="11" font-weight="700" fill="#e3bd5c" letter-spacing="1.2">CURRENT DIRECTION</text>
+
+  <!-- AppSec: 5 built -->
+  <text x="40" y="180" font-size="13.5" font-weight="700" fill="#dbe5f1">AppSec &amp; DevSecOps</text>
+  <rect x="300" y="166" width="450" height="22" rx="3" fill="#7f9bbd"/>
+  <text x="525" y="182" font-size="12.5" font-weight="700" fill="#ffffff" text-anchor="middle">5 built</text>
+
+  <!-- Identity: none -->
+  <text x="40" y="214" font-size="13.5" font-weight="700" fill="#dbe5f1">Identity &amp; Access (IAM)</text>
+  <text x="300" y="214" font-size="12" fill="#8b95a3">No dedicated lab yet. SC-300 is next; identity threads run through the AppSec labs.</text>
+
+  <!-- Cloud: none -->
+  <text x="40" y="240" font-size="13.5" font-weight="700" fill="#dbe5f1">Cloud &amp; AI Security</text>
+  <text x="300" y="240" font-size="12" fill="#8b95a3">No lab yet. SC-500 is the stated destination.</text>
+
+  <!-- ================= FOUNDATIONAL RANGE ================= -->
+  <text x="40" y="282" font-size="11" font-weight="700" fill="#e3bd5c" letter-spacing="1.2">FOUNDATIONAL RANGE</text>
+
+  <!-- Detection & IR: 6 investigated -->
+  <text x="40" y="316" font-size="13.5" font-weight="700" fill="#dbe5f1">Detection &amp; Incident Response</text>
+  <rect x="300" y="302" width="540" height="22" rx="3" fill="#4a6b8a"/>
+  <text x="570" y="318" font-size="12.5" font-weight="700" fill="#ffffff" text-anchor="middle">6 investigated</text>
+
+  <!-- GRC: 1 built + 5 assessed -->
+  <text x="40" y="352" font-size="13.5" font-weight="700" fill="#dbe5f1">GRC &amp; Risk</text>
+  <rect x="300" y="338" width="90"  height="22" rx="3" fill="#7f9bbd"/>
+  <text x="345" y="354" font-size="11.5" font-weight="700" fill="#ffffff" text-anchor="middle">1 built</text>
+  <rect x="392" y="338" width="448" height="22" rx="3" fill="#2f4360"/>
+  <text x="616" y="354" font-size="12" font-weight="700" fill="#dbe5f1" text-anchor="middle">5 assessed</text>
+
+  <!-- Technical: 3 built -->
+  <text x="40" y="388" font-size="13.5" font-weight="700" fill="#dbe5f1">Technical foundations</text>
+  <rect x="300" y="374" width="270" height="22" rx="3" fill="#7f9bbd"/>
+  <text x="435" y="390" font-size="12.5" font-weight="700" fill="#ffffff" text-anchor="middle">3 built</text>
+
+  <line x1="40" y1="418" x2="920" y2="418" stroke="#2e3550" stroke-width="1"/>
+  <text x="40" y="440" font-size="11.5" fill="#8b95a3">Counted once per investigation by primary domain; grouped labs count as their constituent investigations.</text>
+  <text x="40" y="457" font-size="11.5" fill="#8b95a3">Volume sits in the foundational range. The deepest class, systems built and then broken, concentrates in the current direction.</text>
+</svg>

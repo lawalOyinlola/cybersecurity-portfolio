@@ -47,6 +47,11 @@ prioritised remediation roadmap. Five of fourteen controls are in place and
 nine are missing. On compliance, all four PCI DSS best practices fail, GDPR
 sits at two of four, and SOC 1/2 sits at one of four.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./coverage-dark.svg">
+  <img src="./coverage-light.svg" alt="Coverage bars: controls assessment 5 of 14, PCI DSS 0 of 4, GDPR 2 of 4, SOC 1 and 2 1 of 4, each filled to the share in place." width="620">
+</picture>
+
 The recommendations are ordered by regulatory exposure first and operational
 resilience second. Encryption leads because it is the one gap that cuts across
 PCI DSS, GDPR, and SOC obligations at the same time, so closing it reduces

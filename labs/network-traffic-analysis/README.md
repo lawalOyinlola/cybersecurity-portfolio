@@ -13,6 +13,11 @@ that carry directly into application and pipeline security.
 
 ## The investigations
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./investigations-dark.svg">
+  <img src="./investigations-light.svg" alt="The four investigations as an evidence-to-root-cause-to-control flow: DNS capture to a server silent on port 53 to service and firewall diagnosis; TCP capture to a single-source SYN flood to blocking the IP; capture and source review to a guessed admin password and injected redirect to MFA on admin; ICMP capture to an unconfigured firewall to rate limiting and ICMP filtering.">
+</picture>
+
 | # | Investigation | Evidence | Finding | Key control |
 |---|---|---|---|---|
 | 1 | [DNS service outage](./dns-service-outage/analysis.md) | tcpdump DNS/ICMP capture | DNS server reachable but not answering on port 53 | Service and firewall diagnosis |

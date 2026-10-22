@@ -1,0 +1,38 @@
+<svg viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif" role="img" aria-label="Coverage map from four vulnerabilities to three hardening controls. Shared passwords maps to password policies. Default admin password maps to both MFA and password policies. No firewall filtering maps to port filtering. No MFA maps to MFA. MFA and password policies each close two gaps.">
+  <rect width="760" height="400" fill="#ffffff"/>
+  <text x="40" y="40" font-size="20" font-weight="700" fill="#1a3c5e">Four gaps, three controls, least overlap</text>
+  <text x="40" y="62" font-size="13" fill="#555555">Each weakness paired with the method that closes it; two controls each cover two gaps.</text>
+  <line x1="40" y1="78" x2="720" y2="78" stroke="#c99a2e" stroke-width="2"/>
+
+  <text x="60" y="108" font-size="11" font-weight="700" fill="#8a6d1a" letter-spacing="1.2">VULNERABILITY</text>
+  <text x="560" y="108" font-size="11" font-weight="700" fill="#8a6d1a" letter-spacing="1.2">CONTROL</text>
+
+  <!-- edges (drawn first, behind nodes) -->
+  <!-- shared pw(y135) -> password policies(y230) -->
+  <path d="M300,135 C400,135 420,230 520,230" fill="none" stroke="#5a86ad" stroke-width="1.8"/>
+  <!-- default pw(y205) -> MFA(y140) -->
+  <path d="M300,205 C400,205 420,140 520,140" fill="none" stroke="#5a86ad" stroke-width="1.8"/>
+  <!-- default pw(y205) -> password policies(y230) -->
+  <path d="M300,205 C400,205 420,230 520,230" fill="none" stroke="#5a86ad" stroke-width="1.8"/>
+  <!-- no fw(y275) -> port filtering(y320) -->
+  <path d="M300,275 C400,275 420,320 520,320" fill="none" stroke="#5a86ad" stroke-width="1.8"/>
+  <!-- no mfa(y345) -> MFA(y140) -->
+  <path d="M300,345 C400,345 420,140 520,140" fill="none" stroke="#5a86ad" stroke-width="1.8"/>
+
+  <!-- left nodes -->
+  <g font-size="12.5" fill="#ffffff">
+    <rect x="60" y="118" width="240" height="34" rx="6" fill="#1a3c5e"/><text x="76" y="140">Employees share passwords</text>
+    <rect x="60" y="188" width="240" height="34" rx="6" fill="#1a3c5e"/><text x="76" y="210">Default admin DB password</text>
+    <rect x="60" y="258" width="240" height="34" rx="6" fill="#1a3c5e"/><text x="76" y="280">No firewall traffic filtering</text>
+    <rect x="60" y="328" width="240" height="34" rx="6" fill="#1a3c5e"/><text x="76" y="350">Multifactor auth not used</text>
+  </g>
+
+  <!-- right nodes -->
+  <g font-size="12.5" fill="#1a3c5e">
+    <rect x="520" y="123" width="180" height="34" rx="6" fill="#f5f2e8" stroke="#c99a2e" stroke-width="1.5"/><text x="536" y="145" font-weight="700">MFA · covers 2</text>
+    <rect x="520" y="213" width="180" height="34" rx="6" fill="#f5f2e8" stroke="#c99a2e" stroke-width="1.5"/><text x="536" y="235" font-weight="700">Password policies · 2</text>
+    <rect x="520" y="303" width="180" height="34" rx="6" fill="#f5f2e8" stroke="#c99a2e" stroke-width="1.5"/><text x="536" y="325" font-weight="700">Port filtering · 1</text>
+  </g>
+
+  <text x="40" y="386" font-size="12" fill="#777777">Chosen by coverage, not one tool per finding: MFA and port filtering are explained in depth in the report.</text>
+</svg>

@@ -40,6 +40,11 @@ the smallest set of methods that still covers all four gaps.
 | Firewalls have no traffic-filtering rules | Port filtering; firewall maintenance |
 | Multifactor authentication not used | Multifactor authentication (MFA) |
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./coverage-map-dark.svg">
+  <img src="./coverage-map-light.svg" alt="Coverage map: four vulnerabilities on the left joined to three controls on the right. MFA closes the default-password and no-MFA gaps, password policies closes the shared-password and default-password gaps, and port filtering closes the unfiltered-firewall gap." width="640">
+</picture>
+
 ## ✅ Result
 
 The deliverable is a completed security risk assessment recommending three

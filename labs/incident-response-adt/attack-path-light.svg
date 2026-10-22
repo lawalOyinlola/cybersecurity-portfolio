@@ -1,0 +1,57 @@
+<svg viewBox="0 0 840 420" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif" role="img" aria-label="ADT breach attack path. A vishing call leads an employee to surrender credentials, which grant access to the Okta SSO environment, which pivots into cloud customer systems, exfiltrating the PII of 5.5 million customers. No malware or zero-day was used. Each step pairs with the control that contains it: phishing-resistant MFA, security awareness training, and zero-trust least privilege.">
+  <rect width="840" height="420" fill="#ffffff"/>
+  <text x="40" y="40" font-size="20" font-weight="700" fill="#1a3c5e">ADT breach: a social-engineering path, no malware</text>
+  <text x="40" y="62" font-size="13" fill="#555555">April 2026. ShinyHunters reached 5.5M customer records through one phone call, not an exploit.</text>
+  <line x1="40" y1="78" x2="760" y2="78" stroke="#c99a2e" stroke-width="2"/>
+
+  <!-- attack chain -->
+  <g font-size="12.5">
+    <rect x="40"  y="110" width="160" height="72" rx="8" fill="#fdf2f4" stroke="#e7c3cb"/>
+    <text x="52" y="134" font-weight="700" fill="#8a2f2f">1 · Vishing</text>
+    <text x="52" y="154" fill="#333333">Impersonation call</text>
+    <text x="52" y="171" fill="#333333">to an employee</text>
+
+    <rect x="240" y="110" width="160" height="72" rx="8" fill="#fdf2f4" stroke="#e7c3cb"/>
+    <text x="252" y="134" font-weight="700" fill="#8a2f2f">2 · Credentials</text>
+    <text x="252" y="154" fill="#333333">Login handed over</text>
+    <text x="252" y="171" fill="#333333">(the human firewall)</text>
+
+    <rect x="440" y="110" width="160" height="72" rx="8" fill="#fdf2f4" stroke="#e7c3cb"/>
+    <text x="452" y="134" font-weight="700" fill="#8a2f2f">3 · Okta SSO</text>
+    <text x="452" y="154" fill="#333333">Lateral move into</text>
+    <text x="452" y="171" fill="#333333">cloud systems</text>
+
+    <rect x="640" y="110" width="160" height="72" rx="8" fill="#f7e4e4" stroke="#d8a7a7"/>
+    <text x="652" y="134" font-weight="700" fill="#8a2f2f">4 · Exfiltration</text>
+    <text x="652" y="154" fill="#333333">5.5M customers'</text>
+    <text x="652" y="171" fill="#333333">PII taken</text>
+  </g>
+  <g stroke="#b23b3b" stroke-width="2">
+    <line x1="200" y1="146" x2="238" y2="146"/>
+    <line x1="400" y1="146" x2="438" y2="146"/>
+    <line x1="600" y1="146" x2="638" y2="146"/>
+  </g>
+
+  <text x="40" y="232" font-size="11" font-weight="700" fill="#2e7d46" letter-spacing="1.2">WHERE IT IS CONTAINED</text>
+  <!-- remediation lane aligned under steps -->
+  <g font-size="12">
+    <rect x="40"  y="246" width="360" height="64" rx="8" fill="#f4f7f1" stroke="#bcd0bc"/>
+    <text x="54" y="268" font-weight="700" fill="#2e7d46">Phishing-resistant MFA</text>
+    <text x="54" y="288" fill="#333333">Hardware-backed, so a surrendered</text>
+    <text x="54" y="304" fill="#333333">password alone is not enough.</text>
+
+    <rect x="420" y="246" width="180" height="64" rx="8" fill="#f4f7f1" stroke="#bcd0bc"/>
+    <text x="434" y="268" font-weight="700" fill="#2e7d46">Awareness training</text>
+    <text x="434" y="288" fill="#333333">Vishing and executive</text>
+    <text x="434" y="304" fill="#333333">impersonation drills.</text>
+
+    <rect x="620" y="246" width="180" height="64" rx="8" fill="#f4f7f1" stroke="#bcd0bc"/>
+    <text x="634" y="268" font-weight="700" fill="#2e7d46">Zero trust</text>
+    <text x="634" y="288" fill="#333333">Least privilege caps</text>
+    <text x="634" y="304" fill="#333333">the blast radius.</text>
+  </g>
+
+  <line x1="40" y1="344" x2="760" y2="344" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="40" y="368" font-size="12" fill="#777777">Third breach in under twelve months. The entry point was a person, so the fixes are architectural</text>
+  <text x="40" y="386" font-size="12" fill="#777777">and cultural, not another scanner. No payment data or alarm systems were compromised.</text>
+</svg>
