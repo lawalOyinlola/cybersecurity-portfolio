@@ -1,0 +1,55 @@
+<svg viewBox="0 0 960 430" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif" role="img" aria-label="One campaign, both sides. A phishing campaign launches from the Kali attacker box; a second VM opens the lure so the click crosses the network; the same click is seen twice on the defensive side, as a host log line through the Wazuh agent and as a network event through Suricata, firing rules mapped to MITRE ATT&amp;CK T1566.">
+  <defs>
+    <marker id="ar" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L6,3 L0,6 Z" fill="#1a3c5e"/>
+    </marker>
+  </defs>
+  <rect width="960" height="430" fill="#ffffff"/>
+  <text x="40" y="44" font-size="22" font-weight="700" fill="#1a3c5e">One campaign, both sides of the house</text>
+  <text x="40" y="68" font-size="13.5" fill="#555555">A phishing click launched from the attacker box, crossed over the network, and caught twice on the defensive side.</text>
+  <line x1="40" y1="84" x2="920" y2="84" stroke="#c99a2e" stroke-width="2"/>
+
+  <!-- RED stage -->
+  <rect x="40" y="110" width="260" height="150" rx="8" fill="#fdf2f4" stroke="#e7c3cb" stroke-width="1"/>
+  <rect x="40" y="110" width="5" height="150" fill="#b23b3b"/>
+  <text x="64" y="134" font-size="11" font-weight="700" fill="#8a2f2f" letter-spacing="1.2">RED · BUILD AND LAUNCH</text>
+  <text x="64" y="162" font-size="16" font-weight="700" fill="#1a3c5e">Kali attacker</text>
+  <text x="64" y="182" font-size="12" fill="#555555">192.168.64.2</text>
+  <text x="64" y="212" font-size="12.5" fill="#333333">GoPhish campaign framework</text>
+  <text x="64" y="234" font-size="12.5" fill="#333333">Mailpit, a local catch-all</text>
+  <text x="64" y="252" font-size="11.5" fill="#777777">No mail leaves the machine</text>
+
+  <!-- VICTIM stage -->
+  <rect x="350" y="110" width="260" height="150" rx="8" fill="#faf7f2" stroke="#d8ccb8" stroke-width="1"/>
+  <rect x="350" y="110" width="5" height="150" fill="#c99a2e"/>
+  <text x="374" y="134" font-size="11" font-weight="700" fill="#8a6d1a" letter-spacing="1.2">VICTIM · THE CLICK</text>
+  <text x="374" y="162" font-size="16" font-weight="700" fill="#1a3c5e">Target VM</text>
+  <text x="374" y="182" font-size="12" fill="#555555">192.168.64.4</text>
+  <text x="374" y="212" font-size="12.5" fill="#333333">Opens the lure, clicks the link</text>
+  <text x="374" y="234" font-size="12.5" fill="#333333">The request crosses the network</text>
+  <text x="374" y="252" font-size="11.5" fill="#777777">Invented targets, capture off</text>
+
+  <!-- BLUE stage -->
+  <rect x="660" y="110" width="260" height="150" rx="8" fill="#f4f7f1" stroke="#bcd0bc" stroke-width="1"/>
+  <rect x="660" y="110" width="5" height="150" fill="#2e7d46"/>
+  <text x="684" y="134" font-size="11" font-weight="700" fill="#2e7d46" letter-spacing="1.2">BLUE · DETECT</text>
+  <text x="684" y="162" font-size="16" font-weight="700" fill="#1a3c5e">Wazuh server</text>
+  <text x="684" y="182" font-size="12" fill="#555555">192.168.64.3</text>
+  <text x="684" y="212" font-size="12.5" fill="#333333">rule 100300 · page visited</text>
+  <text x="684" y="234" font-size="12.5" fill="#333333">rule 100301 · form submitted</text>
+  <text x="684" y="252" font-size="11.5" fill="#777777">mapped to MITRE ATT&amp;CK T1566</text>
+
+  <!-- arrows between stages -->
+  <line x1="300" y1="185" x2="348" y2="185" stroke="#1a3c5e" stroke-width="1.6" marker-end="url(#ar)"/>
+  <text x="324" y="177" font-size="10.5" fill="#555555" text-anchor="middle">lure</text>
+  <line x1="610" y1="185" x2="658" y2="185" stroke="#1a3c5e" stroke-width="1.6" marker-end="url(#ar)"/>
+  <text x="634" y="177" font-size="10.5" fill="#555555" text-anchor="middle">click</text>
+
+  <!-- two views band -->
+  <rect x="40" y="300" width="880" height="92" rx="8" fill="#f7f9fb" stroke="#c8d3e0" stroke-width="1"/>
+  <text x="64" y="326" font-size="11" font-weight="700" fill="#8a6d1a" letter-spacing="1.2">TWO VIEWS OF THE SAME CLICK</text>
+  <text x="64" y="352" font-size="13" font-weight="700" fill="#1a3c5e">Host</text>
+  <text x="112" y="352" font-size="12.5" fill="#333333">the GoPhish log line, shipped by the Wazuh agent on Kali</text>
+  <text x="64" y="376" font-size="13" font-weight="700" fill="#1a3c5e">Network</text>
+  <text x="128" y="376" font-size="12.5" fill="#333333">the same HTTP request on the wire, seen by Suricata</text>
+</svg>
