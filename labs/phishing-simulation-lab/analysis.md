@@ -110,8 +110,8 @@ The log collector only ships lines appended after it starts watching, so a click
 generated before the agent was configured is invisible with no error anywhere.
 Proving each rule against a known log line in the analyser first, before trusting
 the live dashboard, is what separated "the rule is wrong" from "the event never
-reached the rule." On a real estate those are different incidents with different
-fixes, and the dashboard alone cannot tell them apart.
+reached the rule." In a real environment those are different incidents with
+different fixes, and the dashboard alone cannot tell them apart.
 
 ## What this lab does not prove
 
