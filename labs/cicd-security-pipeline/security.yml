@@ -358,9 +358,15 @@ jobs:
           tar -xzf "$archive" -C /usr/local/bin gitleaks
           gitleaks version
 
+      # --log-opts replaces gitleaks' default git-log arguments, so the
+      # defaults (--full-history --diff-filter=tuxdb) are restated here.
+      # --diff-merges=separate puts merge commits in scope: without it,
+      # `git log -p` prints no patch for a merge, and a secret added while
+      # resolving a conflict is never scanned.
       - name: Scan full history
         run: |
-          gitleaks detect --source . --log-opts="--all" \
+          gitleaks detect --source . \
+            --log-opts="--full-history --all --diff-filter=tuxdb --diff-merges=separate" \
             --redact --report-format json --report-path gitleaks.json \
             --exit-code 0
 
