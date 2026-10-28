@@ -1,7 +1,7 @@
 # Runtime defence with a WAF: measuring what it catches, misses, and breaks
 
-A web application firewall put in front of a production application, attacked
-directly, and measured against a no-WAF control. The point was never that a WAF
+A web application firewall put in front of a local replica of a production
+application, attacked directly, and measured against a no-WAF control. The point was never that a WAF
 was deployed. It was the measurement, and the argument that follows from it: on
 an application that already defends itself, a WAF is a compensating control that
 buys response time, not a substitute for fixing the code.
@@ -178,6 +178,15 @@ application's own problem to solve. By the same structural logic it is blind to
 business-logic flaws, which this lab did not test but which no signature can
 reach either. A WAF sold as a fix for those is sold
 dishonestly. Measured as a compensating control, it earns its place and no more.
+
+On this application, the measurement also decided against deploying it. Every
+payload the WAF blocked, the application already stopped. It missed the attack
+that decides a breach. Untuned, it blocked every legitimate PATCH and DELETE,
+and a false positive on the tracking devices' traffic through the edge would
+drop location data without an error anyone sees, a worse failure than anything
+it caught. Production got a per-client rate limit at the edge instead, and the
+tuned rule set is kept ready as a virtual patch for a disclosed vulnerability
+that cannot be upgraded away in time.
 
 The work also surfaced a genuine reliability defect in the application, found
 while building the harness rather than by any scanner. It was reported to the
