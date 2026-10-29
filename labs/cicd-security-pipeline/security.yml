@@ -392,17 +392,23 @@ jobs:
           load = lambda name: json.loads((tmp / name).read_text() or "[]")
           merges = set(subprocess.check_output(
               ["git", "rev-list", "--merges", "--all"], text=True).split())
-          key = lambda x: (x["RuleID"],
-                           hashlib.sha256(x["Secret"].encode()).hexdigest())
+          digest = lambda x: hashlib.sha256(x["Secret"].encode()).hexdigest()
+          # Path-only rules (a .p12 file, say) report an empty Secret, so
+          # those findings are told apart by file instead.
+          key = lambda x: (x["RuleID"], digest(x),
+                           "" if x["Secret"] else x["File"])
           known = {key(x) for x in load("non-merge.json")}
           kept, seen = [], set()
           for x in load("with-merges.json"):
               if x["Commit"] in merges and key(x) in known:
                   continue
-              if x["Fingerprint"] in seen:
+              # Two secrets on one line share a fingerprint, so the secret
+              # is part of what makes a finding a repeat.
+              if (x["Fingerprint"], digest(x)) in seen:
                   continue
-              seen.add(x["Fingerprint"])
-              x["Match"] = x["Match"].replace(x["Secret"], "REDACTED")
+              seen.add((x["Fingerprint"], digest(x)))
+              if x["Secret"]:
+                  x["Match"] = x["Match"].replace(x["Secret"], "REDACTED")
               x["Secret"] = "REDACTED"
               kept.append(x)
           pathlib.Path("gitleaks.json").write_text(json.dumps(kept, indent=2))
