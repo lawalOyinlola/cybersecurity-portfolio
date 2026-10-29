@@ -358,37 +358,32 @@ jobs:
           tar -xzf "$archive" -C /usr/local/bin gitleaks
           gitleaks version
 
-      # --log-opts replaces gitleaks' default git-log arguments, so the
-      # defaults (--full-history --diff-filter=tuxdb) are restated here.
-      # --diff-merges=separate puts merge commits in scope: without it,
-      # `git log -p` prints no patch for a merge, and a secret added while
-      # resolving a conflict is never scanned. The option needs Git 2.31 or
-      # newer, which GitHub's Ubuntu runners have; on an older Git, -m prints
-      # the same separate patches.
+      # --log-opts replaces gitleaks' default git-log arguments, so they are
+      # restated here with two changes. --diff-merges=separate (Git 2.31+;
+      # -m on older Git) gives merge commits a patch, so a secret added while
+      # resolving a conflict is scanned. And t is dropped from the default
+      # --diff-filter=tuxdb, which skips type changes, such as a symlink
+      # turned into a file holding a key.
       #
-      # The catch: a separate diff against each parent repeats every line the
-      # merged branch brought in, and gitleaks fingerprints a finding as
-      # commit:file:rule:line. Each repeat carries the merge's SHA, so it
-      # slips past the per-commit entries in .gitleaksignore. Original
-      # commits are still scanned and still suppressed by fingerprint. A
-      # second scan with the ignore file switched off lists every secret
-      # already in a non-merge commit (gitleaks reads the ignore file in
-      # --source as well as the one in --gitleaks-ignore-path, so that scan
-      # points --source at .git instead). A merge-commit finding is dropped
-      # only when the same secret in the same file is on that list. A secret
-      # that first appears in a merge is on no such list, so it stays.
-      # Both scans stay unredacted in RUNNER_TEMP, which is never uploaded;
-      # the report that is uploaded has the values replaced.
+      # Merge patches repeat every line a merged branch brought in, under the
+      # merge's SHA, so triaged secrets come back with fingerprints that
+      # .gitleaksignore does not match. The second scan, with the ignore file
+      # off and --source pointed at .git (gitleaks also reads the ignore file
+      # in --source), lists every secret in an ordinary commit. A merge-commit
+      # finding is dropped when its rule and secret are on that list, whatever
+      # the file is now called, so a secret that first appears in a merge
+      # still blocks. Both raw reports stay in RUNNER_TEMP, which is never
+      # uploaded; the uploaded report has the values replaced.
       - name: Scan full history
         run: |
           mkdir "$RUNNER_TEMP/no-ignore" && : > "$RUNNER_TEMP/no-ignore/.gitleaksignore"
           gitleaks detect --source . \
-            --log-opts="--full-history --all --diff-filter=tuxdb --diff-merges=separate" \
+            --log-opts="--full-history --all --diff-filter=uxdb --diff-merges=separate" \
             --report-format json --report-path "$RUNNER_TEMP/with-merges.json" \
             --exit-code 0
           gitleaks detect --source "$(git rev-parse --git-dir)" \
             --gitleaks-ignore-path "$RUNNER_TEMP/no-ignore" \
-            --log-opts="--full-history --all --diff-filter=tuxdb" \
+            --log-opts="--full-history --all --diff-filter=uxdb" \
             --report-format json --report-path "$RUNNER_TEMP/non-merge.json" \
             --exit-code 0
           python3 - <<'PY'
@@ -397,7 +392,7 @@ jobs:
           load = lambda name: json.loads((tmp / name).read_text() or "[]")
           merges = set(subprocess.check_output(
               ["git", "rev-list", "--merges", "--all"], text=True).split())
-          key = lambda x: (x["RuleID"], x["File"],
+          key = lambda x: (x["RuleID"],
                            hashlib.sha256(x["Secret"].encode()).hexdigest())
           known = {key(x) for x in load("non-merge.json")}
           kept, seen = [], set()
