@@ -362,13 +362,56 @@ jobs:
       # defaults (--full-history --diff-filter=tuxdb) are restated here.
       # --diff-merges=separate puts merge commits in scope: without it,
       # `git log -p` prints no patch for a merge, and a secret added while
-      # resolving a conflict is never scanned.
+      # resolving a conflict is never scanned. The option needs Git 2.31 or
+      # newer, which GitHub's Ubuntu runners have; on an older Git, -m prints
+      # the same separate patches.
+      #
+      # The catch: a separate diff against each parent repeats every line the
+      # merged branch brought in, and gitleaks fingerprints a finding as
+      # commit:file:rule:line. Each repeat carries the merge's SHA, so it
+      # slips past the per-commit entries in .gitleaksignore. Original
+      # commits are still scanned and still suppressed by fingerprint. A
+      # second scan with the ignore file switched off lists every secret
+      # already in a non-merge commit (gitleaks reads the ignore file in
+      # --source as well as the one in --gitleaks-ignore-path, so that scan
+      # points --source at .git instead). A merge-commit finding is dropped
+      # only when the same secret in the same file is on that list. A secret
+      # that first appears in a merge is on no such list, so it stays.
+      # Both scans stay unredacted in RUNNER_TEMP, which is never uploaded;
+      # the report that is uploaded has the values replaced.
       - name: Scan full history
         run: |
+          mkdir "$RUNNER_TEMP/no-ignore" && : > "$RUNNER_TEMP/no-ignore/.gitleaksignore"
           gitleaks detect --source . \
             --log-opts="--full-history --all --diff-filter=tuxdb --diff-merges=separate" \
-            --redact --report-format json --report-path gitleaks.json \
+            --report-format json --report-path "$RUNNER_TEMP/with-merges.json" \
             --exit-code 0
+          gitleaks detect --source "$(git rev-parse --git-dir)" \
+            --gitleaks-ignore-path "$RUNNER_TEMP/no-ignore" \
+            --log-opts="--full-history --all --diff-filter=tuxdb" \
+            --report-format json --report-path "$RUNNER_TEMP/non-merge.json" \
+            --exit-code 0
+          python3 - <<'PY'
+          import hashlib, json, os, pathlib, subprocess
+          tmp = pathlib.Path(os.environ["RUNNER_TEMP"])
+          load = lambda name: json.loads((tmp / name).read_text() or "[]")
+          merges = set(subprocess.check_output(
+              ["git", "rev-list", "--merges", "--all"], text=True).split())
+          key = lambda x: (x["RuleID"], x["File"],
+                           hashlib.sha256(x["Secret"].encode()).hexdigest())
+          known = {key(x) for x in load("non-merge.json")}
+          kept, seen = [], set()
+          for x in load("with-merges.json"):
+              if x["Commit"] in merges and key(x) in known:
+                  continue
+              if x["Fingerprint"] in seen:
+                  continue
+              seen.add(x["Fingerprint"])
+              x["Match"] = x["Match"].replace(x["Secret"], "REDACTED")
+              x["Secret"] = "REDACTED"
+              kept.append(x)
+          pathlib.Path("gitleaks.json").write_text(json.dumps(kept, indent=2))
+          PY
 
       - name: Summarize and gate
         run: |
