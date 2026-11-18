@@ -23,18 +23,18 @@ I ran the incident through the five NIST CSF functions so a single event feeds a
 broader security strategy, rather than treating it as a one-off outage.
 
 - **Identify:** classified the attack as an ICMP flood DoS and named the root
-  cause — an unconfigured firewall that gave the flood a direct path in. Scoped the
+  cause: an unconfigured firewall that gave the flood a direct path in. Scoped the
   affected systems (the internal network and its services), the affected process
   (internal operations dependent on network resources), and the impact (an
   estimated two-hour outage).
-- **Protect:** specified safeguards that reduce the likelihood of a repeat — ICMP
+- **Protect:** specified safeguards that reduce the likelihood of a repeat: ICMP
   rate limiting, source IP verification to reject spoofed packets, an IDS/IPS to
   filter ICMP by suspicious characteristics, and regular firewall maintenance so it
   is never left unconfigured again.
 - **Detect:** added traffic monitoring to flag abnormal patterns such as a sudden
   ICMP flood from non-trusted sources, and SIEM-based log analysis to alert the
   team as unusual activity develops.
-- **Respond:** captured the response plan the team used — contain the malicious
+- **Respond:** captured the response plan the team used: contain the malicious
   traffic at the firewall and take affected resources offline, analyse logs and
   captures to confirm the attack type and source, then communicate to staff and
   users and update procedures.
@@ -55,8 +55,8 @@ broader security strategy, rather than treating it as a one-off outage.
 The deliverable is a completed incident report analysis that traces the ICMP flood
 from root cause to recovery across all five NIST CSF functions. The central finding
 is that the incident was preventable: the firewall was left unconfigured, and basic
-firewall hardening — rate limiting, source IP verification, and filtering ICMP by
-suspicious characteristics — would likely have stopped the outage entirely. Framing
+firewall hardening (rate limiting, source IP verification, and filtering ICMP by
+suspicious characteristics) would likely have stopped the outage entirely. Framing
 the event through NIST CSF shows how one incident strengthens the wider program:
 Identify scopes what was hit, Protect and Detect lower the odds and raise the
 visibility of a repeat, and Respond and Recover shorten the impact if it recurs.
