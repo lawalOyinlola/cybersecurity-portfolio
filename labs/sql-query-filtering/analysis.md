@@ -23,19 +23,19 @@ investigation needed.
 
 **Investigating login activity (`log_in_attempts` table):**
 
-- **After-hours failed logins** — `AND` requires both conditions at once: the
+- **After-hours failed logins:** `AND` requires both conditions at once: the
   attempt happened after 18:00 and it failed (`success = 0`, where 0 = FALSE).
   ```sql
   SELECT * FROM log_in_attempts
   WHERE login_time > '18:00' AND success = 0;
   ```
-- **Attempts on the days around a suspicious event** — `OR` returns a row if it
+- **Attempts on the days around a suspicious event:** `OR` returns a row if it
   matches either date.
   ```sql
   SELECT * FROM log_in_attempts
   WHERE login_date = '2022-05-09' OR login_date = '2022-05-08';
   ```
-- **Attempts originating outside Mexico** — the `country` column holds both `MEX`
+- **Attempts originating outside Mexico:** the `country` column holds both `MEX`
   and `MEXICO`, so `LIKE 'MEX%'` matches both via the `%` wildcard, and `NOT`
   excludes them.
   ```sql
@@ -45,18 +45,18 @@ investigation needed.
 
 **Targeting machines for updates (`employees` table):**
 
-- **Marketing, East building** — `AND` plus `LIKE 'East%'` to match every East
+- **Marketing, East building:** `AND` plus `LIKE 'East%'` to match every East
   office (e.g. `East-170`, `East-320`).
   ```sql
   SELECT * FROM employees
   WHERE department = 'Marketing' AND office LIKE 'East%';
   ```
-- **Finance or Sales** — `OR` to return either department.
+- **Finance or Sales:** `OR` to return either department.
   ```sql
   SELECT * FROM employees
   WHERE department = 'Finance' OR department = 'Sales';
   ```
-- **Everyone except IT** (already patched) — `NOT` to exclude one department.
+- **Everyone except IT** (already patched): `NOT` to exclude one department.
   ```sql
   SELECT * FROM employees
   WHERE NOT department = 'Information Technology';
@@ -75,8 +75,8 @@ investigation needed.
 Each query returned only the records relevant to its investigation: the
 after-hours failed logins worth reviewing, the login attempts on the dates around
 the suspicious event, the attempts that originated outside Mexico, and the exact
-sets of employee machines — Marketing/East, Finance-or-Sales, and everyone outside
-IT — that needed the security update. Filtering at the query level meant the
+sets of employee machines (Marketing/East, Finance-or-Sales, and everyone outside
+IT) that needed the security update. Filtering at the query level meant the
 investigation worked from precise result sets rather than from whole tables.
 
 [![Apply filters to SQL queries preview](./preview.png)](./apply-filters-to-sql-queries.pdf)
@@ -89,11 +89,11 @@ This lab is foundational security work: transferable fundamentals that support t
 SQL for security work: filtering with `AND`, `OR`, and `NOT`, pattern matching
 with `LIKE` and the `%` wildcard, and filtering on dates and times with comparison
 operators. More importantly, it shows the judgement to translate an investigative
-question — who failed to log in after hours, which machines still need patching —
+question (who failed to log in after hours, which machines still need patching)
 into a precise query that returns just those records, which is how an analyst
 pulls evidence from log and asset tables in day-to-day operations. It also builds
-on SQL I use regularly as a software developer — querying PostgreSQL and MySQL
-databases — reapplied here to security log and asset tables rather than
+on SQL I use regularly as a software developer (querying PostgreSQL and MySQL
+databases), reapplied here to security log and asset tables rather than
 application data.
 
 ## 📂 Source materials

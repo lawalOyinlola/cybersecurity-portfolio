@@ -2,8 +2,8 @@
 
 A post-breach network hardening assessment for a social media organization. Working
 from a network inspection that surfaced four vulnerabilities, I selected a set of
-hardening tools and methods that cover every gap and documented the choice — with
-two recommendations explained in detail — as a structured security risk assessment.
+hardening tools and methods that cover every gap and documented the choice, with
+two recommendations explained in detail, as a structured security risk assessment.
 
 ## 📖 Context
 
@@ -25,7 +25,7 @@ the smallest set of methods that still covers all four gaps.
   visible and kept the selection evidence-driven.
 - **Selected for coverage:** MFA, password policies, and port filtering together
   cover all four vulnerabilities, and two of them address more than one weakness at
-  once — MFA resolves the missing-MFA gap and strengthens the default-password gap,
+  once: MFA resolves the missing-MFA gap and strengthens the default-password gap,
   while password policies support both the shared-password and default-password
   issues. Network access privileges are noted as a supporting measure for shared
   passwords.
@@ -48,13 +48,13 @@ the smallest set of methods that still covers all four gaps.
 ## ✅ Result
 
 The deliverable is a completed security risk assessment recommending three
-hardening methods — MFA, password policies, and port filtering — chosen because
+hardening methods (MFA, password policies, and port filtering), chosen because
 they cover all four vulnerabilities with the least overlap. Two are explained in
 depth:
 
 - **Multifactor authentication (MFA):** requires a second proof of identity
   (OTP, badge, fingerprint, PIN) beyond the password, so even a guessed or stolen
-  credential — such as the default admin password — is not enough to gain access.
+  credential, such as the default admin password, is not enough to gain access.
   It closes two vulnerabilities at once and, being set up once and then maintained,
   is high value for the effort.
 - **Port filtering:** a firewall function that allows only the ports the
@@ -73,7 +73,7 @@ This lab is foundational security work: transferable fundamentals that support t
 shows the ability to translate a list of network vulnerabilities into a
 proportionate set of hardening controls, working familiarity with MFA, password
 policies, port filtering, and firewall maintenance, and the judgement to choose
-controls by coverage — picking methods that resolve more than one weakness at once
+controls by coverage: picking methods that resolve more than one weakness at once
 rather than one tool per finding. It also shows the ability to justify a security
 recommendation in the assessment format a team would actually act on.
 

@@ -56,8 +56,8 @@ attack in which the attacker sends more SYN requests than the server can hold
 open, consuming the connection capacity reserved for the handshake and locking
 legitimate employees out of the website. Because all of the malicious traffic
 comes from the single address 203.0.113.0, this is a direct DoS attack rather
-than a distributed one. The report records the immediate containment — taking the
-server offline to recover and blocking the offending IP at the firewall — and
+than a distributed one. The report records the immediate containment (taking the
+server offline to recover and blocking the offending IP at the firewall) and
 notes the limit of that response: IP blocking alone is temporary, since an
 attacker can spoof source addresses to bypass it.
 

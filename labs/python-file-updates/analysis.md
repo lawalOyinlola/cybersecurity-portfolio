@@ -3,7 +3,7 @@
 A Python algorithm that maintains the IP allow list controlling access to a
 restricted patient-records subnetwork. The script opens `allow_list.txt`, checks
 its contents against a remove list, deletes any address that appears on both, and
-writes the revised list back to the file — turning a recurring, error-prone manual
+writes the revised list back to the file, turning a recurring, error-prone manual
 edit into a repeatable process.
 
 ## 📖 Context
@@ -22,7 +22,7 @@ any address that also appears on the remove list, and saves the result.
 I built the algorithm as a read → transform → write pipeline, matching each Python
 construct to the step it needed to do.
 
-- **Open the file** — the file name is stored in a variable so it is only named
+- **Open the file:** the file name is stored in a variable so it is only named
   once, then opened inside a `with` statement. `with` manages the file resource and
   closes it automatically when the block ends, so there is no separate `.close()`
   call. `open()` takes the file and the mode; `"r"` opens it in read mode, and `as`
@@ -32,12 +32,12 @@ construct to the step it needed to do.
   with open(import_file, "r") as file:
       ip_addresses = file.read()
   ```
-- **Read the contents** — `.read()` is called on the file object while the file is
+- **Read the contents:** `.read()` is called on the file object while the file is
   still open (so this line sits inside the `with` block) and returns the entire file
   as a single string, preserving the newlines and whitespace that separate the
   addresses. Tokenizing that whitespace into individual addresses is the job of
   `.split()` in the next step.
-- **Convert the string to a list** — individual addresses cannot be removed from a
+- **Convert the string to a list:** individual addresses cannot be removed from a
   string, so `.split()` restructures the data. With no argument it splits on
   whitespace (including the line breaks between addresses), giving a list where each
   IP is its own element. This runs outside the `with` block because the data is
@@ -45,7 +45,7 @@ construct to the step it needed to do.
   ```python
   ip_addresses = ip_addresses.split()
   ```
-- **Iterate the remove list** — a `for` loop walks `remove_list` rather than the
+- **Iterate the remove list:** a `for` loop walks `remove_list` rather than the
   allow list, so its body runs once for each address that should lose access, with
   `element` holding the current one on each pass.
   ```python
@@ -53,18 +53,18 @@ construct to the step it needed to do.
                  "192.168.201.40", "192.168.58.57"]
   for element in remove_list:
   ```
-- **Remove matching addresses** — inside the loop a conditional uses `in` as a
+- **Remove matching addresses:** inside the loop a conditional uses `in` as a
   membership test, and `.remove()` deletes the address only when it is actually
   present. Guarding the removal this way avoids the `ValueError` that `.remove()`
   raises on a value that is not in the list. This is safe because the allow list has
-  no duplicates — `.remove()` deletes only the first occurrence, so a repeated
+  no duplicates: `.remove()` deletes only the first occurrence, so a repeated
   address would leave copies (and access) behind.
   ```python
   for element in remove_list:
       if element in ip_addresses:
           ip_addresses.remove(element)
   ```
-- **Write the revised list back** — `"\n".join()` rebuilds the list into one string
+- **Write the revised list back:** `"\n".join()` rebuilds the list into one string
   with each address on its own line, preserving the original file format. A second
   `with` statement reopens the file in write mode (`"w"`) and `.write()` overwrites
   it, so the file ends up holding only the addresses that still have authorization.
@@ -90,7 +90,7 @@ list end to end: it opens `allow_list.txt`, reads and splits the contents into a
 list, iterates the remove list, deletes every address that appears on both, rejoins
 the survivors with newlines, and overwrites the file with the shortened list. The
 outcome is a repeatable process that withdraws an employee's access as soon as their
-IP is added to the remove list — the same authorization task done faster and more
+IP is added to the remove list: the same authorization task done faster and more
 consistently than editing the file by hand, and re-runnable whenever the remove list
 changes.
 
@@ -102,7 +102,7 @@ _Full deliverable: [Algorithm for File Updates in Python (PDF)](./algorithm-for-
 
 This lab is foundational security work: transferable fundamentals that support the
 application security and DevSecOps direction described in the root README, not
-expert-level practice. It shows practical Python for security automation — file I/O
+expert-level practice. It shows practical Python for security automation: file I/O
 with `with` and `open()`, reading and writing with `.read()` and `.write()`,
 converting between strings and lists with `.split()` and `.join()`, iterating with a
 `for` loop, and membership-guarded list mutation with `in` and `.remove()`. More
