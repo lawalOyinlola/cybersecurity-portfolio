@@ -156,16 +156,16 @@ See [`evidence/`](evidence/) for screenshots and the index describing each one.
 
 ## Artifacts
 
-- [`runbook.html`](runbook.html) — interactive build runbook covering the full environment, from bare VM through to this response pipeline (Flow 5)
-- [`config/local_rules.xml`](config/local_rules.xml) — custom FIM rules
-- [`config/ossec-snippets.md`](config/ossec-snippets.md) — manager and agent configuration blocks
-- [`scripts/remove-threat.original.sh`](scripts/remove-threat.original.sh) — as deployed from the source material
-- [`scripts/remove-threat.hardened.sh`](scripts/remove-threat.hardened.sh) — after the audit
+- [`runbook.html`](runbook.html): interactive build runbook covering the full environment, from bare VM through to this response pipeline (Flow 5)
+- [`config/local_rules.xml`](config/local_rules.xml): custom FIM rules
+- [`config/ossec-snippets.md`](config/ossec-snippets.md): manager and agent configuration blocks
+- [`scripts/remove-threat.original.sh`](scripts/remove-threat.original.sh): as deployed from the source material
+- [`scripts/remove-threat.hardened.sh`](scripts/remove-threat.hardened.sh): after the audit
 
 ## Write-ups
 
 Published on LinkedIn as the third post in a series built on this environment:
 
-1. [Building the SIEM headless](https://lnkd.in/p/eNyR5nCW) — why Ubuntu Server over a desktop VM, and discovering that ARM64 runs native while x86 gets emulated
-2. [Two witnesses to one attack](https://lnkd.in/p/eaHkp4MG) — adding Suricata, scanning from Kali, and network plus host telemetry agreeing independently
-3. [Automated response that did nothing](https://lnkd.in/p/d8ZM3ufx) — this lab
+1. [Building the SIEM headless](https://lnkd.in/p/eNyR5nCW): why Ubuntu Server over a desktop VM, and discovering that ARM64 runs native while x86 gets emulated
+2. [Two witnesses to one attack](https://lnkd.in/p/eaHkp4MG): adding Suricata, scanning from Kali, and network plus host telemetry agreeing independently
+3. [Automated response that did nothing](https://lnkd.in/p/d8ZM3ufx): this lab
