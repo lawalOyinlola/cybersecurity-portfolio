@@ -19,17 +19,17 @@ itself to extract indicators of compromise for detection.
 
 ## ⚙️ Action
 
-**Phase 1 — playbook-driven triage.** I worked the alert through the playbook and
-flowchart in order, evaluating the alert against its criteria — severity, sender
-and receiver details, subject line, message body, and attachments — then followed
+**Phase 1: playbook-driven triage.** I worked the alert through the playbook and
+flowchart in order, evaluating the alert against its criteria (severity, sender
+and receiver details, subject line, message body, and attachments), then followed
 the decision branch: Step 3.0 confirmed an attachment was present, Step 3.1
 confirmed it malicious on the basis of the verified hash, which routes to Step 3.2:
 escalate. I recorded the investigation in the incident handler's journal and
 updated the alert ticket from Open → Investigating → Escalated, with comments
 drawing the escalation reasons from specific ticket details.
 
-**Phase 2 — IoC analysis in VirusTotal.** I searched the file hash and reviewed
-four tabs — Detection (vendor flags), Details (static properties and other
+**Phase 2: IoC analysis in VirusTotal.** I searched the file hash and reviewed
+four tabs: Detection (vendor flags), Details (static properties and other
 hashes), Relations (contacted domains, URLs, IPs), and Behavior (sandbox activity
 as MITRE ATT&CK techniques). I then chose three indicators of compromise,
 deliberately one each from the base, middle, and top of the Pyramid of Pain, so
@@ -37,12 +37,12 @@ the framework is visible in the result.
 
 ## ✅ Result
 
-**The alert is a genuine, malicious phishing attempt — escalated to a level-two
+**The alert is a genuine, malicious phishing attempt, escalated to a level-two
 analyst, not closed.** The evidence is specific and layered: a confirmed-malicious
 file hash, a spoofed non-corporate sender on a `.su` domain with a mismatched
 display name, spelling and grammar errors throughout the subject and body, and a
 password-protected executable posing as a resume. The password protection is the
-sharpest indicator — a deliberate technique to evade email malware scanning, with
+sharpest indicator: a deliberate technique to evade email malware scanning, with
 no legitimate reason to accompany a job application, and the password itself was
 supplied in the email body. HR was targeted precisely because the role routinely
 opens attachments from strangers.
@@ -80,12 +80,12 @@ pending that review.
 
 This is the difference between *documenting* an incident and *working* one. The
 lab shows a defensible escalate-vs-close decision reached by weighing specific,
-layered evidence against a defined playbook — the judgment a SOC or IR reviewer
-looks for — and made auditable through ticket comments and a journal entry. It then
+layered evidence against a defined playbook (the judgment a SOC or IR reviewer
+looks for) and made auditable through ticket comments and a journal entry. It then
 shows threat-intelligence skill: confirming maliciousness from several agreeing
 signals rather than one metric, separating genuinely malicious indicators from the
 benign noise a VirusTotal report also contains, and reasoning about detection
-durability with the Pyramid of Pain and MITRE ATT&CK — the higher up the pyramid a
+durability with the Pyramid of Pain and MITRE ATT&CK: the higher up the pyramid a
 defender detects, the more costly the attack becomes to sustain. The
 phishing-and-attachment root cause is a recurring human-entry-point theme across
 the incident-analysis work, the same pattern that opens the USB baiting and
