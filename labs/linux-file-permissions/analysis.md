@@ -39,7 +39,7 @@ permissions; the following three are group permissions; the final three are
 permissions for other (all other users). Each position holds `r` (read), `w`
 (write), `x` (execute), or `-` (not granted).
 
-**Correct — three changes were needed:**
+**Correct. Three changes were needed:**
 
 - **Remove write access for other on `project_k.txt`:** the organization does not
   allow other users to have write access to any file. `project_k.txt` was the only
@@ -48,7 +48,7 @@ permissions for other (all other users). Each position holds `r` (read), `w`
 
 - **Restrict the hidden file `.project_x.txt` to read-only:** this archived file
   should not have write permissions for anyone, but user and group should still be
-  able to read it. Its permissions were `-rw--w----` — the user had read and write,
+  able to read it. Its permissions were `-rw--w----`: the user had read and write,
   the group had write only. I set both to read-only in a single command:
   `chmod u=r,g=r .project_x.txt`, which uses `=` to replace whatever was there
   before rather than adding or removing individual bits. Result: `-r--r-----`.
@@ -84,7 +84,7 @@ knowledge of the Linux permission model (user/group/other, read/write/execute, t
 10-character permission string), practical proficiency with `ls -la` and `chmod`
 for auditing and correcting file system access, and the judgement to read an
 existing permission state against a policy and identify exactly what needs to
-change — including hidden files that a standard `ls` would not surface. Controlling
+change, including hidden files that a standard `ls` would not surface. Controlling
 file system authorization is a core part of the principle of least privilege, and
 this lab applies it at the command line in the way a security team would. It also
 builds on Linux commands I use day to day as a software developer, such as `ls`
