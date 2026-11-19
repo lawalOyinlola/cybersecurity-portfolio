@@ -47,7 +47,7 @@ Documented using the **CAR (Context, Action, Result)** framework, grouped by the
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/evidence-map-dark.svg">
-  <img src="./assets/evidence-map-light.svg" alt="Portfolio evidence by security domain: AppSec and DevSecOps has five built or operated labs, Identity and Cloud have none yet, and the foundational range holds six investigated incident analyses, six GRC and risk investigations, and three technical labs.">
+  <img src="./assets/evidence-map-light.svg" alt="Portfolio evidence by security domain: AppSec and DevSecOps has five built or operated labs, Identity and Cloud have none yet, and the foundational range holds six investigated incident analyses, seven GRC and risk investigations, and three technical labs.">
 </picture>
 
 ### 🚀 Application Security Engineering
@@ -70,6 +70,7 @@ The core of my work: securing real software and its delivery pipeline.
 
 ### 📋 Governance, Risk & Compliance
 
+- **[Security Assessment, From Scanner Findings to Policy (HanTech Capstone)](./labs/hantech-security-assessment/analysis.md)**: A TS Academy capstone that I led as group lead: OpenVAS and Nmap scans of a legacy Linux server, taken to a report that leadership can act on. Five findings rated on a semi-quantitative 5 × 5 grid (two Critical, two High, one Medium), with CVSS used as an input rather than the answer and the assumptions behind each rating written down. One control per finding mapped to ISO/IEC 27001:2022 Annex A, five policies with 7, 30 and 90-day deadlines and written risk acceptance, a cloud section under shared responsibility, and a three-phase roadmap. It is the assessor's side of the same Metasploitable 2 target as the pentest lab. Full deliverable: [redacted report (PDF)](./labs/hantech-security-assessment/hantech-security-assessment-report-redacted.pdf).
 - **[Internal Security Audit (Botium Toys)](./labs/internal-audit-botium-toys/analysis.md)**: Controls and compliance assessment of a fictional retailer against NIST CSF, PCI DSS, GDPR, and SOC, mapping a narrative risk assessment to named frameworks and producing a prioritized remediation roadmap.
 - **[Network Hardening Assessment](./labs/network-hardening-assessment/analysis.md)**: Post-breach security risk assessment mapping four network vulnerabilities to a minimal set of hardening controls (MFA, password policies, port filtering), chosen by coverage rather than one tool per finding.
 - **[Network Segmentation & Least Privilege (Hospital Network)](./labs/network-segmentation-least-privilege/analysis.md)**: Hands-on Cisco Packet Tracer build of a two-department hospital network, hardened past its connectivity brief with a directional router ACL (doctors reach the pharmacy; the pharmacy cannot initiate into patient-record hosts), switch port security, and SSH-only management, verified by ping asymmetry and live ACL hit counters.
