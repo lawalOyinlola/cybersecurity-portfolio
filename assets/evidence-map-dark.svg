@@ -1,7 +1,7 @@
-<svg viewBox="0 0 960 470" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif" role="img" aria-label="Portfolio evidence by security domain. Current direction: AppSec and DevSecOps, five built or operated; Identity and Access, no dedicated lab yet; Cloud and AI, no lab yet. Foundational range: Detection and incident response, six investigated from evidence; GRC and risk, one built and five assessed against a framework; Technical foundations, three built.">
+<svg viewBox="0 0 960 470" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica, Arial, sans-serif" role="img" aria-label="Portfolio evidence by security domain. Current direction: AppSec and DevSecOps, five built or operated; Identity and Access, no dedicated lab yet; Cloud and AI, no lab yet. Foundational range: Detection and incident response, six investigated from evidence; GRC and risk, one built and six assessed against a framework; Technical foundations, three built.">
   <rect width="960" height="470" fill="#151a2b"/>
   <text x="40" y="44" font-size="22" font-weight="700" fill="#dbe5f1">Portfolio evidence by security domain</text>
-  <text x="40" y="68" font-size="13.5" fill="#9aa1b8">20 investigations across 17 labs, counted once each by primary domain and classed by the evidence produced.</text>
+  <text x="40" y="68" font-size="13.5" fill="#9aa1b8">21 investigations across 18 labs, counted once each by primary domain and classed by the evidence produced.</text>
   <line x1="40" y1="84" x2="920" y2="84" stroke="#f2c230" stroke-width="2"/>
 
   <!-- legend -->
@@ -17,8 +17,8 @@
 
   <!-- AppSec: 5 built -->
   <text x="40" y="180" font-size="13.5" font-weight="700" fill="#dbe5f1">AppSec &amp; DevSecOps</text>
-  <rect x="300" y="166" width="450" height="22" rx="3" fill="#7f9bbd"/>
-  <text x="525" y="182" font-size="12.5" font-weight="700" fill="#ffffff" text-anchor="middle">5 built</text>
+  <rect x="300" y="166" width="425" height="22" rx="3" fill="#7f9bbd"/>
+  <text x="512.5" y="182" font-size="12.5" font-weight="700" fill="#ffffff" text-anchor="middle">5 built</text>
 
   <!-- Identity: none -->
   <text x="40" y="214" font-size="13.5" font-weight="700" fill="#dbe5f1">Identity &amp; Access (IAM)</text>
@@ -33,20 +33,20 @@
 
   <!-- Detection & IR: 6 investigated -->
   <text x="40" y="316" font-size="13.5" font-weight="700" fill="#dbe5f1">Detection &amp; Incident Response</text>
-  <rect x="300" y="302" width="540" height="22" rx="3" fill="#4a6b8a"/>
-  <text x="570" y="318" font-size="12.5" font-weight="700" fill="#ffffff" text-anchor="middle">6 investigated</text>
+  <rect x="300" y="302" width="510" height="22" rx="3" fill="#4a6b8a"/>
+  <text x="555" y="318" font-size="12.5" font-weight="700" fill="#ffffff" text-anchor="middle">6 investigated</text>
 
-  <!-- GRC: 1 built + 5 assessed -->
+  <!-- GRC: 1 built + 6 assessed -->
   <text x="40" y="352" font-size="13.5" font-weight="700" fill="#dbe5f1">GRC &amp; Risk</text>
-  <rect x="300" y="338" width="90"  height="22" rx="3" fill="#7f9bbd"/>
-  <text x="345" y="354" font-size="11.5" font-weight="700" fill="#ffffff" text-anchor="middle">1 built</text>
-  <rect x="392" y="338" width="448" height="22" rx="3" fill="#2f4360"/>
-  <text x="616" y="354" font-size="12" font-weight="700" fill="#dbe5f1" text-anchor="middle">5 assessed</text>
+  <rect x="300" y="338" width="85" height="22" rx="3" fill="#7f9bbd"/>
+  <text x="342.5" y="354" font-size="11.5" font-weight="700" fill="#ffffff" text-anchor="middle">1 built</text>
+  <rect x="387" y="338" width="508" height="22" rx="3" fill="#2f4360"/>
+  <text x="641" y="354" font-size="12" font-weight="700" fill="#dbe5f1" text-anchor="middle">6 assessed</text>
 
   <!-- Technical: 3 built -->
   <text x="40" y="388" font-size="13.5" font-weight="700" fill="#dbe5f1">Technical foundations</text>
-  <rect x="300" y="374" width="270" height="22" rx="3" fill="#7f9bbd"/>
-  <text x="435" y="390" font-size="12.5" font-weight="700" fill="#ffffff" text-anchor="middle">3 built</text>
+  <rect x="300" y="374" width="255" height="22" rx="3" fill="#7f9bbd"/>
+  <text x="427.5" y="390" font-size="12.5" font-weight="700" fill="#ffffff" text-anchor="middle">3 built</text>
 
   <line x1="40" y1="418" x2="920" y2="418" stroke="#2e3550" stroke-width="1"/>
   <text x="40" y="440" font-size="11.5" fill="#8b95a3">Counted once per investigation by primary domain; grouped labs count as their constituent investigations.</text>
