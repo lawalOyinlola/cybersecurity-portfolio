@@ -84,8 +84,11 @@ and its IT team.
 - **Five findings, ranked:** two Critical, two High and one Medium. Both Critical
   findings let an outsider in without a password.
 - **One control per finding:** each in priority order, with a check that proves it
-  works. For F-01, the check is a rescan that no longer shows vsftpd 2.3.4 or port
-  6200. Controls and policies together use 11 ISO/IEC 27001:2022 Annex A controls.
+  works. For F-01, the submitted check is a rescan that no longer shows vsftpd 2.3.4
+  or port 6200. A rescan alone cannot tell removal from a firewall block, so the
+  stronger proof is a package check that vsftpd 2.3.4 is removed or upgraded, with
+  the rescan as support. The report does not say this, and I would add it.
+  Controls and policies together use 11 ISO/IEC 27001:2022 Annex A controls.
 - **Five policies:** Patch Management, Vulnerability Management, Access Control,
   Password and Authentication, and Secure Configuration. Vulnerability Management
   sets the deadlines: Critical within 7 days, High within 30 and Medium within 90.
