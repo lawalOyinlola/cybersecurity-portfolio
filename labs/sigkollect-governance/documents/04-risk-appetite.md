@@ -68,3 +68,7 @@ may remain while the controls do their job).
 **Note for the RACI.** Row 4 of the RACI points here. The person in the "who may accept" column is
 accountable for accepting a risk in that category. The system owner prepares the acceptance and
 records it in the risk register, but does not approve it.
+
+**Nobody approves their own acceptance.** If the approver named here also prepared the acceptance,
+for example a supplier's business owner who is also the system owner, their line manager approves it
+instead. For an executive, that is the CEO. This follows RACI rule 5.

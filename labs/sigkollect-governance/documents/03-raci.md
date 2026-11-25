@@ -60,7 +60,11 @@ Roles: **Board** · **CEO** · **SC** (security steering committee) · **SL** (s
    category: the CEO for customer data, legal and regulatory, and reputation; the CTO for
    availability and technology change; the CFO for financial loss; and the supplier's business
    owner for suppliers (the CEO where the supplier handles customer data). That keeps one A for each
-   risk. The system owner prepares the acceptance and records it in the risk register.
+   risk. The system owner prepares the acceptance and records it in the risk register. Nobody
+   approves an acceptance they prepared: in that case the approver's line manager approves it, and
+   for an executive that is the CEO (rule 5).
 2. **Row 10b.** IT removes the access and owns the result. The independent check comes after the
-   work, so it is not a C: each month the security lead compares the Head of People's leaver list
-   with IT's tickets (KPI measure 7). The quarterly access review (row 11) is the backstop.
+   work, so it is not a C: each month the security lead checks every leaver on the Head of People's
+   list against the account state, meaning the account disabled or deleted in the identity provider,
+   or the system's own access list or removal log. An IT ticket alone is not evidence (KPI measure
+   7). The quarterly access review (row 11) is the backstop.

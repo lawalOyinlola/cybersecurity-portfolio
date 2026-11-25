@@ -87,9 +87,9 @@ Notification deadlines, measured from the moment SigKollect becomes aware of, or
 
 | Notification | Who decides | Decided by | Sent by |
 |---|---|---|---|
-| ngCERT, through the sectoral CERT or SOC (R-3) | Security lead (RACI row 15) | As soon as a cyber incident is confirmed | At once after the decision, and no later than 24 hours after detection |
-| NDPC (R-1), and the EU supervisory authority where SigKollect is the controller (R-4) | Head of Compliance (RACI row 14) | Within 24 hours of being told | Within 48 hours |
-| The controller, where SigKollect is a processor for EU data (R-4) | Head of Compliance | Within 24 hours of being told | At once after the decision, and within 48 hours |
-| Affected people, where the risk to them is high (R-1) | Head of Compliance, with the CEO | Within 24 hours of being told | At once after the decision |
+| ngCERT, through the sectoral CERT or SOC (R-3) | Security lead (RACI row 15) | As soon as a detected attack, intrusion or disruption meets the s.21(1) test (liable to hinder the functioning of another computer system or network). Do not wait for the investigation to confirm it | Immediately after the decision. 24 hours after detection is the outer limit, not the deadline. Updates follow as the investigation continues |
+| NDPC (R-1), and the EU supervisory authority where SigKollect is the controller (R-4) | Head of Compliance (RACI row 14) | Without undue delay, and within 24 hours of being told at most | Without undue delay once the required details are known, and within 48 hours at most |
+| The controller, where SigKollect is a processor for EU data (R-4) | Head of Compliance | Without undue delay, and within 24 hours of being told at most | At once after the decision, and within 48 hours at most |
+| Affected people, where the risk to them is high (R-1) | Head of Compliance, with the CEO | As soon as the risk to them is judged high | Immediately (NDPA s.40(3)) |
 
 ![Figure 3. The 72-hour clock. The internal steps take at most 4 hours. The ngCERT report is due immediately; 72 hours is the latest.](figures/breach-clock.svg)
