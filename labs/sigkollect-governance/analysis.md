@@ -18,7 +18,7 @@ against primary legal texts.
   and a charter. On the legal side, the primary texts overturned two assumptions from the first
   scoping: the CBN's 2024 cybersecurity framework covers banks only, and a payment gateway is a PCI
   DSS service provider, not a merchant.
-- **The deliverable.** A 40-page [governance pack (PDF)](./sigkollect-governance-pack-v1.0.pdf),
+- **The deliverable.** A 42-page [governance pack (PDF)](./sigkollect-governance-pack-v1.0.pdf),
   with the editable [DOCX](./source/sigkollect-governance-pack-v1.0.docx) and each document as
   Markdown in [`documents/`](./documents/).
 
@@ -69,7 +69,8 @@ every decision in the pack.
    down: ease of starting before certification. NIST CSF 2.0 structures the programme, CIS Controls
    IG1 is the technical baseline, and ISO/IEC 27001 certification is the later target.
 6. **Governance cadence.** Four meetings, each defined by the decisions it takes, a five-slide
-   quarterly board report with a written colour rule, and out-of-cycle escalation times.
+   quarterly board report with a written colour rule, out-of-cycle escalation times, and deadlines
+   for each regulator notification.
 7. **KPIs.** Fourteen measures, split into KPIs and KRIs, each with a target, an owner and the
    meeting that looks at it. Five reach the board.
 8. **AI use policy.** Four data classes, approved tools from existing suppliers, a separate check
@@ -95,16 +96,20 @@ The regulatory assessment produced the findings that matter most outside the lab
 |---|---|---|
 | Nigeria Data Protection Act 2023 and GAID 2025 | Applies | The NDPC's guidance names payment gateway service providers and fintechs at its highest level, so registration, a data protection officer (s.32) and audit returns follow |
 | CBN Risk-Based Cybersecurity Framework 2024 | Unclear | Its scope is commercial, merchant, non-interest and payment service banks. It replaced a 2018 framework that also named payment service providers |
-| Cybercrimes Act s.21, as amended in 2024 | Likely applies | Report to ngCERT within 72 hours. Secondary sources only, and they disagree on when the clock starts |
+| Cybercrimes Act s.21, as amended in 2024 | Applies | Report to ngCERT immediately, through the sectoral CERT or SOC. Not reporting within 72 hours of detection is an offence |
 | GDPR | Likely applies | Article 3(2) reaches a non-EU company offering services to people in the EU, and Article 27 then asks for an EU representative |
 | PCI DSS v4.0.1 | Applies, by contract | A payment gateway is a service provider, so SAQ D for Service Providers or a full Report on Compliance, not a merchant SAQ |
 | DORA | Not applicable | SigKollect is not an EU-authorised financial entity |
 
-Three rules can each start a 72-hour clock on the same breach. The pack's escalation design works
-back from that: a suspected breach reaches the security lead within 1 hour and the CEO and the data
-protection officer within 4, so the notification decision is made well inside every deadline.
+Three rules can each start a clock on the same breach: 72 hours for the NDPC and an EU supervisory
+authority, and an immediate report to ngCERT. The pack's escalation design works back from that: a
+suspected breach reaches the security lead within 1 hour and the CEO and the data protection officer
+within 4. Then the decisions have their own deadlines: the ngCERT report goes as soon as the
+incident is confirmed and no later than 24 hours after detection, and the Head of Compliance decides
+on the NDPC and EU reports within 24 hours of being told and sends them within 48 hours. That leaves
+at least 24 hours before any 72-hour limit.
 
-![The 72-hour clock: the security lead is told within 1 hour, the CEO and Head of Compliance within 4 hours, and three regulator deadlines fall at 72 hours, for the NDPC, the EU supervisory authority and ngCERT. If the risk to people is high, they are told immediately.](./documents/figures/breach-clock.svg)
+![The 72-hour clock: the security lead is told within 1 hour, the CEO and Head of Compliance within 4 hours, and the regulator deadlines fall at 72 hours, for the NDPC, the EU supervisory authority and ngCERT, which must be told immediately. If the risk to people is high, they are told immediately.](./documents/figures/breach-clock.svg)
 
 ## 🔧 What I got wrong and fixed
 
@@ -124,6 +129,9 @@ The review rounds caught real mistakes. They are part of the result, so I list t
   deadline, not an internal step. It is now 1 hour and 4 hours.
 - **My first training rule had an exception for new joiners with assigned work.** Every new joiner
   has assigned work, so the exception would have covered everyone.
+- **I treated 72 hours as the ngCERT deadline.** A code review on this case study questioned it, and
+  the official text of the Act confirmed it: section 21(1) says report immediately, and 72 hours from
+  detection is the point where not reporting becomes an offence.
 
 ## 🧠 What this demonstrates
 
@@ -141,8 +149,8 @@ and access with Keycloak (lab 3), and an AI assistant that the AI use policy wil
 - The regulatory assessment is an analysis for a lab, not legal advice, and nothing in the pack
   claims compliance. The CBN question and the GDPR controller and processor roles would need a
   Nigerian payments lawyer and an EU data protection lawyer.
-- The Cybercrimes Act row rests on secondary sources, because I could not find the amended text on a
-  government site.
+- The Cybercrimes Act row rests on the official texts as published in WIPO Lex, because the ngCERT
+  site could not be reached. Which sectoral CERT takes a payment company's reports is not checked.
 - The pack is a governance design. It has not been run: no meeting has met, no KPI has a baseline.
 
 ## 📂 Source materials
