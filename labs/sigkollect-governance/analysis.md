@@ -18,7 +18,7 @@ against primary legal texts.
   and a charter. On the legal side, the primary texts overturned two assumptions from the first
   scoping: the CBN's 2024 cybersecurity framework covers banks only, and a payment gateway is a PCI
   DSS service provider, not a merchant.
-- **The deliverable.** A 42-page [governance pack (PDF)](./sigkollect-governance-pack-v1.0.pdf),
+- **The deliverable.** A 43-page [governance pack (PDF)](./sigkollect-governance-pack-v1.0.pdf),
   with the editable [DOCX](./source/sigkollect-governance-pack-v1.0.docx) and each document as
   Markdown in [`documents/`](./documents/).
 
@@ -104,10 +104,11 @@ The regulatory assessment produced the findings that matter most outside the lab
 Three rules can each start a clock on the same breach: 72 hours for the NDPC and an EU supervisory
 authority, and an immediate report to ngCERT. The pack's escalation design works back from that: a
 suspected breach reaches the security lead within 1 hour and the CEO and the data protection officer
-within 4. Then the decisions have their own deadlines: the ngCERT report goes as soon as the
-incident is confirmed and no later than 24 hours after detection, and the Head of Compliance decides
-on the NDPC and EU reports within 24 hours of being told and sends them within 48 hours. That leaves
-at least 24 hours before any 72-hour limit.
+within 4. Then the decisions have their own limits. The ngCERT report goes immediately once a
+detected incident meets the Act's test, without waiting for the investigation to confirm it, and 24
+hours after detection is the outer limit, not the deadline. The Head of Compliance decides on the
+NDPC and EU reports without undue delay, within 24 hours of being told at most, and sends them
+within 48 hours at most. That leaves at least 24 hours before any 72-hour limit.
 
 ![The 72-hour clock: the security lead is told within 1 hour, the CEO and Head of Compliance within 4 hours, and the regulator deadlines fall at 72 hours, for the NDPC, the EU supervisory authority and ngCERT, which must be told immediately. If the risk to people is high, they are told immediately.](./documents/figures/breach-clock.svg)
 
