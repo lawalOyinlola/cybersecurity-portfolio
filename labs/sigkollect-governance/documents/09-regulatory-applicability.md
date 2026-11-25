@@ -64,6 +64,11 @@ What the primary text says:
   GAID Article 33(3)). GAID Article 33(2) treats a breach as high risk where the person "may become a
   victim of fraud, identity theft or exposure of sensitive personal data". BVN, NIN and bank details
   fit that description.
+- **Phases and immediate notice.** Where the information cannot all be given at once, it "may be
+  provided in phases without undue delay" (s.40(9)), so a first notification does not wait for every
+  detail. GAID Article 33(4) also asks for "immediate information" to the NDPC and other relevant
+  authorities where it may help contain a breach on a national scale, where containment is needed at
+  national, sectoral or individual level, or "where it may affect members of the general public".
 - **Processors.** A processor (such as a SaaS supplier) must tell SigKollect on becoming aware of a
   breach (s.40(1)).
 - **Automated decisions.** A person has the right not to be subject to a decision "based solely on
@@ -231,7 +236,7 @@ customer records. Had the assessment found a likely risk, these clocks would hav
 
 | Clock | To whom | Deadline | Starts when | Source |
 |---|---|---|---|---|
-| NDPA | NDPC | 72 hours | SigKollect becomes aware of a breach likely to result in a risk | NDPA s.40(2) |
+| NDPA | NDPC | 72 hours; the rest in phases. Immediately if the breach may affect the general public | SigKollect becomes aware of a breach likely to result in a risk | NDPA s.40(2) and (9), GAID Art 33(4) |
 | NDPA, high risk | The affected people | Immediately | Same | NDPA s.40(3), GAID Art 33(3) |
 | GDPR, where SigKollect is the controller | EU supervisory authority | Without undue delay and, where feasible, within 72 hours | SigKollect becomes aware, for EU data subjects | GDPR Art 33(1) |
 | GDPR, where SigKollect is a processor | The controller (for example, the EU merchant) | Without undue delay | SigKollect becomes aware | GDPR Art 33(2) |
