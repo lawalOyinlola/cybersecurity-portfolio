@@ -71,4 +71,4 @@ records it in the risk register, but does not approve it.
 
 **Nobody approves their own acceptance.** If the approver named here also prepared the acceptance,
 for example a supplier's business owner who is also the system owner, their line manager approves it
-instead. For an executive, that is the CEO. This follows RACI rule 5.
+instead. For an executive, that is the CEO. For the CEO, it is the board. This follows RACI rule 5.

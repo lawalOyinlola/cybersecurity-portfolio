@@ -159,6 +159,8 @@ What the primary text says:
 - Article 33(1): notify the supervisory authority "without undue delay and, where feasible, not later
   than 72 hours after having become aware" of a breach, unless it is unlikely to result in a risk.
 - Article 33(2): a processor tells the controller "without undue delay".
+- Article 33(4): where the information cannot all be given at once, it "may be provided in phases
+  without undue further delay".
 
 What it means for SigKollect:
 

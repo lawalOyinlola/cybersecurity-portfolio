@@ -58,13 +58,15 @@ Roles: **Board** · **CEO** · **SC** (security steering committee) · **SL** (s
 
 1. **Row 4.** The accountable person is the approver that the risk appetite names for the risk's
    category: the CEO for customer data, legal and regulatory, and reputation; the CTO for
-   availability and technology change; the CFO for financial loss; and the supplier's business
-   owner for suppliers (the CEO where the supplier handles customer data). That keeps one A for each
-   risk. The system owner prepares the acceptance and records it in the risk register. Nobody
-   approves an acceptance they prepared: in that case the approver's line manager approves it, and
-   for an executive that is the CEO (rule 5).
+   availability and technology change; the CFO for financial loss; and the supplier's business owner
+   for suppliers (the CEO where the supplier handles customer data). That keeps one A for each risk.
+   The system owner prepares the acceptance and records it in the risk register. Nobody approves an
+   acceptance they prepared: in that case the approver's line manager approves it. For an executive,
+   that is the CEO. For the CEO, it is the board (rule 5).
 2. **Row 10b.** IT removes the access and owns the result. The independent check comes after the
    work, so it is not a C: each month the security lead checks every leaver on the Head of People's
-   list against the account state, meaning the account disabled or deleted in the identity provider,
-   or the system's own access list or removal log. An IT ticket alone is not evidence (KPI measure
-   7). The quarterly access review (row 11) is the backstop.
+   list in every system where they held an account: the identity provider, and the system's own
+   access list for any system with its own accounts. Removal on time is proven by a timestamped
+   removal record (the identity provider's audit log or the system's removal log) dated by the
+   deadline. Account state and IT tickets back that up, but they do not prove when access was
+   removed (KPI measure 7). The quarterly access review (row 11) is the backstop.
