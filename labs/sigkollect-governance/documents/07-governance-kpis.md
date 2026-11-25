@@ -24,13 +24,13 @@ Targets below are for the charter dates (28 February to 30 April 2027), then for
 
 | # | Measure | How it is calculated | Target | Type | CSF function | Source | Owner | Seen by |
 |---|---|---|---|---|---|---|---|---|
-| 1 | Charter objectives on track | Objectives a to g that are green ÷ 7 | 7 of 7 green by 30 April 2027 | KPI | Govern | Objectives tracker | Security lead | Steering committee monthly, board quarterly |
+| 1 | Charter objectives on track | Objectives a to h that are green ÷ 8 | 8 of 8 green by 30 April 2027 | KPI | Govern | Objectives tracker | Security lead | Steering committee monthly, board quarterly |
 | 2 | Risks above the appetite without a decision | Risks above the appetite that have waited more than 30 days for a board decision | 0 | KRI | Govern | Risk register | Security lead | Steering committee monthly, board quarterly |
 | 3 | Core policies approved and in date | Approved policies with a review date in the future ÷ 4 (information security, access control, acceptable use, incident response) | 4 of 4 by 30 April 2027 (objective c) | KPI | Govern | Policy register | Security lead | Steering committee monthly |
 | 4 | Suppliers assessed | Suppliers with access to SigKollect systems or data that have a current assessment ÷ all such suppliers | 100% (risk appetite row 5) | KPI | Govern | Supplier list | Security lead | Risk review monthly, steering committee quarterly |
 | 5 | Systems with a named owner | Systems in the asset inventory with a named owner ÷ all systems in the inventory | 100% by 31 March 2027 (objective b) | KPI | Identify | Asset inventory | IT and Systems Lead | Risk review monthly |
 | 6 | MFA on systems with customer data | Users with MFA on systems that hold identity, bank or card data ÷ all users of those systems | 100% (risk appetite row 1) | KRI | Protect | Identity provider reports | IT and Systems Lead | Risk review monthly, board quarterly |
-| 7 | Leaver access removed on time | Leavers whose access was removed within 5 working days ÷ all leavers this month | 100% (objective e) | KPI | Protect | Head of People leaver list compared with IT tickets | IT and Systems Lead | Risk review monthly |
+| 7 | Leaver access removed on time | Leavers whose access was removed within 5 working days ÷ all leavers this month | 100% (objective e) | KPI | Protect | Head of People leaver list compared with IT tickets | Security lead | Risk review monthly |
 | 8 | Access review complete | Systems with customer or payment data reviewed this quarter ÷ all such systems | 100% each quarter (RACI row 11) | KPI | Protect | Access review records | Security lead | Steering committee quarterly |
 | 9 | Critical vulnerabilities fixed on time | Critical vulnerabilities fixed within the target days ÷ all critical vulnerabilities found | 95% within 72 hours if actively exploited, 7 days for internet-facing systems, 14 days for internal systems | KPI | Protect | Scanner and ticket data | CTO | Risk review monthly, steering committee monthly |
 | 10 | Training complete | Staff who finished the yearly security awareness training ÷ all staff. New joiners: essentials module before access to customer data or within the first week, full course within 2 months | 95% of staff each year. 100% of new joiners on both new-joiner deadlines | KPI | Protect | Training platform | Head of People | Steering committee quarterly |
@@ -59,10 +59,12 @@ the steering committee and the risk review.
 
 ## Notes on three measures
 
-1. **Measure 9.** The clock starts when the vulnerability is found or a fix is published, whichever
-   is later. Where no fix exists, a documented workaround approved by the security lead counts as
-   fixed. A vulnerability that is being actively exploited must be fixed within 72 hours, whatever
-   the system.
+1. **Measure 9.** For most vulnerabilities, the clock starts when the vulnerability is found or a
+   fix is published, whichever is later. Where no fix exists, a documented workaround approved by the
+   security lead counts as fixed. A vulnerability that is being actively exploited is different: its
+   72 hours start when it is found, whatever the system and whether or not a fix exists. If neither a
+   fix nor an approved workaround is in place by then, it is a risk outside the appetite and goes to
+   the CEO (governance cadence, part 3).
 2. **Measure 10.** New joiners finish a short essentials module (spotting phishing, reporting an
    incident within 1 hour, handling customer data) before they get access to customer data, or
    within their first week, with no exceptions. They finish the full course within 2 months. New

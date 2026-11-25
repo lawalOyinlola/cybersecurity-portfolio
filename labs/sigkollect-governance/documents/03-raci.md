@@ -36,14 +36,14 @@ Roles: **Board** · **CEO** · **SC** (security steering committee) · **SL** (s
 | 1 | Approve the charter | A/R | C |  | C |  |  |  |  |  |  |  | I |
 | 2 | Approve the risk appetite | A/R | C | C | C |  |  |  |  |  |  |  |  |
 | 3 | Maintain the risk register |  |  | I | A/R | C |  | C |  | C |  | C |  |
-| 4 | Accept a risk within the appetite |  |  | I | C |  |  |  |  |  |  | A/R |  |
+| 4 | Accept a risk within the appetite (see note 1) |  |  | I | C |  |  |  |  |  |  | R |  |
 | 5 | Accept a risk above the appetite | A/R | C | C | C |  |  |  |  |  |  |  |  |
 | 6 | Write and update security policies |  |  | C | A/R | C |  | C |  | C |  | C | I |
 | 7 | Approve security policies |  |  | A/R | C |  |  |  |  |  |  | C |  |
 | 8 | Keep the asset inventory current |  |  |  | C | A |  | R |  |  |  | C |  |
 | 9 | Grant access to a system |  |  |  |  |  |  | R | C |  |  | A |  |
 | 10a | Tell IT about a leaver on their last day |  |  |  |  |  |  | I | A/R |  |  |  |  |
-| 10b | Remove a leaver's access |  |  |  | I |  |  | A/R |  |  |  | I |  |
+| 10b | Remove a leaver's access (see note 2) |  |  |  | I |  |  | A/R |  |  |  | I |  |
 | 11 | Run the quarterly access review |  |  | I | A |  |  | R |  |  |  | R |  |
 | 12 | Patch systems and dependencies |  |  | I | C | A | R | R |  |  |  |  |  |
 | 13 | Respond to a security incident |  | I | I | A/R | C | R | R |  | C |  |  |  |
@@ -53,3 +53,14 @@ Roles: **Board** · **CEO** · **SC** (security steering committee) · **SL** (s
 | 17 | Run security awareness training |  |  | I | A/R |  |  |  | R | C |  |  | I |
 | 18 | Send the quarterly security report to the board | I | C | C | A/R |  |  |  |  |  |  |  |  |
 | 19 | Answer a customer's security questionnaire |  | I |  | A/R | C |  |  |  | C | R |  |  |
+
+## Notes on two rows
+
+1. **Row 4.** The accountable person is the approver that the risk appetite names for the risk's
+   category: the CEO for customer data, legal and regulatory, and reputation; the CTO for
+   availability and technology change; the CFO for financial loss; and the supplier's business
+   owner for suppliers (the CEO where the supplier handles customer data). That keeps one A for each
+   risk. The system owner prepares the acceptance and records it in the risk register.
+2. **Row 10b.** IT removes the access and owns the result. The independent check comes after the
+   work, so it is not a C: each month the security lead compares the Head of People's leaver list
+   with IT's tickets (KPI measure 7). The quarterly access review (row 11) is the backstop.

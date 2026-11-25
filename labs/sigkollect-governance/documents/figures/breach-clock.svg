@@ -55,5 +55,5 @@
   <text x="440" y="375" font-size="15" font-weight="700" fill="#b3362c">High risk to people? Tell them immediately.</text>
   <text x="440" y="395" font-size="14" fill="#3d4a42">NDPA s.40(3). Do not wait for the 72-hour deadline.</text>
 
-  <text x="60" y="448" font-size="13" fill="#6b6a5e">Every clock starts when SigKollect becomes aware of, or detects, the event. Not to scale after 4 hours.</text>
+  <text x="60" y="448" font-size="13" fill="#6b6a5e">Every clock starts when SigKollect becomes aware of, or detects, the event. ngCERT must be told immediately; 72 hours is the latest. Not to scale after 4 hours.</text>
 </svg>

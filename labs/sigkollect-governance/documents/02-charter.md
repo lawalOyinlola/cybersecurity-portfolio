@@ -77,7 +77,7 @@ executive sponsor funds the programme and chairs the steering committee.
 | Head of People | Tells IT about every joiner, mover and leaver on the day of the change |
 | Head of Compliance | Payments regulation and anti-money-laundering. Data protection officer under the NDPA (section 32), supported by an external data protection adviser |
 | Head of Sales and Partnerships | Routes customer security requests to the security lead, and sends the approved answers |
-| System and data owners | One named owner for each system and data set. Approves access to it. Accepts risk on it, within the appetite |
+| System and data owners | One named owner for each system and data set. Approves access to it. Prepares and records risk acceptances on it. The approver the risk appetite names accepts them |
 | All staff | Follow the policies. Report suspected incidents at once, without fear of blame |
 | Independent review | An external review of the programme once a year, until SigKollect has internal audit. |
 
@@ -86,8 +86,9 @@ executive sponsor funds the programme and chairs the steering committee.
 1. **Decisions rest on evidence.** A control counts only when there is proof that it works.
 2. **Everything has an owner.** Each system, data set and risk has one named owner.
 3. **Least privilege.** People and systems get the access they need, for as long as they need it.
-4. **Risk is accepted on purpose.** Only an owner with authority can accept a risk, only within the
-   appetite, and the acceptance is written down.
+4. **Risk is accepted on purpose.** Only a person with the authority can accept a risk, and the
+   acceptance is written down. Within the appetite, that is the person the risk appetite names. Above
+   the appetite, only the board can accept it (section 3).
 5. **Report early, without blame.** A fast report is worth more than a perfect one. E-4 was contained
    because one agent reported it.
 

@@ -45,7 +45,7 @@ means.
 
 | #   | Category                                               | Appetite | Statement | Tolerance | Treat if score above | Who may accept within the appetite |
 | --- | ------------------------------------------------------ | -------- | --------- | --------- | -------------------- | ---------------------------------- |
-| 1 | Customer and merchant data (identity, bank, card data) | Averse | SigKollect does not knowingly accept any risk that could expose identity, bank or card data. It spends money and slows delivery when that is what protecting this data takes | Zero confirmed exposures. Every system that holds this data has a named owner, MFA for every user and encryption at rest. Every suspected exposure reaches the security lead within 1 hour | 4 | The CEO only, on the security lead's advice. System owners may not accept risks in this category |
+| 1 | Customer and merchant data (identity, bank, card data) | Averse | SigKollect accepts no known exposure of identity, bank or card data. Only the smallest residual risks to this data (score 4 or below) may stay while the controls do their job. It spends money and slows delivery when that is what protecting this data takes | Zero confirmed exposures. Every system that holds this data has a named owner, MFA for every user and encryption at rest. Every suspected exposure reaches the security lead within 1 hour | 4 | The CEO only, on the security lead's advice. System owners may not accept risks in this category |
 | 2 | Legal and regulatory compliance | Averse | SigKollect does not knowingly break a law, a regulation or a condition of its licence. Where a rule is unclear, it follows the stricter reading until it has advice | Zero known breaches left open. Every regulator notification sent within its legal time limit, such as 72 hours. Every regulator request answered by its deadline | 4 | Nobody may accept a known breach. A risk about how a rule applies may be accepted by the CEO, on the Head of Compliance's advice |
 | 3 | Availability of the payment services | Minimal | Merchants lose sales every minute Checkout is down, so SigKollect keeps its payment services running and accepts only small, short disruptions | 30 minutes of unplanned downtime a month at most, for Checkout and the Partner API. Every outage longer than 15 minutes is reported to the CEO the same day | 6 | The CTO, who runs the platform, on the security lead's advice |
 | 4 | Financial loss from security events | Minimal | SigKollect accepts only small financial losses caused by security events, such as fraud through a stolen account, refunds, fines or the cost of cleaning up an incident. Normal business spending is not part of this category | No single security event costs more than $50,000, and the total stays under $100,000 a year | 6 | The CFO, on the security lead's advice |
@@ -65,5 +65,6 @@ threshold is 4, not 0. A risk can never be zero: any system that holds data has 
 about the *outcome* (no leak happens). The threshold is about the *risk* (only the smallest risks
 may remain while the controls do their job).
 
-**Note for the RACI.** In row 4 of the RACI, the system owner accepts risks within the appetite.
-The "who may accept" column here narrows that for some categories, as rows 1 and 2 do.
+**Note for the RACI.** Row 4 of the RACI points here. The person in the "who may accept" column is
+accountable for accepting a risk in that category. The system owner prepares the acceptance and
+records it in the risk register, but does not approve it.

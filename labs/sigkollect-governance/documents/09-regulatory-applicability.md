@@ -34,7 +34,7 @@ Sources were read on 25 November 2026. Laws change. Each row is reviewed by its 
 |---|---|---|---|---|---|---|
 | R-1 | Nigeria Data Protection Act 2023 and the GAID 2025 | **Applies.** SigKollect is a data controller of major importance, at the highest level (UHL) | High | Primary | Head of Compliance (DPO) | 30 June 2027 |
 | R-2 | CBN Risk-Based Cybersecurity Framework 2024 | **Unclear.** The 2024 framework covers banks only. The 2018 framework it replaced also covered payment service providers. What covers SigKollect now is not settled | Medium | Primary | Head of Compliance | 31 March 2027 |
-| R-3 | Cybercrimes Act 2015, amended 2024, section 21 | **Likely applies.** Report cyber incidents to ngCERT, through the sector CERT, within 72 hours | Low | Secondary only | Security lead | 31 March 2027 |
+| R-3 | Cybercrimes Act 2015, amended 2024, section 21 | **Applies.** Report cyber incidents to ngCERT, through the sector CERT or SOC, immediately. Not reporting within 72 hours of detection is an offence | High | Primary | Security lead | 31 March 2027 |
 | R-4 | EU GDPR | **Likely applies** (Article 3(2)), and with it an EU representative (Article 27) | Medium | Primary | Head of Compliance | 31 March 2027 |
 | R-5 | PCI DSS v4.0.1 | **Applies, by contract, as a service provider**, not as a merchant | Medium | Primary | CTO | 31 March 2027 |
 | R-6 | EU DORA | **Not applicable** to SigKollect directly | Medium | Primary (mirror) | Head of Compliance | 30 June 2027 |
@@ -114,27 +114,36 @@ structure (board oversight, a CISO, a risk management system, metrics) matches w
 
 ## R-3 · Cybercrimes Act 2015, amended 2024, section 21
 
-**Result: Likely applies. Confidence: Low (secondary sources only).**
+**Result: Applies. Confidence: High.**
 
-The official text of the 2024 Amendment Act was not found on a government site. Law-firm summaries
-agree on these points:
+What the primary text says (the 2015 Act and the 2024 Amendment Act, as published in WIPO Lex):
 
-- section 21 requires anyone "operating computer systems or networks" to report attacks, intrusions
-  or disruptions to ngCERT, now through the sector CERT or security operations centre;
-- the amendment shortened the time limit from 7 days to 72 hours;
-- sources disagree on when the 72 hours start: most say from **detection**, one says from
-  **occurrence**.
+- Section 21(1): a person or institution "who operates a Computer System or a Network, whether
+  Public or Private, shall immediately inform" the National CERT Coordination Center of "any
+  attack, intrusion and other disruption liable to hinder the functioning of another Computer System
+  or Network". Section 3(a) of the 2024 Amendment Act adds the route: "through their respective
+  sectoral CERTs or sectoral Security Operations Centres (SOC)".
+- Section 21(3): a person who fails to report "within 7 days of its occurrence" commits an offence.
+  Section 3(b) of the 2024 Amendment Act replaces those words with "72 hours of its detection". The
+  penalty is denial of internet services and a mandatory fine of ₦2,000,000 paid into the National
+  Cyber Security Fund.
 
 What it means for SigKollect:
 
-- SigKollect operates computer systems in Nigeria, so section 21 very likely reaches it.
-- Until the text is confirmed, the programme uses the stricter reading: the clock starts at
-  **occurrence**, where that is known. The cadence already reports a suspected cyber incident to the
-  CEO within 4 hours.
-- Open: which sector CERT receives reports from a payment service provider. Not checked.
+- SigKollect operates computer systems and networks, so section 21 reaches it.
+- There are two duties, not one. The duty is to report **immediately** (s.21(1)). The 72 hours from
+  **detection** (s.21(3)) is the point after which not reporting is an offence. It is not a deadline
+  to plan to.
+- The clock starts at detection, not at occurrence. An earlier draft of this assessment used
+  occurrence as the stricter reading, because law-firm summaries disagreed. The primary text settles
+  it.
+- Open: which sectoral CERT or SOC receives reports from a payment service provider. A law-firm
+  note names the Nigeria Financial CERT (NigFinCERT) as one sectoral CERT. Not checked with a primary
+  source.
 
-Sources: PLAC (placng.org), Aluko & Oyebode (aluko-oyebode.com), Templars (templars-law.com),
-TechHive Advisory (techhiveadvisory.africa). All secondary.
+Sources: the two Acts, read through WIPO Lex (primary). Earlier, and for the NigFinCERT name: PLAC
+(placng.org), Aluko & Oyebode (aluko-oyebode.com), Templars (templars-law.com), TechHive Advisory
+(techhiveadvisory.africa), all secondary.
 
 ## R-4 · EU General Data Protection Regulation
 
@@ -222,11 +231,15 @@ customer records. Had the assessment found a likely risk, these clocks would hav
 |---|---|---|---|---|
 | NDPA | NDPC | 72 hours | SigKollect becomes aware of a breach likely to result in a risk | NDPA s.40(2) |
 | NDPA, high risk | The affected people | Immediately | Same | NDPA s.40(3), GAID Art 33(3) |
-| GDPR | EU supervisory authority | 72 hours, where feasible | SigKollect becomes aware, for EU data subjects | GDPR Art 33(1) |
-| Cybercrimes Act | ngCERT, through the sector CERT | 72 hours | Detection (stricter reading: occurrence) | s.21 as amended, secondary sources |
+| GDPR, where SigKollect is the controller | EU supervisory authority | Without undue delay and, where feasible, within 72 hours | SigKollect becomes aware, for EU data subjects | GDPR Art 33(1) |
+| GDPR, where SigKollect is a processor | The controller (for example, the EU merchant) | Without undue delay | SigKollect becomes aware | GDPR Art 33(2) |
+| Cybercrimes Act | ngCERT, through the sectoral CERT or SOC | Immediately. Not reporting within 72 hours is an offence | Detection | s.21(1) and (3), as amended in 2024 |
 
-What E-4 teaches: all three 72-hour clocks start from awareness or detection, not from the end of the
-investigation. So the cadence's internal steps (1 hour to the security lead, 4 hours to the CEO and
+Which GDPR row applies depends on the controller and processor roles, which are under legal review
+(R-4 and action 3 below). Until they are settled, SigKollect prepares both notifications.
+
+What E-4 teaches: every clock starts from awareness or detection, not from the end of the
+investigation, and the ngCERT report is due at once, not at 72 hours. So the cadence's internal steps (1 hour to the security lead, 4 hours to the CEO and
 Head of Compliance) matter more than any later step. The governance cadence already sets them.
 
 ## Actions agreed
@@ -250,8 +263,13 @@ Primary:
   Schedule 7)
 - CBN Risk-Based Cybersecurity Framework and Guidelines for DMBs and PSBs 2024:
   cbn.gov.ng/Out/2024/BSD/CBN Risk-Based Cybersecurity Framework for DMBs and PSBs_2024.pdf
+- Cybercrimes (Prohibition, Prevention, Etc.) Act 2015 (Act No. 17 of 2015), section 21, and the
+  Cybercrimes (Prohibition, Prevention, Etc.) (Amendment) Act 2024, section 3: official texts read
+  through WIPO Lex (wipo.int/wipolex, records 22696 and 22699). The ngCERT site could not be reached
+  from this lab
 - Regulation (EU) 2016/679 (GDPR), Articles 3, 27, 33, read through gdpr-info.eu
 - Regulation (EU) 2022/2554 (DORA), Article 2, read through digital-operational-resilience-act.com
 - PCI DSS v4.0.1 SAQ D for Service Providers, r2, January 2025: docs-prv.pcisecuritystandards.org
 
-Secondary (R-3 only): placng.org, aluko-oyebode.com, templars-law.com, techhiveadvisory.africa.
+Secondary (R-3, used before the primary text was found, and for the sectoral CERT name): placng.org,
+aluko-oyebode.com, templars-law.com, techhiveadvisory.africa.

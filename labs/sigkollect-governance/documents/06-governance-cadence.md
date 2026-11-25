@@ -22,8 +22,8 @@ Every meeting below takes decisions. A meeting that only shares information is a
 | Meeting | Chair | Members | How often | What it decides | Inputs | Record kept |
 |---|---|---|---|---|---|---|
 | Board (security item) | Board chair | The three directors. The security lead and the CEO attend to present | Quarterly | Approve the charter and its changes (RACI row 1). Approve the risk appetite (row 2). Accept or refuse a risk above the appetite (row 5) | The quarterly security report. Once a year: the external review report | Board minutes, with each decision recorded |
-| Security steering committee | CEO | CTO, COO, CFO, security lead, Head of Compliance | Monthly | Approve security policies (RACI row 7). Set programme priorities and resources. Track objectives a to g. Advise on the risk appetite and on any above-appetite acceptance before they go to the board (RACI rows 2 and 5). Review the board report before it is sent (RACI row 18) | Objectives tracker, risk register summary, risks above the appetite, policy drafts, incident summaries | Minutes and an action log, kept by the security lead |
-| Risk review | Security lead | CTO, Head of Compliance, and the system owners whose risks are on the agenda | Monthly, one week before the steering committee | Score new risks. Assign an owner to each risk. Owners accept risks within the appetite (RACI row 4). Send risks above the appetite to the steering committee | Risk register, new findings (scans, the pentest, incidents, access review results) | Updated risk register, each change dated and each acceptance signed by its owner |
+| Security steering committee | CEO | CTO, COO, CFO, security lead, Head of Compliance | Monthly | Approve security policies (RACI row 7). Set programme priorities and resources. Track objectives a to h. Advise on the risk appetite and on any above-appetite acceptance before they go to the board (RACI rows 2 and 5). Review the board report before it is sent (RACI row 18) | Objectives tracker, risk register summary, risks above the appetite, policy drafts, incident summaries | Minutes and an action log, kept by the security lead |
+| Risk review | Security lead | CTO, Head of Compliance, and the system owners whose risks are on the agenda | Monthly, one week before the steering committee | Score new risks. Assign an owner to each risk. Agree which risks are within the appetite; the approver the risk appetite names for each category accepts them (RACI row 4). Send risks above the appetite to the steering committee | Risk register, new findings (scans, the pentest, incidents, access review results) | Updated risk register, each change dated and each acceptance signed by the approver the risk appetite names |
 | Incident review | Security lead | The people who responded to the incident, and the Head of Compliance | Within 5 working days after a significant incident is closed | Agree the root cause. Assign each action an owner and a date. Decide changes to the risk register or a policy | Incident log, timeline, evidence | Post-incident report, written without blame (charter principle 5) |
 
 Meetings not set up yet:
@@ -49,7 +49,7 @@ Sections of the report, in order:
 | # | Section | What it shows | Source |
 |---|---|---|---|
 | 1 | Summary in three lines | Overall status as one colour. The top concern. The decision the board is asked to take | The whole report |
-| 2 | Progress on the charter objectives (a to g) | Where we started, where we are now, where we are going, and what we need to get there. One colour for each objective | Objectives tracker, steering committee minutes |
+| 2 | Progress on the charter objectives (a to h) | Where we started, where we are now, where we are going, and what we need to get there. One colour for each objective | Objectives tracker, steering committee minutes |
 | 3 | Top risks against the appetite | Every risk outside the appetite, and any risk close to its limit | Risk register |
 | 4 | Incidents this quarter | What happened, the effect on merchants and customers, whether each regulator notification was sent on time, and what changed | Incident log, post-incident reports |
 | 5 | Decisions the board must take | Each decision, with the options and the steering committee's recommendation | Steering committee minutes |
@@ -75,9 +75,21 @@ SigKollect first knows about the event.
 | A customer asks about security | Security lead | 1 working day | Head of Sales and Partnerships |
 | A regulator asks about security | Head of Compliance and security lead | The same working day | Whoever receives the request |
 
-Why these times: the regulators' 72-hour clocks (rules R-1, R-3 and R-4) start when SigKollect
-knows. The internal steps take at most 4 hours, which leaves the Head of Compliance time to decide on
-notification and send it inside 72 hours. Risk appetite row 1 already sets 1 hour for a suspected
-exposure to reach the security lead.
+Why these times: the NDPA and GDPR clocks (rules R-1 and R-4) run up to 72 hours from the moment
+SigKollect becomes aware of a breach. The Cybercrimes Act (R-3) asks for a report to ngCERT
+immediately; 72 hours from detection is the point where not reporting becomes an offence, not a
+deadline to plan to. The internal steps take at most 4 hours, so the people who decide on
+notification know early, and the deadlines below leave at least 24 hours before any 72-hour limit.
+Risk appetite row 1 already sets 1 hour for a suspected exposure to reach
+the security lead.
 
-![Figure 3. The 72-hour clock. The internal steps take at most 4 hours, inside every regulator deadline.](figures/breach-clock.svg)
+Notification deadlines, measured from the moment SigKollect becomes aware of, or detects, the event:
+
+| Notification | Who decides | Decided by | Sent by |
+|---|---|---|---|
+| ngCERT, through the sectoral CERT or SOC (R-3) | Security lead (RACI row 15) | As soon as a cyber incident is confirmed | At once after the decision, and no later than 24 hours after detection |
+| NDPC (R-1), and the EU supervisory authority where SigKollect is the controller (R-4) | Head of Compliance (RACI row 14) | Within 24 hours of being told | Within 48 hours |
+| The controller, where SigKollect is a processor for EU data (R-4) | Head of Compliance | Within 24 hours of being told | At once after the decision, and within 48 hours |
+| Affected people, where the risk to them is high (R-1) | Head of Compliance, with the CEO | Within 24 hours of being told | At once after the decision |
+
+![Figure 3. The 72-hour clock. The internal steps take at most 4 hours. The ngCERT report is due immediately; 72 hours is the latest.](figures/breach-clock.svg)
