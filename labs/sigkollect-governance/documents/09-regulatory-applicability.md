@@ -239,7 +239,7 @@ customer records. Had the assessment found a likely risk, these clocks would hav
 |---|---|---|---|---|
 | NDPA | NDPC | 72 hours; the rest in phases | SigKollect becomes aware of a breach likely to result in a risk | NDPA s.40(2) and (9) |
 | GAID immediate notice | NDPC and every other relevant authority | Immediately | Immediate information may help contain imminent breaches on a national scale, containment measures may be necessary at national, sectoral or individual level, or the breach may affect members of the general public. No finding of risk to individuals is needed first | GAID Art 33(4) |
-| NDPA, high risk | The affected people | Immediately | Same | NDPA s.40(3), GAID Art 33(3) |
+| NDPA, high risk | The affected people | Immediately | A breach is likely to result in a high risk to the people affected, whether or not a GAID condition applies | NDPA s.40(3), GAID Art 33(3) |
 | GDPR, where SigKollect is the controller | EU supervisory authority | Without undue delay and, where feasible, within 72 hours | SigKollect becomes aware, for EU data subjects | GDPR Art 33(1) |
 | NDPA, where SigKollect is a processor | The controller that engaged it (for example, a merchant) | On becoming aware | SigKollect becomes aware | NDPA s.40(1) |
 | GDPR, where SigKollect is a processor | The controller (for example, the EU merchant) | Without undue delay | SigKollect becomes aware | GDPR Art 33(2) |
