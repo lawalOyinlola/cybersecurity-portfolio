@@ -39,7 +39,7 @@ the cheaper and lighter framework is the better fit, so it scores higher.
 | 5   | Covers governance and risk              | The charter, the risk appetite and the risk register                               | 3 | 3 | 2 | 1 |
 | 6   | Gives engineers concrete controls       | E-1 to E-5 were technical failures                                                  | 2 | 2 | 1 | 3 |
 | 7   | Helps with Nigerian rules               | R-1 to R-3: the NDPA, the CBN framework, the Cybercrimes Act                        | 1 | 2 | 2 | 2 |
-| 8   | Fits the charter's 2027 targets         | Objectives a to g, January to April 2027                                            | 3 | 2 | 3 | 2 |
+| 8   | Fits the charter's 2027 targets         | Objectives a to h, February to April 2027                                           | 3 | 2 | 3 | 2 |
 |     | **Weighted total**                      |                                                                                     |        | **41** | **39** | **40** |
 
 ## Decision
