@@ -110,9 +110,12 @@ detected incident meets the Act's test, without waiting for the investigation to
 hours after detection is the outer limit, not the deadline. The Head of Compliance decides on the
 NDPC and EU reports without undue delay, within 24 hours of being told at most, and sends them
 within 48 hours at most. That leaves at least 24 hours before any 72-hour limit. Three notices do
-not wait for that decision: the GAID's immediate notice to the authorities where it may help contain
-the breach, the notice to affected people (immediately on becoming aware of a reportable breach,
-under the pack's reading of GAID Article 33(3)), and, where SigKollect is a processor, the notice to
+not wait for that decision: the GAID's immediate notice to the NDPC and every other relevant
+authority (Article 33(4)) where it may help contain imminent breaches on a national scale, where
+containment measures may be needed at national, sectoral or individual level, or where the breach
+may affect members of the general public, with no finding of risk to individuals needed first; the
+notice to affected people (immediately on becoming aware of a reportable breach,
+under the pack's reading of GAID Article 33(3)); and, where SigKollect is a processor, the notice to
 whoever engaged it.
 
 ![The 72-hour clock: the security lead is told within 1 hour, the CEO and Head of Compliance within 4 hours, and the regulator deadlines fall at 72 hours, for the NDPC, the EU supervisory authority and ngCERT, which must be told immediately. Affected people are told immediately: under GAID Article 33(3) for a reportable breach, and under NDPA section 40(3) where the risk to them is high.](./documents/figures/breach-clock.svg)
