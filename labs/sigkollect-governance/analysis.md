@@ -15,9 +15,10 @@ against primary legal texts.
   much risk the company accepts, which framework it measures itself against, when decisions are
   taken, how progress is measured, and which laws actually apply.
 - **The key findings.** Seven high-priority governance gaps, led by the absence of a security lead
-  and a charter. On the legal side, the primary texts overturned two assumptions from the first
-  scoping: the CBN's 2024 cybersecurity framework covers banks only, and a payment gateway is a PCI
-  DSS service provider, not a merchant.
+  and a charter. On the legal side, the primary texts overturned three assumptions from the first
+  scoping: the CBN's 2024 cybersecurity framework covers banks only, a payment gateway is a PCI DSS
+  service provider, not a merchant, and the Cybercrimes Act asks for an immediate report to ngCERT,
+  with 72 hours only as the point where not reporting becomes an offence.
 - **The deliverable.** A 43-page [governance pack (PDF)](./sigkollect-governance-pack-v1.0.pdf),
   with the editable [DOCX](./source/sigkollect-governance-pack-v1.0.docx) and each document as
   Markdown in [`documents/`](./documents/).
@@ -108,9 +109,13 @@ within 4. Then the decisions have their own limits. The ngCERT report goes immed
 detected incident meets the Act's test, without waiting for the investigation to confirm it, and 24
 hours after detection is the outer limit, not the deadline. The Head of Compliance decides on the
 NDPC and EU reports without undue delay, within 24 hours of being told at most, and sends them
-within 48 hours at most. That leaves at least 24 hours before any 72-hour limit.
+within 48 hours at most. That leaves at least 24 hours before any 72-hour limit. Three notices do
+not wait for that decision: the GAID's immediate notice to the authorities where it may help contain
+the breach, the notice to affected people (immediately on becoming aware of a reportable breach,
+under the pack's reading of GAID Article 33(3)), and, where SigKollect is a processor, the notice to
+whoever engaged it.
 
-![The 72-hour clock: the security lead is told within 1 hour, the CEO and Head of Compliance within 4 hours, and the regulator deadlines fall at 72 hours, for the NDPC, the EU supervisory authority and ngCERT, which must be told immediately. If the risk to people is high, they are told immediately.](./documents/figures/breach-clock.svg)
+![The 72-hour clock: the security lead is told within 1 hour, the CEO and Head of Compliance within 4 hours, and the regulator deadlines fall at 72 hours, for the NDPC, the EU supervisory authority and ngCERT, which must be told immediately. Affected people are told immediately: under GAID Article 33(3) for a reportable breach, and under NDPA section 40(3) where the risk to them is high.](./documents/figures/breach-clock.svg)
 
 ## 🔧 What I got wrong and fixed
 
@@ -124,8 +129,8 @@ The review rounds caught real mistakes. They are part of the result, so I list t
 - **I first rated customer data "Eager" on the appetite scale,** reading the scale backwards. It is
   Averse.
 - **In the framework scores, I gave every criterion the same weight,** which is the same as no
-  weights, and scored cost and effort in the wrong direction. Fixing both turned an 18-point ISO lead
-  into a near tie, which is what forced an honest tie-breaker.
+  weights, and scored cost and effort in the wrong direction. Fixing both, and three scores that did
+  not follow my own notes on the candidates, turned an 18-point ISO lead into a near tie, which is what forced an honest tie-breaker.
 - **In the cadence, the CEO heard about a data breach "within 72 hours".** That is the regulator's
   deadline, not an internal step. It is now 1 hour and 4 hours.
 - **My first training rule had an exception for new joiners with assigned work.** Every new joiner
