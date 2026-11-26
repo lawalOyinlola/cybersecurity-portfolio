@@ -69,7 +69,9 @@ What the primary text says:
   detail. GAID Article 33(4) also asks for "immediate information" to the NDPC and other relevant
   authorities where it may help contain imminent breaches on a national scale, where containment measures may be necessary at national, sectoral or individual level, or "where it may affect members of the general public".
 - **Processors.** A processor (such as a SaaS supplier) must tell SigKollect on becoming aware of a
-  breach (s.40(1)).
+  breach (s.40(1)). The same duty binds SigKollect where it processes data for a controller, such as
+  a merchant: on becoming aware of a breach, it tells the controller that engaged it
+  (s.40(1)(a)) and answers that controller's requests for information (s.40(1)(b)).
 - **Automated decisions.** A person has the right not to be subject to a decision "based solely on
   automated processing" with legal or similarly significant effects (s.37(1)), with exceptions in
   s.37(2), including a contract.
@@ -239,11 +241,12 @@ customer records. Had the assessment found a likely risk, these clocks would hav
 | GAID immediate notice | NDPC and every other relevant authority | Immediately | Immediate information may help contain imminent breaches on a national scale, containment measures may be necessary at national, sectoral or individual level, or the breach may affect members of the general public. No finding of risk to individuals is needed first | GAID Art 33(4) |
 | NDPA, high risk | The affected people | Immediately | Same | NDPA s.40(3), GAID Art 33(3) |
 | GDPR, where SigKollect is the controller | EU supervisory authority | Without undue delay and, where feasible, within 72 hours | SigKollect becomes aware, for EU data subjects | GDPR Art 33(1) |
+| NDPA, where SigKollect is a processor | The controller that engaged it (for example, a merchant) | On becoming aware | SigKollect becomes aware | NDPA s.40(1) |
 | GDPR, where SigKollect is a processor | The controller (for example, the EU merchant) | Without undue delay | SigKollect becomes aware | GDPR Art 33(2) |
 | Cybercrimes Act | ngCERT, through the sectoral CERT or SOC | Immediately. Not reporting within 72 hours is an offence | Detection | s.21(1) and (3), as amended in 2024 |
 
-Which GDPR row applies depends on the controller and processor roles, which are under legal review
-(R-4 and action 3 below). Until they are settled, SigKollect prepares both notifications.
+Which controller or processor rows apply depends on SigKollect's role for each data set. The GDPR
+roles are under legal review (R-4 and action 3 below). Until they are settled, SigKollect prepares both notifications.
 
 What E-4 teaches: every clock starts from awareness or detection, not from the end of the
 investigation, and the ngCERT report is due at once, not at 72 hours. So the cadence's internal steps (1 hour to the security lead, 4 hours to the CEO and
