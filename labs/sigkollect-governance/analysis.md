@@ -109,8 +109,9 @@ report to the CBN within 24 hours of detection. The pack's escalation design wor
 suspected breach reaches the security lead within 1 hour and the CEO and the data protection officer
 within 4. Then the decisions have their own limits. The ngCERT report goes immediately once a
 detected incident meets the Act's test, without waiting for the investigation to confirm it, and 24
-hours after detection is the outer limit, not the deadline. The CBN report goes with the ngCERT
-decision, within 24 hours of detection at most. The Head of Compliance decides on the
+hours after detection is the outer limit, not the deadline. The CBN report covers every detected cyber
+incident, not only those that meet the Act's test, and goes within 24 hours of detection at most,
+through a route the CBN has confirmed. The Head of Compliance decides on the
 NDPC and EU reports without undue delay, within 24 hours of being told at most, and sends them
 within 48 hours at most. That leaves at least 24 hours before any 72-hour limit. Three notices do
 not wait for that decision: the GAID's immediate notice to the NDPC and every other relevant
@@ -166,7 +167,9 @@ and access with Keycloak (lab 3), and an AI assistant that the AI use policy wil
   claims compliance. The CBN question and the GDPR controller and processor roles would need a
   Nigerian payments lawyer and an EU data protection lawyer.
 - The Cybercrimes Act row rests on the official texts as published in WIPO Lex, because the ngCERT
-  site could not be reached. Which sectoral CERT, and which CBN channel, takes a payment company's reports is not checked.
+  site could not be reached. Which sectoral CERT, and which CBN channel, takes a payment company's reports is not checked; the
+  pack names no CBN channel and has the Head of Compliance confirm one before the incident response
+  plan is approved.
 - The pack is a governance design. It has not been run: no meeting has met, no KPI has a baseline.
 
 ## 📂 Source materials
