@@ -16,11 +16,12 @@ against primary legal texts.
   taken, how progress is measured, and which laws actually apply.
 - **The key findings.** Seven high-priority governance gaps, led by the absence of a security lead
   and a charter. On the legal side, the primary texts overturned three assumptions from the first
-  scoping: the CBN's 2024 cybersecurity framework covers banks only, a payment gateway is a PCI DSS
+  scoping: the CBN's 2024 cybersecurity framework covers banks only (so, until a lawyer advises, the
+  pack follows its stricter reading and reports cyber incidents to the CBN within 24 hours), a payment gateway is a PCI DSS
   service provider, not a merchant, and the Cybercrimes Act asks for an immediate report to ngCERT,
   with 72 hours only as the point where not reporting becomes an offence.
-- **The deliverable.** A 43-page [governance pack (PDF)](./sigkollect-governance-pack-v1.0.pdf),
-  with the editable [DOCX](./source/sigkollect-governance-pack-v1.0.docx) and each document as
+- **The deliverable.** A 44-page [governance pack (PDF)](./sigkollect-governance-pack-v1.1.pdf),
+  with the editable [DOCX](./source/sigkollect-governance-pack-v1.1.docx) and each document as
   Markdown in [`documents/`](./documents/).
 
 ## 📖 Context
@@ -86,28 +87,30 @@ every decision in the pack.
 ## ✅ Result
 
 <p align="center">
-  <a href="./sigkollect-governance-pack-v1.0.pdf"><img src="./preview.png" alt="Cover of the SigKollect Information Security Governance Pack, version 1.0, issued for approval on 25 November 2026, prepared by Lawal Oyinlola, with a worn red stamp reading Fictional, lab exercise." width="420"></a>
+  <a href="./sigkollect-governance-pack-v1.1.pdf"><img src="./preview.png" alt="Cover of the SigKollect Information Security Governance Pack, version 1.1, issued for approval on 27 November 2026, prepared by Lawal Oyinlola, with a worn red stamp reading Fictional, lab exercise." width="420"></a>
 </p>
 
-_Full deliverable: [SigKollect Information Security Governance Pack v1.0 (PDF)](./sigkollect-governance-pack-v1.0.pdf)_
+_Full deliverable: [SigKollect Information Security Governance Pack v1.1 (PDF)](./sigkollect-governance-pack-v1.1.pdf)_
 
 The regulatory assessment produced the findings that matter most outside the lab:
 
 | Rule | Result | Why |
 |---|---|---|
 | Nigeria Data Protection Act 2023 and GAID 2025 | Applies | The NDPC's guidance names payment gateway service providers and fintechs at its highest level, so registration, a data protection officer (s.32) and audit returns follow |
-| CBN Risk-Based Cybersecurity Framework 2024 | Unclear | Its scope is commercial, merchant, non-interest and payment service banks. It replaced a 2018 framework that also named payment service providers |
+| CBN Risk-Based Cybersecurity Framework 2024 | Unclear | Its scope is commercial, merchant, non-interest and payment service banks. It replaced a 2018 framework that also named payment service providers. Until advised, the stricter reading applies to incident reporting: the CBN is told within 24 hours of detection |
 | Cybercrimes Act s.21, as amended in 2024 | Applies | Report to ngCERT immediately, through the sectoral CERT or SOC. Not reporting within 72 hours of detection is an offence |
 | GDPR | Likely applies | Article 3(2) reaches a non-EU company offering services to people in the EU, and Article 27 then asks for an EU representative |
 | PCI DSS v4.0.1 | Applies, by contract | A payment gateway is a service provider, so SAQ D for Service Providers or a full Report on Compliance, not a merchant SAQ |
 | DORA | Not applicable | SigKollect is not an EU-authorised financial entity |
 
-Three rules can each start a clock on the same breach: 72 hours for the NDPC and an EU supervisory
-authority, and an immediate report to ngCERT. The pack's escalation design works back from that: a
+Four rules can each start a clock on the same breach: 72 hours for the NDPC and an EU supervisory
+authority, an immediate report to ngCERT, and, under the stricter reading of the CBN framework, a
+report to the CBN within 24 hours of detection. The pack's escalation design works back from that: a
 suspected breach reaches the security lead within 1 hour and the CEO and the data protection officer
 within 4. Then the decisions have their own limits. The ngCERT report goes immediately once a
 detected incident meets the Act's test, without waiting for the investigation to confirm it, and 24
-hours after detection is the outer limit, not the deadline. The Head of Compliance decides on the
+hours after detection is the outer limit, not the deadline. The CBN report goes with the ngCERT
+decision, within 24 hours of detection at most. The Head of Compliance decides on the
 NDPC and EU reports without undue delay, within 24 hours of being told at most, and sends them
 within 48 hours at most. That leaves at least 24 hours before any 72-hour limit. Three notices do
 not wait for that decision: the GAID's immediate notice to the NDPC and every other relevant
@@ -118,7 +121,7 @@ notice to affected people (immediately on becoming aware of a reportable breach,
 under the pack's reading of GAID Article 33(3)); and, where SigKollect is a processor, the notice to
 whoever engaged it.
 
-![The 72-hour clock: the security lead is told within 1 hour, the CEO and Head of Compliance within 4 hours, and the regulator deadlines fall at 72 hours, for the NDPC, the EU supervisory authority and ngCERT, which must be told immediately. Affected people are told immediately: under GAID Article 33(3) for a reportable breach, and under NDPA section 40(3) where the risk to them is high.](./documents/figures/breach-clock.svg)
+![The 72-hour clock: the security lead is told within 1 hour, the CEO and Head of Compliance within 4 hours, the CBN within 24 hours under the stricter reading, and the regulator deadlines fall at 72 hours, for the NDPC, the EU supervisory authority and ngCERT, which must be told immediately. Affected people are told immediately: under GAID Article 33(3) for a reportable breach, and under NDPA section 40(3) where the risk to them is high.](./documents/figures/breach-clock.svg)
 
 ## 🔧 What I got wrong and fixed
 
@@ -141,6 +144,10 @@ The review rounds caught real mistakes. They are part of the result, so I list t
 - **I treated 72 hours as the ngCERT deadline.** A code review on this case study questioned it, and
   the official text of the Act confirmed it: section 21(1) says report immediately, and 72 hours from
   detection is the point where not reporting becomes an offence.
+- **I treated an unclear rule as optional.** The CBN framework's scope is unclear for a payment
+  company, and I first called it good practice. The pack's own risk appetite says an unclear rule
+  follows the stricter reading until there is advice, so the CBN's 24-hour report now applies until
+  a lawyer says otherwise. Re-reading the appetite against the assessment caught it.
 
 ## 🧠 What this demonstrates
 
@@ -159,13 +166,13 @@ and access with Keycloak (lab 3), and an AI assistant that the AI use policy wil
   claims compliance. The CBN question and the GDPR controller and processor roles would need a
   Nigerian payments lawyer and an EU data protection lawyer.
 - The Cybercrimes Act row rests on the official texts as published in WIPO Lex, because the ngCERT
-  site could not be reached. Which sectoral CERT takes a payment company's reports is not checked.
+  site could not be reached. Which sectoral CERT, and which CBN channel, takes a payment company's reports is not checked.
 - The pack is a governance design. It has not been run: no meeting has met, no KPI has a baseline.
 
 ## 📂 Source materials
 
-- [`sigkollect-governance-pack-v1.0.pdf`](./sigkollect-governance-pack-v1.0.pdf): the full pack.
-- [`source/sigkollect-governance-pack-v1.0.docx`](./source/sigkollect-governance-pack-v1.0.docx):
+- [`sigkollect-governance-pack-v1.1.pdf`](./sigkollect-governance-pack-v1.1.pdf): the full pack.
+- [`source/sigkollect-governance-pack-v1.1.docx`](./source/sigkollect-governance-pack-v1.1.docx):
   editable copy. The diagrams are in the PDF only.
 - [`documents/`](./documents/): the ten documents as Markdown, with the three diagrams as SVG.
 - [`CLAUDE.md`](./CLAUDE.md): the learning-mode rules I set for the AI assistant across this
