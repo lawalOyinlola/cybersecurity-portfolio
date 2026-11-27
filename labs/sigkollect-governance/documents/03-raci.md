@@ -48,7 +48,7 @@ Roles: **Board** · **CEO** · **SC** (security steering committee) · **SL** (s
 | 12 | Patch systems and dependencies |  |  | I | C | A | R | R |  |  |  |  |  |
 | 13 | Respond to a security incident |  | I | I | A/R | C | R | R |  | C |  |  |  |
 | 14 | Report a personal data breach to regulators (NDPC, EU) |  | C |  | C |  |  |  |  | A/R |  | C |  |
-| 15 | Report a cyber incident to ngCERT |  | I |  | A/R |  |  |  |  | C |  |  |  |
+| 15 | Report a cyber incident to ngCERT and the CBN |  | I |  | A/R |  |  |  |  | C |  |  |  |
 | 16 | Assess a new supplier |  |  |  | R | C |  |  |  | C |  | A |  |
 | 17 | Run security awareness training |  |  | I | A/R |  |  |  | R | C |  |  | I |
 | 18 | Send the quarterly security report to the board | I | C | C | A/R |  |  |  |  |  |  |  |  |
