@@ -125,6 +125,16 @@ cyber incidents to the CBN within 24 hours of detection**, as the 2024 framework
 institutions it covers. A report the CBN did not need costs little. A missed report cannot be
 undone. If advice confirms that no CBN reporting duty applies, the report is dropped (D-69).
 
+Interim process, until the questions below are answered:
+
+- The security lead owns the report (RACI row 15) and decides on it for every detected cyber
+  incident, in time to send it within 24 hours of detection.
+- This assessment names no reporting channel, because the texts read do not establish one for a
+  payment service provider. The report goes only through a route the CBN has confirmed.
+- The Head of Compliance confirms that route with the CBN or the payments lawyer before the
+  incident response plan is approved (charter objective d, 30 April 2027), records it in the
+  plan, and tracks it as question 4 until then.
+
 The rest of the framework is treated as **good practice, not an obligation**. Its
 structure (board oversight, a CISO, a risk management system, metrics) matches what this pack sets up.
 
@@ -274,7 +284,9 @@ Head of Compliance) matter more than any later step. The governance cadence alre
    processor roles are under legal review. An EU data protection lawyer is engaged in parallel.
 4. **CBN reporting:** until a Nigerian payments lawyer or the CBN answers the R-2 questions,
    SigKollect reports cyber incidents to the CBN within 24 hours of detection (the stricter
-   reading, risk appetite row 2). The governance cadence and RACI row 15 include it.
+   reading, risk appetite row 2). The security lead owns the report (RACI row 15). The Head of
+   Compliance confirms the CBN's reporting route before the incident response plan is approved.
+   The governance cadence includes it.
 
 ## Sources
 
