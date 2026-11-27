@@ -69,7 +69,7 @@ SigKollect first knows about the event.
 | Event | Who is told | Within | By whom |
 |---|---|---|---|
 | Suspected personal data breach | 1. Security lead. 2. CEO and Head of Compliance | 1. 1 hour. 2. 4 hours | 1. Whoever finds it. 2. Security lead |
-| Suspected cyber incident (possible ngCERT report) | 1. Security lead. 2. CEO | 1. 1 hour. 2. 4 hours | 1. Whoever finds it. 2. Security lead |
+| Suspected cyber incident (possible ngCERT and CBN reports) | 1. Security lead. 2. CEO | 1. 1 hour. 2. 4 hours | 1. Whoever finds it. 2. Security lead |
 | Risk found outside the appetite | 1. CEO. 2. Board chair | 1. 1 working day. 2. 5 working days | 1. Security lead. 2. CEO |
 | Outage longer than 15 minutes | CEO | 1 hour | CTO |
 | A customer asks about security | Security lead | 1 working day | Head of Sales and Partnerships |
@@ -78,7 +78,9 @@ SigKollect first knows about the event.
 Why these times: the NDPA and GDPR clocks (rules R-1 and R-4) run up to 72 hours from the moment
 SigKollect becomes aware of a breach. The Cybercrimes Act (R-3) asks for a report to ngCERT
 immediately; 72 hours from detection is the point where not reporting becomes an offence, not a
-deadline to plan to. The internal steps take at most 4 hours, so the people who decide on
+deadline to plan to. Whether the CBN framework (R-2) covers SigKollect is unclear, so under the
+stricter reading a cyber incident is also reported to the CBN within 24 hours of detection. The
+internal steps take at most 4 hours, so the people who decide on
 notification know early, and the deadlines below leave at least 24 hours before any 72-hour limit.
 Risk appetite row 1 already sets 1 hour for a suspected exposure to reach
 the security lead.
@@ -88,9 +90,10 @@ Notification deadlines, measured from the moment SigKollect becomes aware of, or
 | Notification | Who decides | Decided by | Sent by |
 |---|---|---|---|
 | ngCERT, through the sectoral CERT or SOC (R-3) | Security lead (RACI row 15) | As soon as a detected attack, intrusion or disruption meets the s.21(1) test (liable to hinder the functioning of another computer system or network). Do not wait for the investigation to confirm it | Immediately after the decision. 24 hours after detection is the outer limit, not the deadline. Updates follow as the investigation continues |
+| CBN (R-2, the stricter reading until advised) | Security lead (RACI row 15), with the Head of Compliance | Every detected cyber incident, whether or not it meets the s.21(1) test. Decided in time to send the report within 24 hours of detection. Do not wait for the ngCERT decision or for the investigation to confirm it | Within 24 hours of detection at most, with what is known. Updates follow. Sent only through a reporting route the CBN has confirmed: the Head of Compliance confirms that route before the incident response plan is approved (objective d) and tracks it as document 9, R-2, question 4 |
 | NDPC (R-1), and the EU supervisory authority where SigKollect is the controller (R-4) | Head of Compliance (RACI row 14) | Without undue delay, and within 24 hours of being told at most | NDPC: a first notification with the information available, without undue delay and within 48 hours at most, with the rest in phases (NDPA s.40(9)). EU supervisory authority: a first notification without undue delay once the breach is reportable, even if details are still being investigated, with the rest sent in phases (GDPR Art 33(4)), and within 48 hours at most |
 | NDPC and every other relevant authority, under GAID Art 33(4) (R-1) | Head of Compliance, with the security lead | As soon as immediate information may help contain imminent breaches on a national scale, containment measures may be necessary at national, sectoral or individual level, or the breach may affect members of the general public. No finding of risk to individuals is needed first | Immediately |
 | The controller that engaged SigKollect (GDPR Art 33(2); R-4), or under the NDPA the controller or processor that engaged it (NDPA s.40(1); R-1), where SigKollect is a processor | Head of Compliance | No separate decision: the notice is owed as soon as SigKollect becomes aware of a breach in data it processes for them | At once on becoming aware, with what is known. Send new information as soon as it is available, without waiting to be asked, and answer their requests (NDPA s.40(1)(b)). 48 hours is the outer limit, not the deadline |
 | Affected people (R-1) | Head of Compliance, with the CEO | For a breach reportable to the NDPC, the clock starts when SigKollect becomes aware of the breach, not when the assessment ends (GAID Art 33(3), read with NDPA s.40(2)). Otherwise, as soon as the risk to them is judged high (NDPA s.40(3)) | Immediately |
 
-![Figure 3. The 72-hour clock. The internal steps take at most 4 hours. The ngCERT report is due immediately; 72 hours is the latest.](figures/breach-clock.svg)
+![Figure 3. The 72-hour clock. The internal steps take at most 4 hours. The ngCERT report is due immediately and the CBN report within 24 hours; 72 hours is the latest.](figures/breach-clock.svg)

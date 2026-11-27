@@ -58,7 +58,7 @@ executive sponsor funds the programme and chairs the steering committee.
 | a | Appoint a security lead | Role filled, reporting line as in section 3 | 30 April 2027 | Row 2 |
 | b | Build an asset inventory | Every Azure subscription, SaaS tool and server listed, each with a named owner | 31 March 2027 | Row 14, E-1 |
 | c | Approve the core policies | Information security, access control, acceptable use and incident response policies approved | 30 April 2027 | Row 4 |
-| d | Adopt an incident response plan | Plan approved, with reporting routes to the NDPC, ngCERT and EU authorities, and tested in one tabletop exercise | 30 April 2027 | Row 13, E-4 |
+| d | Adopt an incident response plan | Plan approved, with reporting routes to the NDPC, ngCERT, the CBN and EU authorities, and tested in one tabletop exercise | 30 April 2027 | Row 13, E-4 |
 | e | Review access to every system with customer or payment data | First review complete. Every leaver account found is removed within 5 working days | 30 April 2027 | Row 11 |
 | f | Approve a risk appetite and the first risk register | Appetite approved by the board. Register holds every finding from E-1 to E-5 | 31 March 2027 | Row 5 |
 | g | Answer the EU merchant's questionnaire | Every answer backed by evidence, or stated as a known gap with a date | 28 February 2027 | The trigger |

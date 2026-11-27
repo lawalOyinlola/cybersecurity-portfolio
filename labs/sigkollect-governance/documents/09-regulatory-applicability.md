@@ -33,7 +33,7 @@ Sources were read on 25 November 2026. Laws change. Each row is reviewed by its 
 | # | Rule | Result | Confidence | Source type | Owner at SigKollect | Review by |
 |---|---|---|---|---|---|---|
 | R-1 | Nigeria Data Protection Act 2023 and the GAID 2025 | **Applies.** SigKollect is a data controller of major importance, at the highest level (UHL) | High | Primary | Head of Compliance (DPO) | 30 June 2027 |
-| R-2 | CBN Risk-Based Cybersecurity Framework 2024 | **Unclear.** The 2024 framework covers banks only. The 2018 framework it replaced also covered payment service providers. What covers SigKollect now is not settled | Medium | Primary | Head of Compliance | 31 March 2027 |
+| R-2 | CBN Risk-Based Cybersecurity Framework 2024 | **Unclear.** The 2024 framework covers banks only. The 2018 framework it replaced also covered payment service providers. What covers SigKollect now is not settled. Until advised, SigKollect follows the stricter reading for incident reporting: a report to the CBN within 24 hours of detection (risk appetite row 2) | Medium | Primary | Head of Compliance | 31 March 2027 |
 | R-3 | Cybercrimes Act 2015, amended 2024, section 21 | **Applies.** Report cyber incidents to ngCERT, through the sector CERT or SOC, immediately. Not reporting within 72 hours of detection is an offence | High | Primary | Security lead | 31 March 2027 |
 | R-4 | EU GDPR | **Likely applies** (Article 3(2)), and with it an EU representative (Article 27) | Medium | Primary | Head of Compliance | 31 March 2027 |
 | R-5 | PCI DSS v4.0.1 | **Applies, by contract, as a service provider**, not as a merchant | Medium | Primary | CTO | 31 March 2027 |
@@ -117,8 +117,25 @@ Open questions, for a Nigerian payments lawyer or the CBN's Payments System Mana
 1. Which licence category does SigKollect hold?
 2. Which CBN cybersecurity framework or directive applies to that category today?
 3. Does any CBN rule set an incident reporting time for that category?
+4. Which CBN department, and which channel, receives a payment service provider's incident report?
 
-Until answered, the programme treats the 2024 framework as **good practice, not an obligation**. Its
+Until answered, the programme follows risk appetite row 2 ("where a rule is unclear, it follows the
+stricter reading until it has advice") for the part that is costly to get wrong: **SigKollect reports
+cyber incidents to the CBN within 24 hours of detection**, as the 2024 framework requires of the
+institutions it covers. A report the CBN did not need costs little. A missed report cannot be
+undone. If advice confirms that no CBN reporting duty applies, the report is dropped (D-69).
+
+Interim process, until the questions below are answered:
+
+- The security lead owns the report (RACI row 15) and decides on it for every detected cyber
+  incident, in time to send it within 24 hours of detection.
+- This assessment names no reporting channel, because the texts read do not establish one for a
+  payment service provider. The report goes only through a route the CBN has confirmed.
+- The Head of Compliance confirms that route with the CBN or the payments lawyer before the
+  incident response plan is approved (charter objective d, 30 April 2027), records it in the
+  plan, and tracks it as question 4 until then.
+
+The rest of the framework is treated as **good practice, not an obligation**. Its
 structure (board oversight, a CISO, a risk management system, metrics) matches what this pack sets up.
 
 ## R-3 · Cybercrimes Act 2015, amended 2024, section 21
@@ -248,12 +265,13 @@ customer records. Had the assessment found a likely risk, these clocks would hav
 | NDPA, where SigKollect is a processor | The controller or processor that engaged it (for example, a merchant) | On becoming aware | SigKollect becomes aware | NDPA s.40(1) |
 | GDPR, where SigKollect is a processor | The controller (for example, the EU merchant) | Without undue delay | SigKollect becomes aware | GDPR Art 33(2) |
 | Cybercrimes Act | ngCERT, through the sectoral CERT or SOC | Immediately. Not reporting within 72 hours is an offence | Detection | s.21(1) and (3), as amended in 2024 |
+| CBN framework, stricter reading until advised | CBN | Within 24 hours | Detection | CBN Risk-Based Cybersecurity Framework 2024 (covers banks); applied under risk appetite row 2 (R-2) |
 
 Which controller or processor rows apply depends on SigKollect's role for each data set. The GDPR
 roles are under legal review (R-4 and action 3 below). Until they are settled, SigKollect prepares both notifications.
 
 What E-4 teaches: every clock starts from awareness or detection, not from the end of the
-investigation, and the ngCERT report is due at once, not at 72 hours. So the cadence's internal steps (1 hour to the security lead, 4 hours to the CEO and
+investigation, the ngCERT report is due at once, not at 72 hours, and the CBN report (stricter reading) within 24 hours. So the cadence's internal steps (1 hour to the security lead, 4 hours to the CEO and
 Head of Compliance) matter more than any later step. The governance cadence already sets them.
 
 ## Actions agreed
@@ -264,6 +282,11 @@ Head of Compliance) matter more than any later step. The governance cadence alre
    first Compliance Audit Return filed. See charter version 0.5.
 3. **GDPR roles:** the answer to the EU merchant's questionnaire states that the controller and
    processor roles are under legal review. An EU data protection lawyer is engaged in parallel.
+4. **CBN reporting:** until a Nigerian payments lawyer or the CBN answers the R-2 questions,
+   SigKollect reports cyber incidents to the CBN within 24 hours of detection (the stricter
+   reading, risk appetite row 2). The security lead owns the report (RACI row 15). The Head of
+   Compliance confirms the CBN's reporting route before the incident response plan is approved.
+   The governance cadence includes it.
 
 ## Sources
 

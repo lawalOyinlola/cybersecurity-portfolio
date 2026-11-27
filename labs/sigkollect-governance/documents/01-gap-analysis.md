@@ -25,7 +25,7 @@ needs. Each row cites the evidence from the company context. A gap with no evide
 | 10 | Governance KPIs | None | Nothing measures whether security is improving | L | A programme must exist before it can be measured | Security state |
 | 11 | Access reviews | None ever. Access is granted on request in Slack. HR records leavers, but IT is not always told | Leavers can keep access, and nobody checks who has what | H | Customer and payment data are reachable, and E-4 showed one stolen password is enough | People, E-4 |
 | 12 | Security awareness training | None | Staff are not taught to recognise phishing | M | E-4 shows the risk, but the agent did report it. MFA cuts the same risk faster | E-4 |
-| 13 | Incident response plan | None. E-4 was handled ad hoc | No steps, roles or reporting route when something happens | H | E-4 may have started three reporting clocks, one of them immediate, and nobody knew | E-4, rules R-1, R-3, R-4 |
+| 13 | Incident response plan | None. E-4 was handled ad hoc | No steps, roles or reporting route when something happens | H | E-4 may have started reporting clocks under four rules, one of them immediate, and nobody knew | E-4, rules R-1 to R-4 |
 | 14 | Asset inventory | None | Nobody knows what systems exist or who owns them | H | You cannot protect what you do not know you have | E-1 |
 | 15 | Supplier risk management | None | The card processor and the identity-verification provider handle sensitive data, unassessed | M | Real exposure, but the suppliers are specialists. Assess them after the internal basics | Third parties |
 
@@ -43,7 +43,7 @@ These are control gaps, not governance gaps. They go to the risk register (lab 2
 
 1. **Security lead and charter (rows 1 and 2), together.** Accountability first. Without an owner and
    a mandate, every other fix depends on goodwill.
-2. **Incident response plan (row 13).** Reporting clocks under three laws may apply. The next event must not be
+2. **Incident response plan (row 13).** Reporting clocks under four rules may apply. The next event must not be
    handled ad hoc.
 3. **Asset inventory (row 14).** Access reviews, risk scoring and monitoring all need the list of
    what exists. E-1 shows the cost of not having it.
