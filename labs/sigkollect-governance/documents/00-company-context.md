@@ -111,5 +111,6 @@ pack is an analysis for a lab, not legal advice.
 | R-6 | EU Digital Operational Resilience Act | EU financial supervisors | SigKollect serves EU customers and works in payments |
 | R-7 | EU AI Act | EU and national authorities | SigKollect plans an AI assistant |
 
-Three of these rules (R-1, R-3 and R-4) may each start a 72-hour reporting clock on the same event.
+Four of these rules (R-1 to R-4) may each start a reporting clock on the same event, some of them
+immediately. Document 9 sets out each one.
 E-4 is the test case.
