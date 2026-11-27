@@ -98,6 +98,7 @@ The labs map on the site lists these as planned. Each one gets an entry here whe
 
 Security posts from [the blog](https://lawaloyinlola.com/blog), newest first. Each post is also syndicated to [dev.to](https://dev.to/lawaloyinlola).
 
+- **[Eleven fixes from one code review](https://lawaloyinlola.com/blog/eleven-fixes-from-one-code-review)**: Eleven small security commits that no scanner had reported, from a coding agent running a security-review skill I wrote over my own multi-tenant app, with every patch reviewed by me: an XSS sink, a token compared with `===`, and a sign-in that never checked the issuer.
 - **[Three controls that looked switched on](https://lawaloyinlola.com/blog/three-controls-that-looked-switched-on)**: A deploy gate that checked one commit and shipped another, a secrets scan that never read a merge commit, and a rate limiter that saw every visitor as one address, with a two-minute test for each.
 - **[DMARC without breaking your own mail](https://lawaloyinlola.com/blog/dmarc-without-breaking-your-own-mail)**: Taking a small SaaS from a monitoring-only DMARC record to `p=reject` on report evidence: SPF one lookup over the limit, DKIM signed in the app, and what 3,718 report messages did and did not prove.
 - **[The AI endpoint that charges you money when somebody abuses it](https://lawaloyinlola.com/blog/the-ai-feature-that-bills-you)**: Why abuse of a model-backed endpoint costs money per request while everything looks healthy, four controls, and the quota bug that charges you for every rejection.
